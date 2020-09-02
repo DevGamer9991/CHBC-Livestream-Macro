@@ -109,6 +109,7 @@ public class GetFacebookData {
             map.put("streamFBBox", streamFBBool);
             map.put("streamYTBox", streamYTBool);
             map.put("ytprivacy", getYTPrivacyFromFile());
+            map.put("ytEnabled", getYTEnabled());
 
             Writer writer = new FileWriter("Data Files/SavedData.json");
 
@@ -119,6 +120,32 @@ public class GetFacebookData {
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean getYTEnabled() throws IOException {
+        File file = new File("Data Files/SavedData.json");
+        if (file.exists()) {
+            System.out.println("Found File");
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+            // convert JSON file to map
+            JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+            boolean ytEnabled = object.get("ytEnabled").getAsBoolean();
+
+            System.out.println(ytEnabled);
+
+            // close reader
+            reader.close();
+
+            return ytEnabled;
+        } else {
+            return false;
         }
     }
 
@@ -309,6 +336,7 @@ public class GetFacebookData {
                 map.put("streamFBBox", true);
                 map.put("streamYTBox", true);
                 map.put("ytprivacy", "public");
+                map.put("ytEnabled", false);
 
                 Writer writer = new FileWriter("Data Files/SavedData.json");
 
@@ -322,6 +350,30 @@ public class GetFacebookData {
             }
         }
     }
+
+    public void setYTEnabled() {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("title", getTitle());
+            map.put("description", getDesc());
+            map.put("pageName", getPageNameFromFile());
+            map.put("streamFBBox", streamFBBool);
+            map.put("streamYTBox", streamYTBool);
+            map.put("ytprivacy", getYTPrivacyFromFile());
+            map.put("ytEnabled", true);
+
+            Writer writer = new FileWriter("Data Files/SavedData.json");
+
+            Gson gson = new Gson();
+
+            gson.toJson(map, writer);
+
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void saveStreamBoxes(boolean fb, boolean yt) {
         System.out.println("Saving Boxes");
 

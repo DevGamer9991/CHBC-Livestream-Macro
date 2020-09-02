@@ -17,6 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.App;
 import com.parker.MainWindow.MainWindow;
+import com.parker.facebook.GetFacebookData;
+import com.sun.tools.javac.Main;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -70,7 +73,9 @@ public class Authorize {
             credential = getCredentials(httpTransport);
         }
 
-        new MainWindow().setYTName(new GetYoutubeName().get());
+        MainWindow.INSTANCE.setYTName(new GetYoutubeName().get());
+        MainWindow.INSTANCE.setYTConnected();
+        new GetFacebookData().setYTEnabled();
     }
 
     public void saveRefreshToken(String refreshToken) {

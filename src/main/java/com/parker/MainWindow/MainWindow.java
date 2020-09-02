@@ -7,6 +7,7 @@ import com.parker.CreateYoutubeStream;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
 import com.parker.facebook.GetFacebookData;
+import com.parker.youtube.Authorize;
 import com.parker.youtube.ManageYoutubeData;
 import java.awt.Color;
 import java.io.File;
@@ -37,7 +38,12 @@ public class MainWindow extends javax.swing.JFrame {
     public static boolean streamFBBoxbool;
     public static boolean streamYTBoxbool;
 
+    public static MainWindow INSTANCE;
+
     public MainWindow() throws Exception {
+
+        INSTANCE = this;
+
         initComponents();
 
         setStreamTitleField();
@@ -799,9 +805,12 @@ public class MainWindow extends javax.swing.JFrame {
 
     }
 
-    private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {
-        HTTPSServerThread.loginOpened = false;
-        new HTTPSServer().startServer();
+    private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt){
+        try {
+            new CreateYoutubeStream().auth();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void FBConnectedActionPerformed(java.awt.event.ActionEvent evt) {

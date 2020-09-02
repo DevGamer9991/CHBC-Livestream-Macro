@@ -87,7 +87,10 @@ public class HTTPSServerThread extends Thread{
 
                     try {
                         new GetFacebookData().setAccessToken(exchange.getRequestURI().getRawQuery());
-                        new CreateYoutubeStream().auth();
+
+                        if (new GetFacebookData().getYTEnabled()) {
+                            new CreateYoutubeStream().auth();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

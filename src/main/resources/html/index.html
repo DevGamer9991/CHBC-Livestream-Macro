@@ -10,11 +10,12 @@
                 window.location.href = "/token?code=" + split2[0];
             }
             else {
-                console.log("Code Recieved");
+                console.log("Code Sent");
+                document.write("<h3>You may now close this window</h3>");
+                window.close();
             }
     </script>
 </head>
 <body>
-    <p>You May Now Close The Window</p>
 </body>
 </html>
