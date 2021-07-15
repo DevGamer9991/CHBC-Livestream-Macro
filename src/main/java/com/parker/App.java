@@ -11,10 +11,9 @@ public class App
 
     new HTTPServer().startServer();
 
-    new GetFacebookAccessCode().openLoginPage();
+    new GetFacebookData().openLoginPage();
 
     Thread.sleep(2000);
-
     new MainWindow().openMainWindow();
   }
 }

@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import com.parker.GetFacebookAccessCode;
+import com.parker.GetFacebookData;
 
 public class HttpConnectionWorkerThread extends Thread {
 
@@ -41,7 +41,7 @@ public class HttpConnectionWorkerThread extends Thread {
 
             output.write(response.getBytes());
 
-            new GetFacebookAccessCode().saveAccessToken(input);
+            new GetFacebookData().saveAccessToken(input);
 
             System.out.println("Connection Process Finished");
         }catch(IOException e){

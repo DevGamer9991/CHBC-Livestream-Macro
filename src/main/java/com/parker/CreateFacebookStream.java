@@ -19,7 +19,7 @@ public class CreateFacebookStream{
         titleString = titleString.replaceAll(" ", "+");
         descripString = descripString.replaceAll(" ", "+");
 
-        URL url = new URL("https://graph.facebook.com/v11.0/me/live_videos?status=LIVE_NOW&title=" + titleString + "&description=" + descripString + "&access_token=" + new GetFacebookAccessCode().getPageAccessToken(pageName));
+        URL url = new URL("https://graph.facebook.com/v11.0/me/live_videos?status=LIVE_NOW&title=" + titleString + "&description=" + descripString + "&access_token=" + new GetFacebookData().getPageAccessToken(pageName));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5000);
         conn.setDoOutput(true);

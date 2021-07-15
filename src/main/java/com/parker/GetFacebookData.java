@@ -14,8 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import com.google.gson.*;
+import com.restfb.json.Json;
 
-public class GetFacebookAccessCode {
+public class GetFacebookData {
 
     // https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=703083304425017&redirect_uri=http://localhost:5000&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content
 
@@ -33,6 +34,36 @@ public class GetFacebookAccessCode {
             reader.close();
             return token.toString();
         } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getName() throws Exception{
+        try {
+            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=name&access_token=" + getAccessToken());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("GET");
+
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+            String token = null;
+
+            Gson gson = new Gson();
+
+            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+            String name = jsonObject.get("name").getAsString();
+
+            System.out.println(name);
+
+            return name;
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
