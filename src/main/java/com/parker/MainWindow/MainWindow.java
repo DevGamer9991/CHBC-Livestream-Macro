@@ -60,6 +60,8 @@ public class MainWindow extends javax.swing.JFrame {
         streamTitleLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         streamTitleLabel.setText("Title:");
 
+        streamTitleField.setText(new GetFacebookData().getTitle());
+
         streamTitleField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 streamTitleFieldActionPerformed(evt);
@@ -105,6 +107,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamDescField.setColumns(20);
         streamDescField.setLineWrap(true);
         streamDescField.setRows(5);
+        streamDescField.setText(new GetFacebookData().getDesc());
         jScrollPane1.setViewportView(streamDescField);
 
         welcomeLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -196,6 +199,10 @@ public class MainWindow extends javax.swing.JFrame {
                 streamIDField.setText(streamCreator.getStreamID());
                 streamURLField.setText(streamCreator.getStreamURL());
             }
+
+            GetFacebookData facebookData = new GetFacebookData();
+
+            facebookData.saveTitleAndDesc(streamTitleField.getText(), streamDescField.getText());
 
             createStreamButton.setEnabled(false);
             streamTitleField.setEnabled(false);

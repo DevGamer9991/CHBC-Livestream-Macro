@@ -1,16 +1,14 @@
 package com.parker;
 
 import java.awt.Desktop;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.*;
@@ -223,6 +221,87 @@ public class GetFacebookData {
             }
         }
         return token;
+    }
+
+    public void saveTitleAndDesc(String title, String desc) {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("title", title);
+            map.put("description", desc);
+
+            Writer writer = new FileWriter("Data Files/SavedData.json");
+
+            Gson gson = new Gson();
+
+            gson.toJson(map, writer);
+
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getTitle() {
+        try {
+            File file = new File("Data Files/SavedData.json");
+            if (file.exists()) {
+                System.out.println("Found File");
+                // create Gson instance
+                Gson gson = new Gson();
+
+                // create a reader
+                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+                // convert JSON file to map
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+                String title = object.get("title").getAsString();
+
+                System.out.println(title);
+
+                // close reader
+                reader.close();
+
+                return title;
+            } else {
+                return null;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getDesc() {
+        try {
+            File file = new File("Data Files/SavedData.json");
+            if (file.exists()) {
+                System.out.println("Found File");
+                // create Gson instance
+                Gson gson = new Gson();
+
+                // create a reader
+                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+                // convert JSON file to map
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+                String desc = object.get("description").getAsString();
+
+                System.out.println(desc);
+                // close reader
+                reader.close();
+
+                return desc;
+            } else {
+                return null;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public String getManagedPagesAccessToken(String pageName) {
