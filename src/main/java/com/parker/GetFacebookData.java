@@ -58,7 +58,7 @@ public class GetFacebookData {
 
             String name = jsonObject.get("name").getAsString();
 
-            System.out.println(name);
+            // System.out.println(name);
 
             return name;
         } catch (Exception e) {
@@ -81,29 +81,29 @@ public class GetFacebookData {
 
             if (s.contains("Access_Token")) {
                 String[] s2 = s.split("Access_Token=");
-                System.out.println(" ");
+                // System.out.println(" ");
 
                 try {
                     File file = new File("Data Files/AccessToken.txt");
                     file.getParentFile().mkdir();
                     if (file.createNewFile()) {
-                      System.out.println("File created: " + file.getName());
+                      // System.out.println("File created: " + file.getName());
                     } else {
-                      System.out.println("File already exists.");
+                      // System.out.println("File already exists.");
                     }
 
                     try {
                         FileWriter  fr = new FileWriter(file);
                         fr.write(s2[1]);
                         fr.close();
-                        System.out.println("Successfully wrote to the file.");
+                        // System.out.println("Successfully wrote to the file.");
                     } catch (IOException e) {
-                        System.out.println("An error occurred.");
+                        // System.out.println("An error occurred.");
                         e.printStackTrace();
                     }
                     
                 } catch (IOException e) {
-                    System.out.println("An error occurred.");
+                    // System.out.println("An error occurred.");
                     e.printStackTrace();
                 }
             } else {
@@ -119,23 +119,23 @@ public class GetFacebookData {
             File file = new File("Data Files/PageID.txt");
             file.getParentFile().mkdir();
             if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
+                // System.out.println("File created: " + file.getName());
             } else {
-                System.out.println("File already exists.");
+                // System.out.println("File already exists.");
             }
 
             try {
                 FileWriter  fr = new FileWriter(file);
                 fr.write(id);
                 fr.close();
-                System.out.println("Successfully wrote to the file.");
+                // System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println("An error occurred.");
+                // System.out.println("An error occurred.");
                 e.printStackTrace();
             }
             
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            // System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -145,23 +145,23 @@ public class GetFacebookData {
             File file = new File("Data Files/PageToken.txt");
             file.getParentFile().mkdir();
             if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
+                // System.out.println("File created: " + file.getName());
             } else {
-                System.out.println("File already exists.");
+                // System.out.println("File already exists.");
             }
 
             try {
                 FileWriter  fr = new FileWriter(file);
                 fr.write(token);
                 fr.close();
-                System.out.println("Successfully wrote to the file.");
+                // System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println("An error occurred.");
+                // System.out.println("An error occurred.");
                 e.printStackTrace();
             }
             
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            // System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -245,7 +245,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                // System.out.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -257,7 +257,7 @@ public class GetFacebookData {
 
                 String title = object.get("title").getAsString();
 
-                System.out.println(title);
+                // System.out.println(title);
 
                 // close reader
                 reader.close();
@@ -277,7 +277,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                // System.out.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -289,7 +289,7 @@ public class GetFacebookData {
 
                 String desc = object.get("description").getAsString();
 
-                System.out.println(desc);
+                // System.out.println(desc);
                 // close reader
                 reader.close();
 

@@ -30,7 +30,7 @@ public class CreateFacebookStream{
 
         String response = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
-        //System.out.println(response);
+        // System.out.println(response);
 
         Gson gson = new Gson();
 
@@ -42,11 +42,11 @@ public class CreateFacebookStream{
         if (jsonObject.toString().contains("secure_stream_url")) {
             MainWindow mainWindow = new MainWindow();
             mainWindow.streamIDField.setText(streamID);
-            System.out.println("\n" + streamID);
+            // System.out.println("\n" + streamID);
             mainWindow.streamIDField.setText(streamURL);
-            System.out.println("\n" + streamURL);
+            // System.out.println("\n" + streamURL);
         } else {
-        System.out.println("\n Didnt work \n" + jsonObject.toString());
+        // System.out.println("\n Didnt work \n" + jsonObject.toString());
         }
     }
 

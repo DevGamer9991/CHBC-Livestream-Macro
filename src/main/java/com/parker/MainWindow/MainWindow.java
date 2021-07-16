@@ -55,7 +55,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainWindowtitle.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         mainWindowtitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainWindowtitle.setText("CHBC Livestream Creator");
+        mainWindowtitle.setText("CHBC Facebook Livestream Creator");
 
         streamTitleLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         streamTitleLabel.setText("Title:");
