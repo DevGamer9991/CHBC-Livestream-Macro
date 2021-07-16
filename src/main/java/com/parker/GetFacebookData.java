@@ -81,31 +81,35 @@ public class GetFacebookData {
 
             if (s.contains("Access_Token")) {
                 String[] s2 = s.split("Access_Token=");
-                // System.out.println(" ");
-
-                try {
-                    File file = new File("Data Files/AccessToken.txt");
-                    file.getParentFile().mkdir();
-                    if (file.createNewFile()) {
-                      // System.out.println("File created: " + file.getName());
-                    } else {
-                      // System.out.println("File already exists.");
-                    }
+                if (s2[1].contains("\n\r")) {
+                    String[] s3 = s2[1].split("\n\r");
 
                     try {
-                        FileWriter  fr = new FileWriter(file);
-                        fr.write(s2[1]);
-                        fr.close();
-                        // System.out.println("Successfully wrote to the file.");
+                        File file = new File("Data Files/AccessToken.txt");
+                        file.getParentFile().mkdir();
+                        if (file.createNewFile()) {
+                            // System.out.println("File created: " + file.getName());
+                        } else {
+                            // System.out.println("File already exists.");
+                        }
+
+                        try {
+                            FileWriter  fr = new FileWriter(file);
+                            fr.write(s3[1]);
+                            fr.close();
+                            // System.out.println("Successfully wrote to the file.");
+                        } catch (IOException e) {
+                            // System.out.println("An error occurred.");
+                            e.printStackTrace();
+                        }
+
                     } catch (IOException e) {
                         // System.out.println("An error occurred.");
                         e.printStackTrace();
                     }
-                    
-                } catch (IOException e) {
-                    // System.out.println("An error occurred.");
-                    e.printStackTrace();
+
                 }
+                // System.out.println(" ");
             } else {
                 
             }
