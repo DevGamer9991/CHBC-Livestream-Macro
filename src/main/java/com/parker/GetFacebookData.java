@@ -74,47 +74,40 @@ public class GetFacebookData {
     }
 
     public void saveAccessToken(InputStream input) {
+        String s = null;
         try {
-            String s = new String(input.readAllBytes(), StandardCharsets.UTF_8);
-
-            System.out.print(s);
-
-            if (s.contains("Access_Token")) {
-                String[] s2 = s.split("Access_Token=");
-                if (s2[1].contains("\n\r")) {
-                    String[] s3 = s2[1].split("\n\r");
-
-                    try {
-                        File file = new File("Data Files/AccessToken.txt");
-                        file.getParentFile().mkdir();
-                        if (file.createNewFile()) {
-                            // System.out.println("File created: " + file.getName());
-                        } else {
-                            // System.out.println("File already exists.");
-                        }
-
-                        try {
-                            FileWriter  fr = new FileWriter(file);
-                            fr.write(s3[1]);
-                            fr.close();
-                            // System.out.println("Successfully wrote to the file.");
-                        } catch (IOException e) {
-                            // System.out.println("An error occurred.");
-                            e.printStackTrace();
-                        }
-
-                    } catch (IOException e) {
-                        // System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }
-
-                }
-                // System.out.println(" ");
-            } else {
-                
-            }
+            s = new String(input.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (s.contains("Access_Token")) {
+            String[] s2 = s.split("Access_Token=");
+            String[] s3 = s2[1].split("\n");
+            try {
+                File file = new File("Data Files/AccessToken.txt");
+                file.getParentFile().mkdir();
+                if (file.createNewFile()) {
+                    // System.out.println("File created: " + file.getName());
+                } else {
+                    // System.out.println("File already exists.");
+                }
+
+                try {
+                    FileWriter fr = new FileWriter(file);
+                    fr.write(s3[0]);
+                    System.out.println(s3[0]);
+                    fr.close();
+                    // System.out.println("Successfully wrote to the file.");
+                } catch (IOException e) {
+                    // System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                // System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
         }
     }
 
