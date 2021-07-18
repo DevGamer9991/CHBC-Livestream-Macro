@@ -193,7 +193,7 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             CreateFacebookStream streamCreator = new CreateFacebookStream();
 
-            streamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capital Hill Baptist");
+            streamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
 
             if (streamCreator.getStreamID() != null && streamCreator.getStreamURL() != null) {
                 streamIDField.setText(streamCreator.getStreamID());
