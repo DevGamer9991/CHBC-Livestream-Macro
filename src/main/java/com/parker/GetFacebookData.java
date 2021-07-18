@@ -1,6 +1,8 @@
 package com.parker;
 
-import java.awt.Desktop;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -356,5 +358,11 @@ public class GetFacebookData {
         } else {
             return null;
         }
+    }
+
+    public void copy(String text) {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection selection = new StringSelection(text);
+        clipboard.setContents(selection, null);
     }
 }

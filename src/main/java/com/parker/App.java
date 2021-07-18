@@ -3,6 +3,8 @@ package com.parker;
 import com.parker.HTTPServer.HTTPServer;
 import com.parker.MainWindow.MainWindow;
 
+import java.awt.*;
+import java.awt.datatransfer.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;

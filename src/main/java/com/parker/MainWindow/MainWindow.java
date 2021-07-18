@@ -232,11 +232,11 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void copyURLButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamURLField.getText());
     }
 
     private void copyIDButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamIDField.getText());
     }
     public void openMainWindow() {
         /* Set the Nimbus look and feel */
