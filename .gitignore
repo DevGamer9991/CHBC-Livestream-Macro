@@ -1,4 +1,4 @@
 # Project exclude paths
 /target/
 /out/
-/tls/
+/src/main/resources/tls/

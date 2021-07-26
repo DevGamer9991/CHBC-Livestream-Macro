@@ -20,7 +20,7 @@ public class GetFacebookData {
 
     // https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=703083304425017&redirect_uri=http://localhost:5000&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content
 
-    public String clientID = "654291518784770";
+    public String clientID = "186968813458771";
 
     public String getAccessToken() {
         try {

@@ -34,16 +34,16 @@ public class HTTPSServerThread extends Thread{
 
     public void startServer(InetSocketAddress address) {
         try {
-            Path keystorePath = Path.of("./tls/keystore.jks");
+            Path keystorePath = Path.of("./Data Files/keystore.jks");
             char[] keystorePass = "pass_for_self_signed_cert".toCharArray();
 
-            var keyStore = KeyStore.getInstance("JKS");
+            KeyStore keyStore = KeyStore.getInstance("JKS");
             keyStore.load(new FileInputStream(keystorePath.toFile()), keystorePass);
 
-            var keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
             keyManagerFactory.init(keyStore, keystorePass);
 
-            var sslContext = SSLContext.getInstance("TLS");
+            SSLContext sslContext = SSLContext.getInstance("TLS");
             // Null means using default implementations for TrustManager and SecureRandom
             sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
 
