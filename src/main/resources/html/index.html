@@ -38,13 +38,13 @@
             if (accessTokenVar == null) {
                 document.cookie = "Access_Token=" + split2[0] + ";max-age="+ 5*60 + ";";
                 setTimeout(function(){
-                    window.close();
+                    //window.close();
                 },1000);
             } else {
                 document.cookie = "Access_Token=" + ";max-age=0;";
                 document.cookie = "Access_Token=" + split2[0] + ";max-age="+ 5*60 + ";";
                 setTimeout(function(){
-                    window.close();
+                    //window.close();
                 },1000);
             }
         </script>

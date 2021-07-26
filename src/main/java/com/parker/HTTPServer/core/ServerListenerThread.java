@@ -1,7 +1,5 @@
 package com.parker.HTTPServer.core;
 
-import com.parker.MainWindow.MainWindow;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

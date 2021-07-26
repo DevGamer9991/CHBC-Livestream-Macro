@@ -197,10 +197,10 @@ public class GetFacebookData {
         }
     }
 
-    public void openLoginPage() {
+    public void openLoginPage(Integer port) {
         URI url;
         try {
-            url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=http://localhost:5000&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
+            url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=https://localhost:" + port + "&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
             Desktop.getDesktop().browse(url);
         } catch (Exception e) {
             // TODO Auto-generated catch block

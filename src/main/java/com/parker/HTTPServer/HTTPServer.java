@@ -8,7 +8,7 @@ public class HTTPServer
 {
     public int port = 5000;
 
-    //private final static Logger LOGGER = (Logger) LoggerFactory.getLogger(HTTPServer.class);
+    //private final static Logger LOGGER = (Logger) LoggerFactory.getLogger(com.parker.HTTPServer.class);
 
     public void startServer()
     {

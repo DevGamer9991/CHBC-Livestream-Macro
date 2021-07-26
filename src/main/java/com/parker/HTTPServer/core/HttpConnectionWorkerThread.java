@@ -7,8 +7,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import com.parker.GetFacebookData;
-import com.parker.MainWindow.MainWindow;
-import com.sun.net.httpserver.HttpsServer;
 
 public class HttpConnectionWorkerThread extends Thread {
 
