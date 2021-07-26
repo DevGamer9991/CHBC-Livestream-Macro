@@ -20,6 +20,8 @@ public class GetFacebookData {
 
     // https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=703083304425017&redirect_uri=http://localhost:5000&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content
 
+    public String clientID = "654291518784770";
+
     public String getAccessToken() {
         try {
             FileReader reader = new FileReader("Data Files/AccessToken.txt");
@@ -63,6 +65,36 @@ public class GetFacebookData {
             // System.out.println(name);
 
             return name;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getID() throws Exception{
+        try {
+            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=id&access_token=" + getAccessToken());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("GET");
+
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+            String token = null;
+
+            Gson gson = new Gson();
+
+            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+            String id = jsonObject.get("id").getAsString();
+
+//            System.out.println(id);
+
+            return id;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -168,7 +200,7 @@ public class GetFacebookData {
     public void openLoginPage() {
         URI url;
         try {
-            url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=703083304425017&redirect_uri=http://localhost:5000&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
+            url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=http://localhost:5000&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
             Desktop.getDesktop().browse(url);
         } catch (Exception e) {
             // TODO Auto-generated catch block

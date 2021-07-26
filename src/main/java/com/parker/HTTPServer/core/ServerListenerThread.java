@@ -1,5 +1,7 @@
 package com.parker.HTTPServer.core;
 
+import com.parker.MainWindow.MainWindow;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,17 +21,18 @@ public class ServerListenerThread extends Thread {
     @Override
     public void run() {
         try {
-
             while(serverSocket.isBound() && !serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
 
                 System.out.println(" * Connection accepted: " + socket.getInetAddress());
 
-                HttpConnectionWorkerThread workerThread = new HttpConnectionWorkerThread(socket);
-                workerThread.start();
+                HttpConnectionWorkerThread worker = new HttpConnectionWorkerThread(socket);
+                worker.run();
             }
         } catch(IOException e) {
             System.out.println("Problem With Setting Socket");
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if(serverSocket!=null) {

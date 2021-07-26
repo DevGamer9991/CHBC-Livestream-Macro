@@ -5,16 +5,13 @@ import com.parker.MainWindow.MainWindow;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class App
 {
-  // App ID: 703083304425017
+  // App ID: 186968813458771
 
-  public static void main (String[] args) throws Exception{  
-
+  public static void main (String[] args) throws Exception{
     new HTTPServer().startServer();
 
     new GetFacebookData().openLoginPage();
