@@ -34,8 +34,8 @@ public class HTTPSServerThread extends Thread{
 
     public void startServer(InetSocketAddress address) {
         try {
-            Path keystorePath = Path.of("./Data Files/keystore.jks");
-            char[] keystorePass = "pass_for_self_signed_cert".toCharArray();
+            Path keystorePath = Path.of("Data Files/keystore.jks");
+            char[] keystorePass = "chbcmacro".toCharArray();
 
             KeyStore keyStore = KeyStore.getInstance("JKS");
             keyStore.load(new FileInputStream(keystorePath.toFile()), keystorePass);
