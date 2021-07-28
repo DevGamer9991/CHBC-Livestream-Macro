@@ -1,6 +1,7 @@
 package com.parker;
 
 import com.parker.MainWindow.MainWindow;
+import com.parker.youtube.GetYoutubeData;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
@@ -17,10 +18,12 @@ public class App
 
   public static void main (String[] args) throws Exception{
 
-    new HTTPSServer().startServer();
-    new GetFacebookData().openLoginPage(port);
+    new GetYoutubeData().getData();
 
-    Thread.sleep(2000);
-    new MainWindow().openMainWindow();
+//    new HTTPSServer().startServer();
+//    new GetFacebookData().openLoginPage(port);
+//
+//    Thread.sleep(2000);
+//    new MainWindow().openMainWindow();
   }
 }
