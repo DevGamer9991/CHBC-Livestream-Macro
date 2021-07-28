@@ -22,24 +22,8 @@ public class GetFacebookData {
 
     public String clientID = "186968813458771";
 
-    public String getAccessToken() {
-        try {
-            FileReader reader = new FileReader("Data Files/AccessToken.txt");
-
-            StringBuilder token = new StringBuilder();
-
-            int i;
-            while ((i=reader.read()) != -1) {
-                token.append((char) i);
-            }
-
-            reader.close();
-            return token.toString();
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    public static String access_token;
+    public static String page_id;
 
     public String getName() throws Exception{
         try {
@@ -62,7 +46,7 @@ public class GetFacebookData {
 
             String name = jsonObject.get("name").getAsString();
 
-            // System.out.println(name);
+            System.out.println(name);
 
             return name;
         } catch (Exception e) {
@@ -92,7 +76,7 @@ public class GetFacebookData {
 
             String id = jsonObject.get("id").getAsString();
 
-//            System.out.println(id);
+            System.out.println(id);
 
             return id;
         } catch (Exception e) {
@@ -107,7 +91,7 @@ public class GetFacebookData {
         // String pageToken = getManagedPagesAccessToken(pageName);
     }
 
-    public void saveAccessToken(InputStream input) {
+    public void setAccessToken(InputStream input) {
         String s = null;
         try {
             s = new String(input.readAllBytes(), StandardCharsets.UTF_8);
@@ -118,57 +102,17 @@ public class GetFacebookData {
         if (s.contains("Access_Token")) {
             String[] s2 = s.split("Access_Token=");
             String[] s3 = s2[1].split("\n");
-            try {
-                File file = new File("Data Files/AccessToken.txt");
-                file.getParentFile().mkdir();
-                if (file.createNewFile()) {
-                    // System.out.println("File created: " + file.getName());
-                } else {
-                    // System.out.println("File already exists.");
-                }
 
-                try {
-                    FileWriter fr = new FileWriter(file);
-                    fr.write(s3[0]);
-                    System.out.println(s3[0]);
-                    fr.close();
-                    // System.out.println("Successfully wrote to the file.");
-                } catch (IOException e) {
-                    // System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
-
-            } catch (IOException e) {
-                // System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
+            access_token = s3[0];
         }
     }
 
-    public void savePageID(String id) {
-        try {
-            File file = new File("Data Files/PageID.txt");
-            file.getParentFile().mkdir();
-            if (file.createNewFile()) {
-                // System.out.println("File created: " + file.getName());
-            } else {
-                // System.out.println("File already exists.");
-            }
+    public String getAccessToken() {
+        return access_token;
+    }
 
-            try {
-                FileWriter  fr = new FileWriter(file);
-                fr.write(id);
-                fr.close();
-                // System.out.println("Successfully wrote to the file.");
-            } catch (IOException e) {
-                // System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-            
-        } catch (IOException e) {
-            // System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    public void savePageID(String id) {
+        page_id = id;
     }
 
     public void savePageAccessToken(String token) {
@@ -176,23 +120,23 @@ public class GetFacebookData {
             File file = new File("Data Files/PageToken.txt");
             file.getParentFile().mkdir();
             if (file.createNewFile()) {
-                // System.out.println("File created: " + file.getName());
+                System.out.println("File created: " + file.getName());
             } else {
-                // System.out.println("File already exists.");
+                System.out.println("File already exists.");
             }
 
             try {
                 FileWriter  fr = new FileWriter(file);
                 fr.write(token);
                 fr.close();
-                // System.out.println("Successfully wrote to the file.");
+                System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {
-                // System.out.println("An error occurred.");
+                System.out.println("An error occurred.");
                 e.printStackTrace();
             }
             
         } catch (IOException e) {
-            // System.out.println("An error occurred.");
+            System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -276,7 +220,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                // System.out.println("Found File");
+                System.out.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -288,7 +232,7 @@ public class GetFacebookData {
 
                 String title = object.get("title").getAsString();
 
-                // System.out.println(title);
+                System.out.println(title);
 
                 // close reader
                 reader.close();
@@ -308,7 +252,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                // System.out.println("Found File");
+                System.out.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -320,7 +264,7 @@ public class GetFacebookData {
 
                 String desc = object.get("description").getAsString();
 
-                // System.out.println(desc);
+                System.out.println(desc);
                 // close reader
                 reader.close();
 

@@ -41,7 +41,7 @@ public class HttpConnectionWorkerThread extends Thread {
 
             output.write(response.getBytes());
 
-            new GetFacebookData().saveAccessToken(input);
+            new GetFacebookData().setAccessToken(input);
 
             System.out.println("Connection Process Finished");
         }catch(IOException e){
