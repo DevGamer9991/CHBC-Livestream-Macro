@@ -2,5 +2,4 @@
 /target/
 /out/
 /src/main/resources/tls/
-/Data Files/SavedData.json
-/src/main/resources/client_secret.json
+/src/main/resources/
