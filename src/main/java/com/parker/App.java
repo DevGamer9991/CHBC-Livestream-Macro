@@ -21,9 +21,6 @@ public class App
   public static void main (String[] args) throws Exception{
     new HTTPSServer().startServer();
     new GetFacebookData().openLoginPage(port);
-
-    Thread.sleep(2000);
-    new MainWindow().openMainWindow();
   }
 
   public void firstAuth() throws GeneralSecurityException, IOException {

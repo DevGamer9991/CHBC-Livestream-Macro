@@ -9,6 +9,8 @@ import java.awt.datatransfer.Clipboard;
 
 public class MainWindow extends javax.swing.JFrame {
 
+    public static boolean opened = false;
+
     /**
      * Creates new form TestFrame
      */
@@ -273,6 +275,10 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             }
         });
+
+        opened = true;
+
+        System.out.println("Opened Main Window");
     }
 
     // Variables declaration - do not modify
@@ -292,5 +298,9 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JLabel streamURL;
     public javax.swing.JTextField streamURLField;
     public javax.swing.JLabel welcomeLabel;
-    // End of variables declaration                   
+    // End of variables declaration
+
+    public boolean getOpened() {
+        return opened;
+    }
 }

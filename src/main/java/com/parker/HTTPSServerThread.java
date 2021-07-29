@@ -1,5 +1,7 @@
 package com.parker;
 
+import com.parker.MainWindow.MainWindow;
+
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import java.io.*;
@@ -79,6 +81,15 @@ public class HTTPSServerThread extends Thread{
                         new GetFacebookData().setAccessToken(input);
 
                         System.out.println("Connection Process Finished");
+
+                        System.out.println("Opening Main Window");
+
+                        if (!new MainWindow().getOpened()) {
+                            new MainWindow().openMainWindow();
+                        } else {
+                            System.out.println("Already Opened");
+                        }
+
                     }catch(IOException e){
                         System.out.println("Problem With Communication");
                         e.printStackTrace();

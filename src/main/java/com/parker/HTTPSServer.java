@@ -8,7 +8,5 @@ public class HTTPSServer {
 
         HTTPSServerThread thread = new HTTPSServerThread();
         thread.start();
-
-        System.out.println("Hi");
     }
 }
