@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="CHBC Livestream Macro" />
         <module name="chbc-livestream-macro" />
+        <module name="CHBC-Livestream-Macro" />
       </profile>
     </annotationProcessing>
   </component>
