@@ -104,6 +104,8 @@ public class GetFacebookData {
             String[] s3 = s2[1].split("\n");
 
             access_token = s3[0];
+
+            System.out.println(access_token);
         }
     }
 
@@ -310,12 +312,16 @@ public class GetFacebookData {
     public String getManagedPagesID(String pageName) {
         String managedPagesJson = getManagedPagesJSON();
 
+        System.out.println(managedPagesJson);
+
         if (managedPagesJson != null) {
             Gson gson = new Gson();
 
             JsonObject jsonObject = gson.fromJson(managedPagesJson, JsonObject.class);
 
             JsonArray entry = (JsonArray) jsonObject.get("data");
+
+            System.out.print(entry.toString());
 
             int num = 0;
 
