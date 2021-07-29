@@ -14,12 +14,6 @@ public class GetYoutubeData {
 
     public static final String DEVELOPER_KEY = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
 
-    public void getData() throws GeneralSecurityException, IOException {
-        new Authorize().authorize();
-        getBroadcast();
-        updateBroadcast();
-    }
-
     public static void getBroadcast() throws IOException, GeneralSecurityException {
         YouTube youtubeService = new Authorize().getService();
         // Define and execute the API request
@@ -63,6 +57,15 @@ public class GetYoutubeData {
         YouTube.LiveBroadcasts.Update request = youtubeService.liveBroadcasts()
                 .update("contentDetails,snippet", liveBroadcast);
         LiveBroadcast response = request.setKey(DEVELOPER_KEY).execute();
+        System.out.println(response);
+    }
+
+    public void getStreams() throws GeneralSecurityException, IOException {
+        YouTube youtubeService = new Authorize().getService();
+        // Define and execute the API request
+        YouTube.LiveBroadcasts.List request = youtubeService.liveBroadcasts()
+                .list("snippet,contentDetails,status");
+        LiveBroadcastListResponse response = request.setMine(true).execute();
         System.out.println(response);
     }
 }
