@@ -27,7 +27,7 @@ import java.util.Collection;
 
 public class getStreams {
 
-    public static void main(String[] args)
+    public void getStreams()
             throws GeneralSecurityException, IOException, GoogleJsonResponseException {
 
     }
