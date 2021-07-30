@@ -66,6 +66,5 @@ public class GetYoutubeData {
         YouTube.LiveBroadcasts.List request = youtubeService.liveBroadcasts()
                 .list("snippet,contentDetails,status");
         LiveBroadcastListResponse response = request.setMine(true).execute();
-        System.out.println(response);
     }
 }
