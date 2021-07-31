@@ -3,10 +3,6 @@ package com.parker.MainWindow;
 import com.parker.CreateFacebookStream;
 import com.parker.GetFacebookData;
 
-import java.awt.datatransfer.StringSelection;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-
 public class MainWindow extends javax.swing.JFrame {
 
     public static boolean opened = false;
@@ -49,12 +45,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainWindowtitle.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         mainWindowtitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainWindowtitle.setText("CHBC FB Livestream Creator");
+        mainWindowtitle.setText("CHBC Livestream Creator");
 
         streamTitleLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         streamTitleLabel.setText("Title:");
-
-        streamTitleField.setText(new GetFacebookData().getTitle());
 
         streamTitleField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +67,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         livestreamSettingsLabel.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        livestreamSettingsLabel.setText("Stream Settings:");
+        livestreamSettingsLabel.setText("FB Stream Settings:");
 
         streamIDField.setEditable(false);
         streamIDField.addActionListener(new java.awt.event.ActionListener() {
@@ -96,12 +90,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         streamDataLabel.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        streamDataLabel.setText("Stream Data:");
+        streamDataLabel.setText("FB Stream Data:");
 
         streamDescField.setColumns(20);
         streamDescField.setLineWrap(true);
         streamDescField.setRows(5);
-        streamDescField.setText(new GetFacebookData().getDesc());
         jScrollPane1.setViewportView(streamDescField);
 
         welcomeLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -143,7 +136,7 @@ public class MainWindow extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(streamDataLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                                                .addComponent(streamDataLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                 .addGap(2, 2, 2)
                                                                 .addComponent(copyIDButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -183,10 +176,11 @@ public class MainWindow extends javax.swing.JFrame {
                                                 .addComponent(streamID)
                                                 .addComponent(streamIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(streamDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(streamURLField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(streamURL))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(streamDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(streamURL)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(createStreamButton, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
@@ -240,6 +234,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void copyIDButtonActionPerformed(java.awt.event.ActionEvent evt) {
         new GetFacebookData().copy(streamIDField.getText());
     }
+
     public void openMainWindow() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -303,4 +298,5 @@ public class MainWindow extends javax.swing.JFrame {
     public boolean getOpened() {
         return opened;
     }
+
 }
