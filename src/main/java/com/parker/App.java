@@ -16,6 +16,8 @@ public class App
 {
   // App ID: 186968813458771
 
+    // ISO 8601 Date and Time Format: 2021-07-31T20:37
+
   public static Integer port = 5000;
 
   public static void main (String[] args) throws Exception{
