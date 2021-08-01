@@ -1,5 +1,5 @@
 package com.parker.youtube; /**
- * Sample Java code for youtube.liveBroadcasts.list
+ * Sample Java code for youtube.liveStreams.list
  * See instructions for running these code samples locally:
  * https://developers.google.com/explorer-help/guides/code_samples#java
  */
@@ -16,7 +16,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.LiveBroadcastListResponse;
+import com.google.api.services.youtube.model.LiveStreamListResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,10 +25,15 @@ import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class getStreams {
+public class GetStreamFromID {
 
-    public void getStreams()
+    public void get(String streamID)
             throws GeneralSecurityException, IOException, GoogleJsonResponseException {
-
+        YouTube youtubeService = new Authorize().getService();
+        // Define and execute the API request
+        YouTube.LiveStreams.List request = youtubeService.liveStreams()
+                .list("snippet,cdn,contentDetails,status");
+        LiveStreamListResponse response = request.setId(streamID).execute();
+        System.out.println(response);
     }
 }
