@@ -92,7 +92,28 @@ public class ManageYoutubeData {
             return null;
         }
 
+        streamID = streamIDFromFile.getAsString();
+
         return streamIDFromFile.getAsString();
+    }
+
+    public void setStreamKeyFromFile() throws Exception{
+
+        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+
+        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+        Gson gson = new Gson();
+
+        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+        JsonElement streamKeyFromFile = jsonObject.get("streamKey");
+
+        if (streamKeyFromFile == null) {
+            return;
+        }
+
+        streamKey = streamKeyFromFile.getAsString();
     }
 
     public boolean checkFile(String fileName) {

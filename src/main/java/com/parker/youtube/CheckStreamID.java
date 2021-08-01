@@ -33,4 +33,6 @@ public class CheckStreamID {
         LiveStreamListResponse response = request.setId(id).execute();
         System.out.println(response.getItems().toString().contains("frameRate"));
     }
+
+
 }

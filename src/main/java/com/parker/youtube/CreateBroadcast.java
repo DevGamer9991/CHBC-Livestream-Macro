@@ -23,6 +23,7 @@ import java.time.Clock;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 public class CreateBroadcast {
 
@@ -35,6 +36,7 @@ public class CreateBroadcast {
 
         // Add the contentDetails object property to the LiveBroadcast object.
         LiveBroadcastContentDetails contentDetails = new LiveBroadcastContentDetails();
+        contentDetails.setEnableAutoStart(true);
         contentDetails.setEnableClosedCaptions(true);
         contentDetails.setEnableContentEncryption(true);
         contentDetails.setEnableDvr(true);
@@ -48,7 +50,7 @@ public class CreateBroadcast {
 
         Clock clock = Clock.system(ZoneId.of("US/Pacific"));
 
-        snippet.setScheduledStartTime(new DateTime(clock.instant().toString()));
+        snippet.setScheduledStartTime(new DateTime(Date.from(clock.instant())));
         snippet.setTitle(streamName);
         snippet.setDescription(streamDesc);
         liveBroadcast.setSnippet(snippet);

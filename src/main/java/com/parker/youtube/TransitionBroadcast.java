@@ -14,7 +14,7 @@ import java.security.GeneralSecurityException;
 
 public class TransitionBroadcast {
 
-    public static void main(String broadcastID, String DevKey)
+    public void transition(String broadcastID, String DevKey)
             throws GeneralSecurityException, IOException, GoogleJsonResponseException {
         YouTube youtubeService = new Authorize().getService();
         // Define and execute the API request

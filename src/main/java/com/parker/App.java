@@ -2,20 +2,7 @@ package com.parker;
 
 import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
-
-import javax.annotation.Nullable;
-import javax.annotation.meta.TypeQualifierNickname;
-import java.awt.*;
-import java.awt.datatransfer.*;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.security.GeneralSecurityException;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Scanner;
+import com.sun.tools.javac.Main;
 
 public class App
 {
@@ -38,8 +25,9 @@ public class App
     Authorize auth = new Authorize();
     auth.authorize();
 
+    new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
+
     if (new ManageYoutubeData().checkFile("Data Files/YoutubeData.json")) {
-      new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
 
       if (new ManageYoutubeData().getStreamIDFromFile() != null) {
         System.out.println("Ran Check");
@@ -51,15 +39,21 @@ public class App
       }
 
     } else {
-      new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
       new CreateStream().create(DevKey);
-
-      ManageYoutubeData manageYoutubeData = new ManageYoutubeData();
-
-      manageYoutubeData.saveFile();
-
-      new BindBroadcast().bind(manageYoutubeData.getBroadcastID(), manageYoutubeData.getStreamID(), DevKey);
-//      new GetStreamFromID().get("6_D5ml1dU4SaK6ilhkeqVA1627838454504229");
+      new ManageYoutubeData().saveFile();
     }
+
+    ManageYoutubeData manageYoutubeData = new ManageYoutubeData();
+
+    manageYoutubeData.setStreamKeyFromFile();
+
+    System.out.println("Binding");
+
+    new BindBroadcast().bind(manageYoutubeData.getBroadcastID(), manageYoutubeData.getStreamID(), DevKey);
+
+    System.out.println(new ManageYoutubeData().getBroadcastID());
+    System.out.println(new ManageYoutubeData().getStreamID());
+    System.out.println(new ManageYoutubeData().getStreamURL());
+    System.out.println(new ManageYoutubeData().getStreamKey());
   }
 }
