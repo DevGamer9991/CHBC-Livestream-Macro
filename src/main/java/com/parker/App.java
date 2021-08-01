@@ -28,9 +28,7 @@ public class App
   public static Integer port = 5000;
 
   public static void main (String[] args) throws Exception{
-//    new App().auth();
-
-    System.out.println(new ManageYoutubeData().getStreamIDFromFile());
+    new App().auth();
 
 //    new HTTPSServer().startServer();
 //    new GetFacebookData().openLoginPage(port);
@@ -44,8 +42,10 @@ public class App
       new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
 
       if (new ManageYoutubeData().getStreamIDFromFile() != null) {
+        System.out.println("Ran Check");
         new CheckStreamID().check(new ManageYoutubeData().getStreamIDFromFile());
       } else {
+        System.out.println("Didn't Run Check");
         new CreateStream().create(DevKey);
         new ManageYoutubeData().saveFile();
       }

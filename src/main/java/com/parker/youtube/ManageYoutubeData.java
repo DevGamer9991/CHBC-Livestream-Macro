@@ -85,11 +85,11 @@ public class ManageYoutubeData {
 
         JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
 
-        if (jsonObject.get("streamID") == null) {
+        JsonObject streamIDFromFile = jsonObject.get("streamID").getAsJsonObject();
+
+        if (streamIDFromFile == null) {
             return null;
         }
-
-        JsonObject streamIDFromFile = (JsonObject) jsonObject.get("streamID");
 
         return streamIDFromFile.getAsString();
     }
