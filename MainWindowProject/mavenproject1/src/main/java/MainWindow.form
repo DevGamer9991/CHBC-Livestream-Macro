@@ -24,92 +24,127 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="mainWindowtitle" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="createStreamButton" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="streamDescLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="streamTitleLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="streamTitleField" min="-2" pref="213" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="streamTitleField" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="livestreamSettingsLabel" max="32767" attributes="0"/>
+                          <Component id="livestreamSettingsLabel" alignment="1" max="32767" attributes="0"/>
+                          <Component id="streamDescLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="streamDataLabel" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              <Component id="copyIDButton" min="-2" pref="91" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="copyURLButton" min="-2" pref="91" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="streamFBDataLabel" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="streamURL" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="streamID" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="streamYTID" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="streamYTKey" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="streamYTURL" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="streamYTIDField" min="-2" pref="214" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="copyYTIDButton1" min="-2" pref="121" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="streamYTKeyField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                          <Component id="streamYTURLField" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="copyYTKeyButton" max="32767" attributes="0"/>
+                                          <Component id="copyYTURLButton" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="streamYTDataLabel" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="streamFBKey" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="streamFBID" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="streamURLField" max="32767" attributes="0"/>
-                                  <Component id="streamIDField" max="32767" attributes="0"/>
+                                  <Component id="streamFBIDField" max="32767" attributes="0"/>
+                                  <Component id="streamFBKeyField1" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="copyFBKeyButton" pref="121" max="32767" attributes="0"/>
+                                  <Component id="copyFBIDButton" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="createStreamButton" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
-          <Component id="welcomeLabel" max="32767" attributes="0"/>
-          <Component id="mainWindowtitle" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="mainWindowtitle" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="welcomeLabel" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="mainWindowtitle" min="-2" pref="58" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="livestreamSettingsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="streamDataLabel" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="copyURLButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="copyIDButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="livestreamSettingsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="streamFBDataLabel" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="streamTitleLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="streamTitleField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="streamFBID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="streamFBIDField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="copyFBIDButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="streamFBKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="streamFBKeyField1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="copyFBKeyButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="streamDescLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="streamTitleLabel" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="streamTitleField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="streamID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="streamIDField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="streamYTDataLabel" min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="streamYTID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="streamYTIDField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="copyYTIDButton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="streamYTURL" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="streamYTURLField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="copyYTURLButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="streamYTKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="copyYTKeyButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="streamYTKeyField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
+                  <Component id="jScrollPane1" min="-2" pref="159" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="streamURLField" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="streamDescLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="streamURL" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="createStreamButton" pref="152" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="createStreamButton" min="-2" pref="152" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -159,47 +194,47 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="FB Stream Settings:"/>
+        <Property name="text" type="java.lang.String" value="Stream Settings:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="streamIDField">
+    <Component class="javax.swing.JTextField" name="streamFBIDField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamIDFieldActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamFBIDFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="streamID">
+    <Component class="javax.swing.JLabel" name="streamFBID">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ID:"/>
+        <Property name="text" type="java.lang.String" value="FB ID:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="streamURL">
+    <Component class="javax.swing.JLabel" name="streamFBKey">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="RTMP URL:"/>
+        <Property name="text" type="java.lang.String" value="FB Stream Key:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="streamURLField">
+    <Component class="javax.swing.JTextField" name="streamYTKeyField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamURLFieldActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamYTKeyFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="streamDataLabel">
+    <Component class="javax.swing.JLabel" name="streamYTDataLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="FB Stream Data:"/>
+        <Property name="text" type="java.lang.String" value="YT Stream Data:"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -218,29 +253,100 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="welcomeLabel">
+    <Component class="javax.swing.JButton" name="copyFBKeyButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Copy FB Key"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyFBKeyButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="copyFBIDButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Copy FB ID"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyFBIDButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="streamFBDataLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="FB Stream Data:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="streamYTKey">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="18" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Welcome: Matt Crews"/>
+        <Property name="text" type="java.lang.String" value="YT Stream Key:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="copyURLButton">
+    <Component class="javax.swing.JLabel" name="streamYTID">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copy URL"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="YT ID:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="streamYTIDField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyURLButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamYTIDFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="copyIDButton">
+    <Component class="javax.swing.JTextField" name="streamFBKeyField1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copy ID"/>
+        <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyIDButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamFBKeyField1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="copyYTKeyButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Copy YT Key"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyYTKeyButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="copyYTURLButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Copy YT URL"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyYTURLButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="streamYTURLField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamYTURLFieldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="streamYTURL">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="YT Stream URL:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="copyYTIDButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Copy YT ID"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyYTIDButton1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
