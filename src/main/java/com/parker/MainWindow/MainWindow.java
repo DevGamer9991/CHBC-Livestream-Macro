@@ -1,3 +1,4 @@
+package com.parker.MainWindow;
 
 import com.parker.CreateFacebookStream;
 import com.parker.GetFacebookData;
@@ -377,10 +378,6 @@ public class MainWindow extends javax.swing.JFrame {
         opened = true;
 
         System.out.println("Opened Main Window");
-    }
-
-    public static void main(String args[]) {
-        new MainWindow().openMainWindow();
     }
 
     // Variables declaration - do not modify

@@ -24,72 +24,76 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="mainWindowtitle" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="createStreamButton" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="streamTitleLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="streamTitleField" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="livestreamSettingsLabel" alignment="1" max="32767" attributes="0"/>
-                          <Component id="streamDescLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="streamFBDataLabel" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="createStreamButton" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="streamYTID" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="streamYTKey" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="streamYTURL" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="streamYTIDField" min="-2" pref="214" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="copyYTIDButton1" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="streamTitleLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <Component id="streamTitleField" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="livestreamSettingsLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="streamDescLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="streamFBDataLabel" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="streamYTKeyField" alignment="0" pref="214" max="32767" attributes="0"/>
-                                          <Component id="streamYTURLField" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="streamYTID" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="streamYTKey" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="streamYTURL" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="streamYTIDField" min="-2" pref="214" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="copyYTIDButton1" min="-2" pref="121" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="streamYTKeyField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                                  <Component id="streamYTURLField" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="copyYTKeyButton" max="32767" attributes="0"/>
+                                                  <Component id="copyYTURLButton" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Component id="streamYTDataLabel" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="streamFBKey" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="streamFBID" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="copyYTKeyButton" max="32767" attributes="0"/>
-                                          <Component id="copyYTURLButton" max="32767" attributes="0"/>
+                                          <Component id="streamFBIDField" max="32767" attributes="0"/>
+                                          <Component id="streamFBKeyField" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="copyFBKeyButton" pref="121" max="32767" attributes="0"/>
+                                          <Component id="copyFBIDButton" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                              </Group>
-                          </Group>
-                          <Component id="streamYTDataLabel" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="streamFBKey" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="streamFBID" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="streamFBIDField" max="32767" attributes="0"/>
-                                  <Component id="streamFBKeyField1" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="copyFBKeyButton" pref="121" max="32767" attributes="0"/>
-                                  <Component id="copyFBIDButton" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
+                  <Component id="mainWindowtitle" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,7 +118,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="streamFBKey" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="streamFBKeyField1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="streamFBKeyField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="copyFBKeyButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="streamDescLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
@@ -301,12 +305,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamYTIDFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="streamFBKeyField1">
+    <Component class="javax.swing.JTextField" name="streamFBKeyField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamFBKeyField1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streamFBKeyFieldActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="copyYTKeyButton">
