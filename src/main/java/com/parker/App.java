@@ -54,9 +54,11 @@ public class App
       new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
       new CreateStream().create(DevKey);
 
-      new ManageYoutubeData().saveFile();
+      ManageYoutubeData manageYoutubeData = new ManageYoutubeData();
 
-//      new BindBroadcast().bind("lxHYRPhbWHI", "6_D5ml1dU4SaK6ilhkeqVA1627838454504229", DevKey);
+      manageYoutubeData.saveFile();
+
+      new BindBroadcast().bind(manageYoutubeData.getBroadcastID(), manageYoutubeData.getStreamID(), DevKey);
 //      new GetStreamFromID().get("6_D5ml1dU4SaK6ilhkeqVA1627838454504229");
     }
   }

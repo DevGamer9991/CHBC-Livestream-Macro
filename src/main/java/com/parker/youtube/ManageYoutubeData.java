@@ -1,6 +1,7 @@
 package com.parker.youtube;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import javax.annotation.Nullable;
@@ -85,7 +86,7 @@ public class ManageYoutubeData {
 
         JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
 
-        JsonObject streamIDFromFile = jsonObject.get("streamID").getAsJsonObject();
+        JsonElement streamIDFromFile = jsonObject.get("streamID");
 
         if (streamIDFromFile == null) {
             return null;

@@ -31,6 +31,6 @@ public class CheckStreamID {
                 .list("snippet,cdn,contentDetails,status");
 
         LiveStreamListResponse response = request.setId(id).execute();
-        System.out.println(response);
+        System.out.println(response.getItems().toString().contains("frameRate"));
     }
 }
