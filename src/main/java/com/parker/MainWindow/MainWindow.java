@@ -1,7 +1,9 @@
 package com.parker.MainWindow;
 
 import com.parker.CreateFacebookStream;
+import com.parker.CreateYoutubeStream;
 import com.parker.GetFacebookData;
+import com.parker.HTTPSServerThread;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -277,13 +279,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
+            new CreateYoutubeStream().createYoutubeStream(streamTitleField.getText(), streamDescField.getText());
             CreateFacebookStream streamCreator = new CreateFacebookStream();
 
             streamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
 
             if (streamCreator.getStreamID() != null && streamCreator.getStreamURL() != null) {
                 streamFBIDField.setText(streamCreator.getStreamID());
-                streamYTKeyField.setText(streamCreator.getStreamURL());
+                streamFBKeyField.setText(streamCreator.getStreamURL());
             }
 
             GetFacebookData facebookData = new GetFacebookData();
@@ -308,7 +311,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void copyFBKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        new GetFacebookData().copy(streamYTKeyField.getText());
+        new GetFacebookData().copy(streamFBKeyField.getText());
     }
 
     private void copyFBIDButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,11 +327,11 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void copyYTKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamYTKeyField.getText());
     }
 
     private void copyYTURLButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamYTURLField.getText());
     }
 
     private void streamYTURLFieldActionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +339,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void copyYTIDButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamYTIDField.getText());
     }
 
     public void openMainWindow() {
