@@ -15,10 +15,10 @@ public class App
   public static Integer port = 5000;
 
   public static void main (String[] args) throws Exception{
-    new App().auth();
+//    new App().auth();
 
-//    new HTTPSServer().startServer();
-//    new GetFacebookData().openLoginPage(port);
+    new HTTPSServer().startServer();
+    new GetFacebookData().openLoginPage(port);
   }
 
   public void auth() throws Exception {

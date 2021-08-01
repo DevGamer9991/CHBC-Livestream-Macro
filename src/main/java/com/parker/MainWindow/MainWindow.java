@@ -1,4 +1,3 @@
-package com.parker.MainWindow;
 
 import com.parker.CreateFacebookStream;
 import com.parker.GetFacebookData;
@@ -34,7 +33,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTKey = new javax.swing.JLabel();
         streamYTID = new javax.swing.JLabel();
         streamYTIDField = new javax.swing.JTextField();
-        streamFBKeyField1 = new javax.swing.JTextField();
+        streamFBKeyField = new javax.swing.JTextField();
         copyYTKeyButton = new javax.swing.JButton();
         copyYTURLButton = new javax.swing.JButton();
         streamYTURLField = new javax.swing.JTextField();
@@ -128,10 +127,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        streamFBKeyField1.setEditable(false);
-        streamFBKeyField1.addActionListener(new java.awt.event.ActionListener() {
+        streamFBKeyField.setEditable(false);
+        streamFBKeyField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamFBKeyField1ActionPerformed(evt);
+                streamFBKeyFieldActionPerformed(evt);
             }
         });
 
@@ -214,7 +213,7 @@ public class MainWindow extends javax.swing.JFrame {
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(streamFBIDField)
-                                                                        .addComponent(streamFBKeyField1))
+                                                                        .addComponent(streamFBKeyField))
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                                         .addComponent(copyFBKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
@@ -240,7 +239,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(streamFBKey)
-                                        .addComponent(streamFBKeyField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(copyFBKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(streamDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -319,7 +318,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
-    private void streamFBKeyField1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void streamFBKeyFieldActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -400,7 +399,7 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JLabel streamFBID;
     public javax.swing.JTextField streamFBIDField;
     public javax.swing.JLabel streamFBKey;
-    public javax.swing.JTextField streamFBKeyField1;
+    public javax.swing.JTextField streamFBKeyField;
     public javax.swing.JTextField streamTitleField;
     public javax.swing.JLabel streamTitleLabel;
     public javax.swing.JLabel streamYTDataLabel;

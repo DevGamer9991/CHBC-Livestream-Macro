@@ -41,9 +41,9 @@ public class CreateFacebookStream{
 
         if (jsonObject.toString().contains("secure_stream_url")) {
             MainWindow mainWindow = new MainWindow();
-            mainWindow.streamIDField.setText(streamID);
+            mainWindow.streamFBIDField.setText(streamID);
              System.out.println("\n" + streamID);
-            mainWindow.streamIDField.setText(streamURL);
+            mainWindow.streamFBIDField.setText(streamURL);
              System.out.println("\n" + streamURL);
         } else {
             System.out.println("\n Didnt work \n" + jsonObject.toString());
