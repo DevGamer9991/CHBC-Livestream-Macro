@@ -299,4 +299,12 @@ public class MainWindow extends javax.swing.JFrame {
         return opened;
     }
 
+    public String getStreamTitle() {
+        return streamTitleField.getText();
+    }
+
+    public String getStreamDesc() {
+        return streamDescField.getText();
+    }
+
 }

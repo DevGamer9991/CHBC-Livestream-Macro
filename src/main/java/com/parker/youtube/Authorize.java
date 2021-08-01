@@ -47,7 +47,7 @@ public class Authorize {
         return this.credential;
     }
 
-    public static YouTube getService() throws GeneralSecurityException, IOException {
+    public YouTube getService() throws GeneralSecurityException, IOException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         Credential credential = new Authorize().getCredential();
         return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)

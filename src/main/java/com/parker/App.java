@@ -3,6 +3,8 @@ package com.parker;
 import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
 
+import javax.annotation.Nullable;
+import javax.annotation.meta.TypeQualifierNickname;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
@@ -26,21 +28,36 @@ public class App
   public static Integer port = 5000;
 
   public static void main (String[] args) throws Exception{
-    new App().firstAuth();
+//    new App().auth();
+
+    System.out.println(new ManageYoutubeData().getStreamIDFromFile());
 
 //    new HTTPSServer().startServer();
 //    new GetFacebookData().openLoginPage(port);
   }
 
-  public void firstAuth() throws GeneralSecurityException, IOException {
+  public void auth() throws Exception {
     Authorize auth = new Authorize();
     auth.authorize();
-    new CreateBroadcast().create(DevKey);
-    new CreateStream().create(DevKey);
-//    new BindBroadcast().bind("lxHYRPhbWHI", "6_D5ml1dU4SaK6ilhkeqVA1627838454504229", DevKey);
-    new GetStreamFromID().get("6_D5ml1dU4SaK6ilhkeqVA1627838454504229");
-  }
 
-  // 6_D5ml1dU4SaK6ilhkeqVA1627838454504229
-  // lxHYRPhbWHI
+    if (new ManageYoutubeData().checkFile("Data Files/YoutubeData.json")) {
+      new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
+
+      if (new ManageYoutubeData().getStreamIDFromFile() != null) {
+        new CheckStreamID().check(new ManageYoutubeData().getStreamIDFromFile());
+      } else {
+        new CreateStream().create(DevKey);
+        new ManageYoutubeData().saveFile();
+      }
+
+    } else {
+      new CreateBroadcast().create("Test Title", "Test Desc", DevKey);
+      new CreateStream().create(DevKey);
+
+      new ManageYoutubeData().saveFile();
+
+//      new BindBroadcast().bind("lxHYRPhbWHI", "6_D5ml1dU4SaK6ilhkeqVA1627838454504229", DevKey);
+//      new GetStreamFromID().get("6_D5ml1dU4SaK6ilhkeqVA1627838454504229");
+    }
+  }
 }

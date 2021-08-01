@@ -51,6 +51,12 @@ public class CreateStream {
         YouTube.LiveStreams.Insert request = youtubeService.liveStreams()
                 .insert("snippet,cdn,contentDetails,status", liveStream);
         LiveStream response = request.setKey(DevKey).execute();
-        System.out.println(response);
+        System.out.println(response.getId());
+        System.out.println(response.getCdn().getIngestionInfo().getStreamName());
+        System.out.println(response.getCdn().getIngestionInfo().getIngestionAddress());
+
+        new ManageYoutubeData().setStreamID(response.getId());
+        new ManageYoutubeData().setStreamKey(response.getCdn().getIngestionInfo().getStreamName());
+        new ManageYoutubeData().setStreamURL(response.getCdn().getIngestionInfo().getIngestionAddress());
     }
 }

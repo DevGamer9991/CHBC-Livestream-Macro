@@ -26,7 +26,7 @@ import java.util.Collection;
 
 public class CreateBroadcast {
 
-    public void create(String DevKey)
+    public void create(String streamName, String streamDesc, String DevKey)
             throws GeneralSecurityException, IOException, GoogleJsonResponseException {
         YouTube youtubeService = new Authorize().getService();
 
@@ -49,12 +49,13 @@ public class CreateBroadcast {
         Clock clock = Clock.system(ZoneId.of("US/Pacific"));
 
         snippet.setScheduledStartTime(new DateTime(clock.instant().toString()));
-        snippet.setTitle("Test broadcast");
+        snippet.setTitle(streamName);
+        snippet.setDescription(streamDesc);
         liveBroadcast.setSnippet(snippet);
 
         // Add the status object property to the LiveBroadcast object.
         LiveBroadcastStatus status = new LiveBroadcastStatus();
-        status.setPrivacyStatus("unlisted");
+        status.setPrivacyStatus("public");
         liveBroadcast.setStatus(status);
 
         // Define and execute the API request
@@ -62,5 +63,7 @@ public class CreateBroadcast {
                 .insert("snippet,contentDetails,status", liveBroadcast);
         LiveBroadcast response = request.setKey(DevKey).execute();
         System.out.println(response);
+
+        new ManageYoutubeData().setBroadcastID(response.getId());
     }
 }
