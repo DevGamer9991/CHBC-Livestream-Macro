@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class Authorize {
-    private static final String CLIENT_SECRETS= "/client_secret.json";
+    private static final String CLIENT_SECRETS= "/client_secret.json.old";
     private static final Collection<String> SCOPES =
             Arrays.asList("https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtube");
 
