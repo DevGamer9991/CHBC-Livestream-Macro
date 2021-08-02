@@ -2,6 +2,7 @@ package com.parker;
 
 import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
+import com.sun.tools.javac.Main;
 
 public class CreateYoutubeStream {
     public static final String DevKey = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
@@ -40,18 +41,22 @@ public class CreateYoutubeStream {
         ManageYoutubeData manageYoutubeData = new ManageYoutubeData();
 
         manageYoutubeData.setStreamKeyFromFile();
+        manageYoutubeData.setStreamURLFromFile();
 
         System.out.println("Binding");
 
         new BindBroadcast().bind(manageYoutubeData.getBroadcastID(), manageYoutubeData.getStreamID(), DevKey);
 
-
-
+        streamID = new ManageYoutubeData().getStreamID();
+        streamURL = new ManageYoutubeData().getStreamURL();
+        streamKey = new ManageYoutubeData().getStreamKey();
 
         System.out.println(new ManageYoutubeData().getBroadcastID());
         System.out.println(new ManageYoutubeData().getStreamID());
         System.out.println(new ManageYoutubeData().getStreamURL());
         System.out.println(new ManageYoutubeData().getStreamKey());
+
+        new MainWindow().setData();
     }
 
     public String getStreamID() {

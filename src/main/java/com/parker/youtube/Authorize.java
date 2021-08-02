@@ -87,7 +87,6 @@ public class Authorize {
 
     public Credential getCredentials(NetHttpTransport httpTransport) throws GeneralSecurityException, IOException, FileNotFoundException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
         InputStream in = Authorize.class.getResourceAsStream(CLIENT_SECRETS);
         if (in == null) {

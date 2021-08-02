@@ -4,6 +4,7 @@ import com.parker.CreateFacebookStream;
 import com.parker.CreateYoutubeStream;
 import com.parker.GetFacebookData;
 import com.parker.HTTPSServerThread;
+import com.parker.youtube.ManageYoutubeData;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -282,8 +283,6 @@ public class MainWindow extends javax.swing.JFrame {
             new CreateYoutubeStream().createYoutubeStream(streamTitleField.getText(), streamDescField.getText());
             CreateFacebookStream fbStreamCreator = new CreateFacebookStream();
 
-            CreateYoutubeStream createYoutubeStream = new CreateYoutubeStream();
-
             fbStreamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
 
             if (fbStreamCreator.getStreamID() != null && fbStreamCreator.getStreamURL() != null) {
@@ -291,15 +290,18 @@ public class MainWindow extends javax.swing.JFrame {
                 streamFBKeyField.setText(fbStreamCreator.getStreamURL());
             }
 
-            if (createYoutubeStream.getStreamID() != null && createYoutubeStream.getStreamURL() != null && createYoutubeStream.getStreamKey() != null && createYoutubeStream.getBroadcastID() != null) {
-                streamYTIDField.setText(createYoutubeStream.getStreamID());
-                streamYTKeyField.setText(createYoutubeStream.getStreamKey());
-                streamYTURLField.setText(createYoutubeStream.getStreamURL());
-            }
-
             GetFacebookData facebookData = new GetFacebookData();
 
             facebookData.saveTitleAndDesc(streamTitleField.getText(), streamDescField.getText());
+
+            System.out.println(new ManageYoutubeData().getBroadcastID());
+            System.out.println(new ManageYoutubeData().getStreamID());
+            System.out.println(new ManageYoutubeData().getStreamURL());
+            System.out.println(new ManageYoutubeData().getStreamKey());
+
+            streamYTIDField.setText(new ManageYoutubeData().getStreamID());
+            streamYTURLField.setText(new ManageYoutubeData().getStreamURL());
+            streamYTKeyField.setText(new ManageYoutubeData().getStreamKey());
 
             createStreamButton.setEnabled(false);
             streamTitleField.setEnabled(false);
@@ -423,12 +425,10 @@ public class MainWindow extends javax.swing.JFrame {
         return opened;
     }
 
-    public String getStreamTitle() {
-        return streamTitleField.getText();
-    }
-
-    public String getStreamDesc() {
-        return streamDescField.getText();
+    public void setData() {
+        streamYTIDField.setText(new CreateYoutubeStream().getStreamID());
+        streamYTURLField.setText(new CreateYoutubeStream().getStreamURL());
+        streamYTKeyField.setText(new CreateYoutubeStream().getStreamKey());
     }
 
 }

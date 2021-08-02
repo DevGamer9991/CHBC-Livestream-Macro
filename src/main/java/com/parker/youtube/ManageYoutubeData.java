@@ -17,12 +17,6 @@ public class ManageYoutubeData {
     public static String streamKey;
     public static String streamURL;
 
-    public void checkStreamID(String streamID) {
-
-
-
-    }
-
     public void saveFile() {
         try {
             Map<String, Object> map = new HashMap<>();
@@ -95,6 +89,27 @@ public class ManageYoutubeData {
         streamID = streamIDFromFile.getAsString();
 
         return streamIDFromFile.getAsString();
+    }
+
+    public String setStreamURLFromFile() throws Exception{
+
+        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+
+        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+        Gson gson = new Gson();
+
+        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+        JsonElement streamURLFromFile = jsonObject.get("streamURL");
+
+        if (streamURLFromFile == null) {
+            return null;
+        }
+
+        streamURL = streamURLFromFile.getAsString();
+
+        return streamURLFromFile.getAsString();
     }
 
     public void setStreamKeyFromFile() throws Exception{
