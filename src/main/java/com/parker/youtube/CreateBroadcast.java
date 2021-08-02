@@ -36,7 +36,10 @@ public class CreateBroadcast {
 
         // Add the contentDetails object property to the LiveBroadcast object.
         LiveBroadcastContentDetails contentDetails = new LiveBroadcastContentDetails();
+
         contentDetails.setEnableAutoStart(true);
+        contentDetails.set("enableAutoStart", true);
+
         contentDetails.setEnableClosedCaptions(true);
         contentDetails.setEnableContentEncryption(true);
         contentDetails.setEnableDvr(true);
