@@ -1,6 +1,8 @@
 
 import com.parker.CreateFacebookStream;
+import com.parker.CreateYoutubeStream;
 import com.parker.GetFacebookData;
+import com.parker.youtube.ManageYoutubeData;
 
 public class MainWindow extends javax.swing.JFrame {
     
@@ -278,18 +280,28 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
         try {
-            CreateFacebookStream streamCreator = new CreateFacebookStream();
+            new CreateYoutubeStream().createYoutubeStream(streamTitleField.getText(), streamDescField.getText());
+            CreateFacebookStream fbStreamCreator = new CreateFacebookStream();
 
-            streamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
+            fbStreamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
 
-            if (streamCreator.getStreamID() != null && streamCreator.getStreamURL() != null) {
-                streamFBIDField.setText(streamCreator.getStreamID());
-                streamYTKeyField.setText(streamCreator.getStreamURL());
+            if (fbStreamCreator.getStreamID() != null && fbStreamCreator.getStreamURL() != null) {
+                streamFBIDField.setText(fbStreamCreator.getStreamID());
+                streamFBKeyField.setText(fbStreamCreator.getStreamURL());
             }
 
             GetFacebookData facebookData = new GetFacebookData();
 
             facebookData.saveTitleAndDesc(streamTitleField.getText(), streamDescField.getText());
+
+            System.out.println(new ManageYoutubeData().getBroadcastID());
+            System.out.println(new ManageYoutubeData().getStreamID());
+            System.out.println(new ManageYoutubeData().getStreamURL());
+            System.out.println(new ManageYoutubeData().getStreamKey());
+
+            streamYTIDField.setText(new ManageYoutubeData().getStreamID());
+            streamYTURLField.setText(new ManageYoutubeData().getStreamURL());
+            streamYTKeyField.setText(new ManageYoutubeData().getStreamKey());
 
             createStreamButton.setEnabled(false);
             streamTitleField.setEnabled(false);
@@ -325,11 +337,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_streamFBKeyFieldActionPerformed
 
     private void copyYTKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTKeyButtonActionPerformed
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamYTKeyField.getText());
     }//GEN-LAST:event_copyYTKeyButtonActionPerformed
 
     private void copyYTURLButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTURLButtonActionPerformed
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamYTURLField.getText());
     }//GEN-LAST:event_copyYTURLButtonActionPerformed
 
     private void streamYTURLFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamYTURLFieldActionPerformed
@@ -337,11 +349,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_streamYTURLFieldActionPerformed
 
     private void copyYTIDButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTIDButton1ActionPerformed
-        // TODO add your handling code here:
+        new GetFacebookData().copy(streamYTIDField.getText());
     }//GEN-LAST:event_copyYTIDButton1ActionPerformed
 
     public void openMainWindow() {
-        /* Set the Nimbus look and feel */
+       /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
@@ -417,12 +429,10 @@ public class MainWindow extends javax.swing.JFrame {
         return opened;
     }
 
-    public String getStreamTitle() {
-        return streamTitleField.getText();
-    }
-
-    public String getStreamDesc() {
-        return streamDescField.getText();
+    public void setData() {
+        streamYTIDField.setText(new CreateYoutubeStream().getStreamID());
+        streamYTURLField.setText(new CreateYoutubeStream().getStreamURL());
+        streamYTKeyField.setText(new CreateYoutubeStream().getStreamKey());
     }
 
 }
