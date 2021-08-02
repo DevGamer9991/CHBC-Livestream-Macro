@@ -15,7 +15,6 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.4/jackson-core-2.12.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/pushing-pixels/radiance-trident/4.0.0/radiance-trident-4.0.0.jar" path-in-jar="/" />
-      <element id="module-output" name="chbc-livestream-macro" />
       <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
       <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
       <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.4" />
@@ -53,8 +52,7 @@
       <element id="library" level="project" name="Maven: org.pushing-pixels:radiance-substance:4.0.0" />
       <element id="library" level="project" name="Maven: org.pushing-pixels:radiance-trident:4.0.0" />
       <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.29" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/client_secret.json.old" />
-      <element id="module-output" name="CHBC-Livestream-Macro" />
+      <element id="module-output" name="chbc-livestream-macro" />
     </root>
   </artifact>
 </component>

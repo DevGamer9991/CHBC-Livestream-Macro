@@ -280,13 +280,21 @@ public class MainWindow extends javax.swing.JFrame {
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             new CreateYoutubeStream().createYoutubeStream(streamTitleField.getText(), streamDescField.getText());
-            CreateFacebookStream streamCreator = new CreateFacebookStream();
+            CreateFacebookStream fbStreamCreator = new CreateFacebookStream();
 
-            streamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
+            CreateYoutubeStream createYoutubeStream = new CreateYoutubeStream();
 
-            if (streamCreator.getStreamID() != null && streamCreator.getStreamURL() != null) {
-                streamFBIDField.setText(streamCreator.getStreamID());
-                streamFBKeyField.setText(streamCreator.getStreamURL());
+            fbStreamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
+
+            if (fbStreamCreator.getStreamID() != null && fbStreamCreator.getStreamURL() != null) {
+                streamFBIDField.setText(fbStreamCreator.getStreamID());
+                streamFBKeyField.setText(fbStreamCreator.getStreamURL());
+            }
+
+            if (createYoutubeStream.getStreamID() != null && createYoutubeStream.getStreamURL() != null && createYoutubeStream.getStreamKey() != null && createYoutubeStream.getBroadcastID() != null) {
+                streamYTIDField.setText(createYoutubeStream.getStreamID());
+                streamYTKeyField.setText(createYoutubeStream.getStreamKey());
+                streamYTURLField.setText(createYoutubeStream.getStreamURL());
             }
 
             GetFacebookData facebookData = new GetFacebookData();

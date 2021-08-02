@@ -6,6 +6,11 @@ import com.parker.youtube.*;
 public class CreateYoutubeStream {
     public static final String DevKey = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
 
+    public static String broadcastID;
+    public static String streamID;
+    public static String streamURL;
+    public static String streamKey;
+
     public void createYoutubeStream(String titleString, String descString) throws Exception {
         auth(titleString, descString);
     }
@@ -40,9 +45,25 @@ public class CreateYoutubeStream {
 
         new BindBroadcast().bind(manageYoutubeData.getBroadcastID(), manageYoutubeData.getStreamID(), DevKey);
 
+
+
+
         System.out.println(new ManageYoutubeData().getBroadcastID());
         System.out.println(new ManageYoutubeData().getStreamID());
         System.out.println(new ManageYoutubeData().getStreamURL());
         System.out.println(new ManageYoutubeData().getStreamKey());
+    }
+
+    public String getStreamID() {
+        return streamID;
+    }
+    public String getStreamURL() {
+        return streamURL;
+    }
+    public String getBroadcastID() {
+        return streamURL;
+    }
+    public String getStreamKey() {
+        return streamURL;
     }
 }
