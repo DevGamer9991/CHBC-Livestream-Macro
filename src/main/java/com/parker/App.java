@@ -20,6 +20,5 @@ public class App
 
   public static void main (String[] args) throws Exception{
     new HTTPSServer().startServer();
-    new GetFacebookData().openLoginPage(5000);
   }
 }

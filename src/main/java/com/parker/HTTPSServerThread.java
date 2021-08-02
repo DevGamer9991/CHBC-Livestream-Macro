@@ -28,6 +28,8 @@ import static java.lang.String.format;
  */
 public class HTTPSServerThread extends Thread{
 
+    public static boolean loginOpened = false;
+
     @Override
     public void run() {
         InetSocketAddress address = new InetSocketAddress("localhost",5000);
@@ -51,6 +53,11 @@ public class HTTPSServerThread extends Thread{
             sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
 
             ServerSocket serverSocket = sslContext.getServerSocketFactory().createServerSocket(address.getPort(), 0, address.getAddress());
+
+            if(!loginOpened) {
+                new GetFacebookData().openLoginPage(5000);
+                loginOpened = true;
+            }
 
             while (true) {
                 try {
