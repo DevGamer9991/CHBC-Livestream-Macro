@@ -38,7 +38,7 @@ public class CreateBroadcast {
         LiveBroadcastContentDetails contentDetails = new LiveBroadcastContentDetails();
 
         contentDetails.setEnableAutoStart(true);
-        contentDetails.set("enableAutoStart", true);
+        contentDetails.set("enableAutoStop", true);
 
         contentDetails.setEnableClosedCaptions(true);
         contentDetails.setEnableContentEncryption(true);
@@ -60,6 +60,7 @@ public class CreateBroadcast {
 
         // Add the status object property to the LiveBroadcast object.
         LiveBroadcastStatus status = new LiveBroadcastStatus();
+        status.setSelfDeclaredMadeForKids(false);
         status.setPrivacyStatus("public");
         liveBroadcast.setStatus(status);
 
