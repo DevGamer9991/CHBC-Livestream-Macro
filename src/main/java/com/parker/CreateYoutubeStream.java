@@ -2,7 +2,6 @@ package com.parker;
 
 import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
-import com.sun.tools.javac.Main;
 
 public class CreateYoutubeStream {
     public static final String DevKey = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
@@ -66,9 +65,9 @@ public class CreateYoutubeStream {
         return streamURL;
     }
     public String getBroadcastID() {
-        return streamURL;
+        return broadcastID;
     }
     public String getStreamKey() {
-        return streamURL;
+        return streamKey;
     }
 }

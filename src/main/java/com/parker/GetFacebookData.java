@@ -55,42 +55,6 @@ public class GetFacebookData {
         }
     }
 
-    public String getID() throws Exception{
-        try {
-            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=id&access_token=" + getAccessToken());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setRequestMethod("GET");
-
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-
-            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-            String token = null;
-
-            Gson gson = new Gson();
-
-            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-
-            String id = jsonObject.get("id").getAsString();
-
-            System.out.println(id);
-
-            return id;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void getManagedPages() {
-        // String pageName = "Page2";
-        // String pageID = getManagedPagesID(pageName);
-        // String pageToken = getManagedPagesAccessToken(pageName);
-    }
-
     public void setAccessToken(InputStream input) {
         String s = null;
         try {
@@ -309,6 +273,7 @@ public class GetFacebookData {
             return null;
         }
     }
+
     public String getManagedPagesID(String pageName) {
         String managedPagesJson = getManagedPagesJSON();
 
