@@ -5,6 +5,9 @@ import com.parker.CreateYoutubeStream;
 import com.parker.GetFacebookData;
 import com.parker.youtube.ManageYoutubeData;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class MainWindow extends javax.swing.JFrame {
 
     public static boolean opened = false;
@@ -356,7 +359,7 @@ public class MainWindow extends javax.swing.JFrame {
         new GetFacebookData().copy(streamYTIDField.getText());
     }
 
-    public void openMainWindow() {
+    public void openMainWindow() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
