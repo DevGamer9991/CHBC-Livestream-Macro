@@ -12,7 +12,11 @@ public class CreateYoutubeStream {
     public static String streamKey;
 
     public void createYoutubeStream(String titleString, String descString) throws Exception {
-        auth(titleString, descString);
+        if (!titleString.equals("")){
+            auth(titleString, descString);
+        } else {
+            auth("Test Stream", descString);
+        }
     }
 
     public void auth(String titleString, String descString) throws Exception {
@@ -56,6 +60,8 @@ public class CreateYoutubeStream {
         System.out.println(new ManageYoutubeData().getStreamKey());
 
         new MainWindow().setData();
+
+        new MainWindow().setLoadingBar(16);
     }
 
     public String getStreamID() {

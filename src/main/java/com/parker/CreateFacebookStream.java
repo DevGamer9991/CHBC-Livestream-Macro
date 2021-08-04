@@ -46,6 +46,8 @@ public class CreateFacebookStream{
         } else {
             System.out.println("\n Didnt work \n" + jsonObject.toString());
         }
+
+        new MainWindow().setLoadingBar(32);
     }
 
     public String getStreamID() {
