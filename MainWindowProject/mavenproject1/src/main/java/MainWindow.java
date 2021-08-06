@@ -1,12 +1,11 @@
 
 import com.parker.CreateFacebookStream;
 import com.parker.CreateYoutubeStream;
-import com.parker.GetFacebookData;
+import com.parker.facebook.GetFacebookData;
 import com.parker.youtube.ManageYoutubeData;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -126,6 +125,9 @@ public class MainWindow extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 errorDialogWindowClosed(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                errorDialogWindowOpened(evt);
+            }
         });
 
         jPanel2.setBackground(new java.awt.Color(58, 57, 58));
@@ -134,11 +136,15 @@ public class MainWindow extends javax.swing.JFrame {
         errorTextArea.setBackground(new java.awt.Color(30, 29, 30));
         errorTextArea.setColumns(20);
         errorTextArea.setForeground(new java.awt.Color(204, 204, 204));
+        errorTextArea.setLineWrap(true);
         errorTextArea.setRows(5);
         errorTextArea.setCaretColor(new java.awt.Color(255, 255, 255));
         errorTextArea.setSelectionColor(new java.awt.Color(204, 204, 204));
         jScrollPane2.setViewportView(errorTextArea);
 
+        errorOKButton.setBackground(new java.awt.Color(76, 76, 76));
+        errorOKButton.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        errorOKButton.setForeground(new java.awt.Color(204, 204, 204));
         errorOKButton.setText("OK");
         errorOKButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +173,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(errorOKButton)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout errorDialogLayout = new javax.swing.GroupLayout(errorDialog.getContentPane());
@@ -551,7 +557,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_createStreamButtonActionPerformed
 
     private void copyFBKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBKeyButtonActionPerformed
-        new GetFacebookData().copy(streamYTKeyField.getText());
+        new GetFacebookData().copy(streamFBKeyField.getText());
     }//GEN-LAST:event_copyFBKeyButtonActionPerformed
 
     private void copyFBIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBIDButtonActionPerformed
@@ -576,13 +582,18 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void loadingDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadingDialogWindowClosed
         createStreamsThread.stop();
-        
+
         set(true);
     }//GEN-LAST:event_loadingDialogWindowClosed
 
     private void errorDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowClosed
         set(true);
+        loadingDialog.dispose();
     }//GEN-LAST:event_errorDialogWindowClosed
+
+    private void errorDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowOpened
+        
+    }//GEN-LAST:event_errorDialogWindowOpened
 
     public void openMainWindow() {
         try {
@@ -674,23 +685,23 @@ public class MainWindow extends javax.swing.JFrame {
         jdialog.setAlwaysOnTop(bool);
         jdialog.setVisible(bool);
     }
-    
+
     public void setErrorData(String error) {
+        loadingDialog.dispose();
+
         errorTextArea.setText(error);
         pack();
     }
-    
+
     public void errorCalled(String error) {
-        setDialogData(loadingDialog, false);
-        
         set(false);
 
-        setDialogData(errorDialog, true);
-        
         setErrorData(error);
-        
+
+        errorDialog.setLocationRelativeTo(jPanel2);
+        errorDialog.setAlwaysOnTop(true);
         errorDialog.setVisible(true);
-        
+
         createStreamsThread.stop();
     }
 }
