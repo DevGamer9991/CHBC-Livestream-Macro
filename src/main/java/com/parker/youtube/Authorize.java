@@ -155,7 +155,7 @@ public class Authorize {
         } catch (Exception e){
             if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
             Thread.sleep(1000);
-            System.out.println("Errored Out Retrying and Ending in " + timeOut + " Out of 15 Seconds");
+            System.out.println("Error When Authorizing Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;
             return useRefreshToken(refreshToken, httpTransport);
         }

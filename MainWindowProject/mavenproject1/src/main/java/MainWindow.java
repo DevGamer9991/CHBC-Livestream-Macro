@@ -62,12 +62,13 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTURL = new javax.swing.JLabel();
         copyYTIDButton1 = new javax.swing.JButton();
 
+        loadingDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         loadingDialog.setTitle("Creating Livestreams");
         loadingDialog.setResizable(false);
         loadingDialog.setSize(new java.awt.Dimension(395, 152));
         loadingDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowDeactivated(java.awt.event.WindowEvent evt) {
-                loadingDialogWindowDeactivated(evt);
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                loadingDialogWindowClosed(evt);
             }
         });
 
@@ -115,21 +116,21 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        errorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         errorDialog.setTitle("Error Occurred");
         errorDialog.setName("Error Occurred"); // NOI18N
         errorDialog.setPreferredSize(new java.awt.Dimension(474, 345));
         errorDialog.setResizable(false);
         errorDialog.setSize(new java.awt.Dimension(474, 345));
         errorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowDeactivated(java.awt.event.WindowEvent evt) {
-                errorDialogWindowDeactivated(evt);
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                errorDialogWindowClosed(evt);
             }
         });
 
         jPanel2.setBackground(new java.awt.Color(58, 57, 58));
         jPanel2.setForeground(new java.awt.Color(153, 153, 153));
 
-        errorTextArea.setEditable(false);
         errorTextArea.setBackground(new java.awt.Color(30, 29, 30));
         errorTextArea.setColumns(20);
         errorTextArea.setForeground(new java.awt.Color(204, 204, 204));
@@ -206,11 +207,6 @@ public class MainWindow extends javax.swing.JFrame {
         streamTitleField.setForeground(new java.awt.Color(204, 204, 204));
         streamTitleField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamTitleField.setSelectionColor(new java.awt.Color(204, 204, 204));
-        streamTitleField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamTitleFieldActionPerformed(evt);
-            }
-        });
 
         streamDescLabel.setBackground(java.awt.Color.darkGray);
         streamDescLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -237,11 +233,6 @@ public class MainWindow extends javax.swing.JFrame {
         streamFBIDField.setForeground(new java.awt.Color(204, 204, 204));
         streamFBIDField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamFBIDField.setSelectionColor(new java.awt.Color(204, 204, 204));
-        streamFBIDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamFBIDFieldActionPerformed(evt);
-            }
-        });
 
         streamFBIDLabel.setBackground(java.awt.Color.darkGray);
         streamFBIDLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -258,11 +249,6 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTKeyField.setForeground(new java.awt.Color(204, 204, 204));
         streamYTKeyField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamYTKeyField.setSelectionColor(new java.awt.Color(204, 204, 204));
-        streamYTKeyField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamYTKeyFieldActionPerformed(evt);
-            }
-        });
 
         streamYTDataLabel.setBackground(java.awt.Color.darkGray);
         streamYTDataLabel.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
@@ -323,22 +309,12 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTIDField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamYTIDField.setSelectedTextColor(new java.awt.Color(204, 204, 204));
         streamYTIDField.setSelectionColor(new java.awt.Color(204, 204, 204));
-        streamYTIDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamYTIDFieldActionPerformed(evt);
-            }
-        });
 
         streamFBKeyField.setEditable(false);
         streamFBKeyField.setBackground(new java.awt.Color(30, 29, 30));
         streamFBKeyField.setForeground(new java.awt.Color(204, 204, 204));
         streamFBKeyField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamFBKeyField.setSelectionColor(new java.awt.Color(204, 204, 204));
-        streamFBKeyField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamFBKeyFieldActionPerformed(evt);
-            }
-        });
 
         copyYTKeyButton.setBackground(new java.awt.Color(76, 76, 76));
         copyYTKeyButton.setFont(copyYTKeyButton.getFont().deriveFont(copyYTKeyButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTKeyButton.getFont().getSize()+1));
@@ -365,11 +341,6 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTURLField.setForeground(new java.awt.Color(204, 204, 204));
         streamYTURLField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamYTURLField.setSelectionColor(new java.awt.Color(204, 204, 204));
-        streamYTURLField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streamYTURLFieldActionPerformed(evt);
-            }
-        });
 
         streamYTURL.setBackground(java.awt.Color.darkGray);
         streamYTURL.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -512,10 +483,6 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void streamTitleFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamTitleFieldActionPerformed
-
-    }//GEN-LAST:event_streamTitleFieldActionPerformed
-
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
         loadingBar.setValue(0);
         pack();
@@ -583,14 +550,6 @@ public class MainWindow extends javax.swing.JFrame {
         createStreamsThread.start();
     }//GEN-LAST:event_createStreamButtonActionPerformed
 
-    private void streamYTKeyFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamYTKeyFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streamYTKeyFieldActionPerformed
-
-    private void streamFBIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamFBIDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streamFBIDFieldActionPerformed
-
     private void copyFBKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBKeyButtonActionPerformed
         new GetFacebookData().copy(streamYTKeyField.getText());
     }//GEN-LAST:event_copyFBKeyButtonActionPerformed
@@ -598,14 +557,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void copyFBIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBIDButtonActionPerformed
         new GetFacebookData().copy(streamFBIDField.getText());
     }//GEN-LAST:event_copyFBIDButtonActionPerformed
-
-    private void streamYTIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamYTIDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streamYTIDFieldActionPerformed
-
-    private void streamFBKeyFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamFBKeyFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streamFBKeyFieldActionPerformed
 
     private void copyYTKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTKeyButtonActionPerformed
         new GetFacebookData().copy(streamYTKeyField.getText());
@@ -615,27 +566,23 @@ public class MainWindow extends javax.swing.JFrame {
         new GetFacebookData().copy(streamYTURLField.getText());
     }//GEN-LAST:event_copyYTURLButtonActionPerformed
 
-    private void streamYTURLFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamYTURLFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streamYTURLFieldActionPerformed
-
     private void copyYTIDButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTIDButton1ActionPerformed
         new GetFacebookData().copy(streamYTIDField.getText());
     }//GEN-LAST:event_copyYTIDButton1ActionPerformed
-
-    private void errorDialogWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowDeactivated
-        set(true);
-    }//GEN-LAST:event_errorDialogWindowDeactivated
 
     private void errorOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorOKButtonActionPerformed
         errorDialog.setVisible(false);
     }//GEN-LAST:event_errorOKButtonActionPerformed
 
-    private void loadingDialogWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadingDialogWindowDeactivated
+    private void loadingDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadingDialogWindowClosed
         createStreamsThread.stop();
         
         set(true);
-    }//GEN-LAST:event_loadingDialogWindowDeactivated
+    }//GEN-LAST:event_loadingDialogWindowClosed
+
+    private void errorDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowClosed
+        set(true);
+    }//GEN-LAST:event_errorDialogWindowClosed
 
     public void openMainWindow() {
         try {
@@ -743,5 +690,7 @@ public class MainWindow extends javax.swing.JFrame {
         setErrorData(error);
         
         errorDialog.setVisible(true);
+        
+        createStreamsThread.stop();
     }
 }

@@ -1,7 +1,7 @@
 package com.parker;
 
 import com.parker.MainWindow.MainWindow;
-import com.sun.tools.javac.Main;
+import com.parker.facebook.GetFacebookData;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -9,15 +9,9 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.KeyStore;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import static java.lang.String.format;
 

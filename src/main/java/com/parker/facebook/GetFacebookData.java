@@ -1,4 +1,4 @@
-package com.parker;
+package com.parker.facebook;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -10,6 +10,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,35 +28,35 @@ public class GetFacebookData {
     public static String access_token;
     public static String page_id;
 
-    public String getName() throws Exception{
-        try {
-            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=name&access_token=" + getAccessToken());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setRequestMethod("GET");
-
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-
-            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-            String token = null;
-
-            Gson gson = new Gson();
-
-            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-
-            String name = jsonObject.get("name").getAsString();
-
-            System.out.println(name);
-
-            return name;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public String getName() throws Exception{
+//        try {
+//            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=name&access_token=" + getAccessToken());
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            conn.setConnectTimeout(5000);
+//            conn.setDoOutput(true);
+//            conn.setDoInput(true);
+//            conn.setRequestMethod("GET");
+//
+//            InputStream in = new BufferedInputStream(conn.getInputStream());
+//
+//            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+//
+//            String token = null;
+//
+//            Gson gson = new Gson();
+//
+//            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+//
+//            String name = jsonObject.get("name").getAsString();
+//
+//            System.out.println(name);
+//
+//            return name;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     public void setAccessToken(InputStream input) {
         String s = null;
@@ -118,52 +119,6 @@ public class GetFacebookData {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-    public String getManagedPagesJSON() {
-        try {
-            URL url = new URL("https://graph.facebook.com/v11.0/me/accounts?fields=id%2Cname%2Caccess_token&access_token=" + getAccessToken());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setRequestMethod("GET");
-
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-
-            String result = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-            return result;
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String getPageAccessToken(String pageName) throws Exception{
-        URL url = new URL("https://graph.facebook.com/v11.0/" + getManagedPagesID(pageName) + "?fields=access_token&access_token=" + getAccessToken());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setConnectTimeout(5000);
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        conn.setRequestMethod("GET");
-
-        InputStream in = new BufferedInputStream(conn.getInputStream());
-
-        String json = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-        String token = null;
-
-        Gson gson = new Gson();
-
-        Map<?, ?> map = gson.fromJson(json, Map.class);
-
-        for (Map.Entry<?, ?> entry : map.entrySet()) {
-            if (entry.getKey().toString().contains("access")) {
-                token = entry.getValue().toString();
-            }
-        }
-        return token;
     }
 
     public void saveTitleAndDesc(String title, String desc) {
@@ -248,7 +203,7 @@ public class GetFacebookData {
     }
 
     public String getManagedPagesAccessToken(String pageName) {
-        String managedPagesJson = getManagedPagesJSON();
+        String managedPagesJson = new GetManagedPagesJSON().get();
 
         if (managedPagesJson != null) {
             Gson gson = new Gson();
@@ -277,7 +232,7 @@ public class GetFacebookData {
     }
 
     public String getManagedPagesID(String pageName) {
-        String managedPagesJson = getManagedPagesJSON();
+        String managedPagesJson = new GetManagedPagesJSON().get();
 
         System.out.println(managedPagesJson);
 

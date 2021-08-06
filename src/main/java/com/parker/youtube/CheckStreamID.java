@@ -40,7 +40,7 @@ public class CheckStreamID {
             timeOut = 0;
             return true;
         } catch (Exception e) {
-            if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
             Thread.sleep(1000);
             System.out.println("Stream ID Is Not Valid Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;

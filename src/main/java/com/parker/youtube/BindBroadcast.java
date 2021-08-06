@@ -26,7 +26,7 @@ public class BindBroadcast {
                     .execute();
             System.out.println(response);
         }catch (Exception e) {
-            if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
             Thread.sleep(1000);
             System.out.println("Error When Checking Stream ID Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;

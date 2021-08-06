@@ -77,7 +77,7 @@ public class CreateBroadcast {
 
             new ManageYoutubeData().setBroadcastID(response.getId());
         }catch (Exception e) {
-            if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
             Thread.sleep(1000);
             System.out.println("Error When Creating Broadcast Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;
