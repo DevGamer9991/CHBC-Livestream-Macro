@@ -16,6 +16,7 @@ import com.google.api.services.youtube.model.LiveBroadcast;
 import com.google.api.services.youtube.model.LiveBroadcastContentDetails;
 import com.google.api.services.youtube.model.LiveBroadcastSnippet;
 import com.google.api.services.youtube.model.LiveBroadcastStatus;
+import com.parker.MainWindow.MainWindow;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -27,49 +28,60 @@ import java.util.Date;
 
 public class CreateBroadcast {
 
+    int timeOut;
+
     public void create(String streamName, String streamDesc, String DevKey)
-            throws GeneralSecurityException, IOException, GoogleJsonResponseException {
-        YouTube youtubeService = new Authorize().getService();
+            throws GeneralSecurityException, IOException, GoogleJsonResponseException, InterruptedException {
 
-        // Define the LiveBroadcast object, which will be uploaded as the request body.
-        LiveBroadcast liveBroadcast = new LiveBroadcast();
+        try{
+            YouTube youtubeService = new Authorize().getService();
 
-        // Add the contentDetails object property to the LiveBroadcast object.
-        LiveBroadcastContentDetails contentDetails = new LiveBroadcastContentDetails();
+            // Define the LiveBroadcast object, which will be uploaded as the request body.
+            LiveBroadcast liveBroadcast = new LiveBroadcast();
 
-        contentDetails.setEnableAutoStart(true);
-        contentDetails.set("enableAutoStop", true);
+            // Add the contentDetails object property to the LiveBroadcast object.
+            LiveBroadcastContentDetails contentDetails = new LiveBroadcastContentDetails();
 
-        contentDetails.setEnableClosedCaptions(true);
-        contentDetails.setEnableContentEncryption(true);
-        contentDetails.setEnableDvr(true);
-        contentDetails.setEnableEmbed(true);
-        contentDetails.setRecordFromStart(true);
-        contentDetails.setStartWithSlate(true);
-        liveBroadcast.setContentDetails(contentDetails);
+            contentDetails.setEnableAutoStart(true);
+            contentDetails.set("enableAutoStop", true);
 
-        // Add the snippet object property to the LiveBroadcast object.
-        LiveBroadcastSnippet snippet = new LiveBroadcastSnippet();
+            contentDetails.setEnableClosedCaptions(true);
+            contentDetails.setEnableContentEncryption(true);
+            contentDetails.setEnableDvr(true);
+            contentDetails.setEnableEmbed(true);
+            contentDetails.setRecordFromStart(true);
+            contentDetails.setStartWithSlate(true);
+            liveBroadcast.setContentDetails(contentDetails);
 
-        Clock clock = Clock.system(ZoneId.of("US/Pacific"));
+            // Add the snippet object property to the LiveBroadcast object.
+            LiveBroadcastSnippet snippet = new LiveBroadcastSnippet();
 
-        snippet.setScheduledStartTime(new DateTime(Date.from(clock.instant())));
-        snippet.setTitle(streamName);
-        snippet.setDescription(streamDesc);
-        liveBroadcast.setSnippet(snippet);
+            Clock clock = Clock.system(ZoneId.of("US/Pacific"));
 
-        // Add the status object property to the LiveBroadcast object.
-        LiveBroadcastStatus status = new LiveBroadcastStatus();
-        status.setSelfDeclaredMadeForKids(false);
-        status.setPrivacyStatus("public");
-        liveBroadcast.setStatus(status);
+            snippet.setScheduledStartTime(new DateTime(Date.from(clock.instant())));
+            snippet.setTitle(streamName);
+            snippet.setDescription(streamDesc);
+            liveBroadcast.setSnippet(snippet);
 
-        // Define and execute the API request
-        YouTube.LiveBroadcasts.Insert request = youtubeService.liveBroadcasts()
-                .insert("snippet,contentDetails,status", liveBroadcast);
-        LiveBroadcast response = request.setKey(DevKey).execute();
-        System.out.println(response);
+            // Add the status object property to the LiveBroadcast object.
+            LiveBroadcastStatus status = new LiveBroadcastStatus();
+            status.setSelfDeclaredMadeForKids(false);
+            status.setPrivacyStatus("public");
+            liveBroadcast.setStatus(status);
 
-        new ManageYoutubeData().setBroadcastID(response.getId());
+            // Define and execute the API request
+            YouTube.LiveBroadcasts.Insert request = youtubeService.liveBroadcasts()
+                    .insert("snippet,contentDetails,status", liveBroadcast);
+            LiveBroadcast response = request.setKey(DevKey).execute();
+            System.out.println(response);
+
+            new ManageYoutubeData().setBroadcastID(response.getId());
+        }catch (Exception e) {
+            if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            Thread.sleep(1000);
+            System.out.println("Error When Creating Broadcast Retrying and Ending in " + timeOut + " Out of 20 Retries");
+            timeOut++;
+            create(streamName, streamDesc, DevKey);
+        }
     }
 }

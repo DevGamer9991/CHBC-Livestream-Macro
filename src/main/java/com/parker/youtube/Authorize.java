@@ -21,6 +21,7 @@ import com.google.api.services.youtube.YouTubeScopes;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.App;
+import com.parker.MainWindow.MainWindow;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -45,7 +46,9 @@ public class Authorize {
 
     public static String refreshToken;
 
-    public void authorize() throws IOException, GeneralSecurityException {
+    int timeOut;
+
+    public void authorize() throws IOException, GeneralSecurityException, InterruptedException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
         File file = new File("Data Files/RefreshToken.json");
@@ -85,7 +88,7 @@ public class Authorize {
         }
     }
 
-    public Credential getCredentials(NetHttpTransport httpTransport) throws GeneralSecurityException, IOException, FileNotFoundException {
+    public Credential getCredentials(NetHttpTransport httpTransport) throws GeneralSecurityException, IOException, FileNotFoundException, InterruptedException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
         InputStream in = Authorize.class.getResourceAsStream(CLIENT_SECRETS);
@@ -131,18 +134,31 @@ public class Authorize {
             ex.printStackTrace();
             return null;
         }
-        credential.setAccessToken(useRefreshToken(refreshToken, httpTransport));
+        try {
+            credential.setAccessToken(useRefreshToken(refreshToken, httpTransport));
+        }catch (Exception e){
+            new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+        }
         credential.setRefreshToken(refreshToken);
 
         return credential;
     }
 
-    public String useRefreshToken(String refreshToken, NetHttpTransport httpTransport) throws IOException {
-        TokenResponse tokenResponse = new GoogleRefreshTokenRequest(httpTransport, JacksonFactory.getDefaultInstance(), refreshToken, "895756277270-irp13i4jovn0codvnefgisu0k78draho.apps.googleusercontent.com", "flAkUj9xOcQeYItZPvqJpsPG").setGrantType("refresh_token").setScopes(SCOPES).execute();
+    public String useRefreshToken(String refreshToken, NetHttpTransport httpTransport) throws InterruptedException {
+        try{
+            TokenResponse tokenResponse = new GoogleRefreshTokenRequest(httpTransport, JacksonFactory.getDefaultInstance(), refreshToken, "895756277270-irp13i4jovn0codvnefgisu0k78draho.apps.googleusercontent.com", "flAkUj9xOcQeYItZPvqJpsPG").setGrantType("refresh_token").setScopes(SCOPES).execute();
+            System.out.println(tokenResponse + "\n");
 
-        System.out.println(tokenResponse.getAccessToken());
+            System.out.println(tokenResponse.getAccessToken());
 
-        return tokenResponse.getAccessToken();
+            return tokenResponse.getAccessToken();
+        } catch (Exception e){
+            if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            Thread.sleep(1000);
+            System.out.println("Errored Out Retrying and Ending in " + timeOut + " Out of 15 Seconds");
+            timeOut++;
+            return useRefreshToken(refreshToken, httpTransport);
+        }
     }
 
     public Credential getCredential() {

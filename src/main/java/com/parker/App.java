@@ -21,7 +21,6 @@ public class App
   public static Integer port = 5000;
 
   public static void main(String[] args) throws Exception{
-
     new HTTPSServer().startServer();
   }
 }

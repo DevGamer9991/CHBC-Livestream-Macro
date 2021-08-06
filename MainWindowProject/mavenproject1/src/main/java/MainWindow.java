@@ -15,6 +15,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public class MainWindow extends javax.swing.JFrame {
     
     public static boolean opened = false;
+    
+    public static Thread createStreamsThread;
 
     public MainWindow() {
         initComponents();   
@@ -28,6 +30,11 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         loadingBar = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
+        errorDialog = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        errorTextArea = new javax.swing.JTextArea();
+        errorOKButton = new javax.swing.JButton();
         mainJPanel = new javax.swing.JPanel();
         mainWindowtitle = new javax.swing.JLabel();
         streamTitleLabel = new javax.swing.JLabel();
@@ -55,10 +62,14 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTURL = new javax.swing.JLabel();
         copyYTIDButton1 = new javax.swing.JButton();
 
-        loadingDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         loadingDialog.setTitle("Creating Livestreams");
         loadingDialog.setResizable(false);
         loadingDialog.setSize(new java.awt.Dimension(395, 152));
+        loadingDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                loadingDialogWindowDeactivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(58, 57, 58));
 
@@ -102,6 +113,71 @@ public class MainWindow extends javax.swing.JFrame {
         loadingDialogLayout.setVerticalGroup(
             loadingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        errorDialog.setTitle("Error Occurred");
+        errorDialog.setName("Error Occurred"); // NOI18N
+        errorDialog.setPreferredSize(new java.awt.Dimension(474, 345));
+        errorDialog.setResizable(false);
+        errorDialog.setSize(new java.awt.Dimension(474, 345));
+        errorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                errorDialogWindowDeactivated(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(58, 57, 58));
+        jPanel2.setForeground(new java.awt.Color(153, 153, 153));
+
+        errorTextArea.setEditable(false);
+        errorTextArea.setBackground(new java.awt.Color(30, 29, 30));
+        errorTextArea.setColumns(20);
+        errorTextArea.setForeground(new java.awt.Color(204, 204, 204));
+        errorTextArea.setRows(5);
+        errorTextArea.setCaretColor(new java.awt.Color(255, 255, 255));
+        errorTextArea.setSelectionColor(new java.awt.Color(204, 204, 204));
+        jScrollPane2.setViewportView(errorTextArea);
+
+        errorOKButton.setText("OK");
+        errorOKButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                errorOKButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addComponent(errorOKButton))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(errorOKButton)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout errorDialogLayout = new javax.swing.GroupLayout(errorDialog.getContentPane());
+        errorDialog.getContentPane().setLayout(errorDialogLayout);
+        errorDialogLayout.setHorizontalGroup(
+            errorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        errorDialogLayout.setVerticalGroup(
+            errorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -441,11 +517,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_streamTitleFieldActionPerformed
 
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
+        loadingBar.setValue(0);
+        pack();
+        
         setDialogData(loadingDialog, true);
 
         set(false);
 
-        Thread t = new Thread(new Runnable() {
+        createStreamsThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -501,7 +580,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        t.start();
+        createStreamsThread.start();
     }//GEN-LAST:event_createStreamButtonActionPerformed
 
     private void streamYTKeyFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamYTKeyFieldActionPerformed
@@ -544,6 +623,20 @@ public class MainWindow extends javax.swing.JFrame {
         new GetFacebookData().copy(streamYTIDField.getText());
     }//GEN-LAST:event_copyYTIDButton1ActionPerformed
 
+    private void errorDialogWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowDeactivated
+        set(true);
+    }//GEN-LAST:event_errorDialogWindowDeactivated
+
+    private void errorOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorOKButtonActionPerformed
+        errorDialog.setVisible(false);
+    }//GEN-LAST:event_errorOKButtonActionPerformed
+
+    private void loadingDialogWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadingDialogWindowDeactivated
+        createStreamsThread.stop();
+        
+        set(true);
+    }//GEN-LAST:event_loadingDialogWindowDeactivated
+
     public void openMainWindow() {
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
@@ -578,9 +671,14 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JButton copyYTKeyButton;
     public javax.swing.JButton copyYTURLButton;
     public javax.swing.JButton createStreamButton;
+    public javax.swing.JDialog errorDialog;
+    public javax.swing.JButton errorOKButton;
+    public javax.swing.JTextArea errorTextArea;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel2;
     public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel livestreamSettingsLabel;
     public javax.swing.JProgressBar loadingBar;
     public javax.swing.JDialog loadingDialog;
@@ -628,5 +726,22 @@ public class MainWindow extends javax.swing.JFrame {
         jdialog.setLocationRelativeTo(mainJPanel);
         jdialog.setAlwaysOnTop(bool);
         jdialog.setVisible(bool);
+    }
+    
+    public void setErrorData(String error) {
+        errorTextArea.setText(error);
+        pack();
+    }
+    
+    public void errorCalled(String error) {
+        setDialogData(loadingDialog, false);
+        
+        set(false);
+
+        setDialogData(errorDialog, true);
+        
+        setErrorData(error);
+        
+        errorDialog.setVisible(true);
     }
 }
