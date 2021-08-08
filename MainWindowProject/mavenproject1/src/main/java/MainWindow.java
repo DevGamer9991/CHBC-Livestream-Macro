@@ -384,6 +384,11 @@ public class MainWindow extends javax.swing.JFrame {
         FBConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         FBConnected.setForeground(new java.awt.Color(204, 204, 204));
         FBConnected.setText("FB Not Connected");
+        FBConnected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FBConnectedActionPerformed(evt);
+            }
+        });
 
         YTConnected.setBackground(new java.awt.Color(76, 76, 76));
         YTConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -474,7 +479,7 @@ public class MainWindow extends javax.swing.JFrame {
         mainJPanelLayout.setVerticalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -485,11 +490,11 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(YTConnected)
                             .addComponent(streamFBIDLabel2)))
                     .addComponent(mainWindowtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addComponent(livestreamSettingsLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(streamFBIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(streamFBIDLabel)
@@ -502,9 +507,9 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(43, 43, 43)))
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainJPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(streamDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 4, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -545,9 +550,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(mainJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(mainJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -660,8 +663,12 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_errorDialogWindowOpened
 
     private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YTConnectedActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_YTConnectedActionPerformed
+
+    private void FBConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FBConnectedActionPerformed
+        
+    }//GEN-LAST:event_FBConnectedActionPerformed
 
     public void openMainWindow() {
         try {
