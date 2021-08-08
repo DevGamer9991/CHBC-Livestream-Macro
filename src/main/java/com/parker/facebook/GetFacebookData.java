@@ -16,6 +16,7 @@ import java.util.Map;
 
 import com.google.gson.*;
 import com.parker.MainWindow.MainWindow;
+import com.parker.youtube.GetYoutubeName;
 import com.restfb.json.Json;
 import com.sun.tools.javac.Main;
 
@@ -73,6 +74,8 @@ public class GetFacebookData {
             access_token = s3[0];
 
             System.out.println(access_token);
+
+            new MainWindow().setFBName(new GetFacebookData().getName());
         }
     }
 

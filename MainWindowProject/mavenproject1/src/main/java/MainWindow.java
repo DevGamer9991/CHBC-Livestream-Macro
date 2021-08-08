@@ -23,15 +23,11 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents(); 
         
-        if (pageName == null){
-            
-        }else {
+        if (pageName != null){
             setFBConnected(pageName);
         }
-        
-        if (channelName == null){
-            
-        }else {
+
+        if (channelName != null){
             setYTConnected(channelName);
         }
     }
@@ -560,7 +556,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
         loadingBar.setValue(0);
         pack();
-        
+
         setDialogData(loadingDialog, true);
 
         set(false);
@@ -781,20 +777,24 @@ public class MainWindow extends javax.swing.JFrame {
 
         createStreamsThread.stop();
     }
-    
+
     public void setFBConnected(String pageName) {
         FBConnected.setEnabled(false);
-        YTConnected.setText("FB Connected With: " + pageName);
+        FBConnected.setText("FB Connected With: " + pageName);
         pack();
     }
-    
+
     public void setYTConnected(String channelName) {
         YTConnected.setEnabled(false);
         YTConnected.setText("YT Connected With: " + channelName);
         pack();
     }
-    
+
     public void setYTName(String name) {
-        
+        channelName = name;
+    }
+
+    public void setFBName(String name) {
+        pageName = name;
     }
 }

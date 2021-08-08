@@ -85,8 +85,8 @@ public class HTTPSServerThread extends Thread{
 
                         new CreateYoutubeStream().auth();
 
-                        new MainWindow().setFBName(new GetFacebookData().getName());
-                        new MainWindow().setYTName(new GetYoutubeName().get());
+//                        new MainWindow().setFBName(new GetFacebookData().getName());
+//                        new MainWindow().setYTName(new GetYoutubeName().get());
 
                         System.out.println("Connection Process Finished");
 

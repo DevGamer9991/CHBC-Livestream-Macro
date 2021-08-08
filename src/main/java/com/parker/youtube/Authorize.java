@@ -76,6 +76,8 @@ public class Authorize {
         } else {
             credential = getCredentials(httpTransport);
         }
+
+        new MainWindow().setYTName(new GetYoutubeName().get());
     }
 
     public void saveRefreshToken(String refreshToken) {
