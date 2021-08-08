@@ -82,6 +82,8 @@ public class HTTPSServerThread extends Thread{
 
                         new GetFacebookData().setAccessToken(input);
 
+                        new CreateYoutubeStream().auth();
+
                         System.out.println("Connection Process Finished");
 
                         System.out.println("Opening Main Window");

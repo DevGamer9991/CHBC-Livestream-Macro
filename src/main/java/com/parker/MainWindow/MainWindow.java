@@ -209,7 +209,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamTitleLabel.setForeground(new java.awt.Color(204, 204, 204));
         streamTitleLabel.setText("Title:");
 
-        //streamTitleField.setText(new GetFacebookData().getTitle());
+        streamTitleField.setText(new GetFacebookData().getTitle());
         streamTitleField.setBackground(new java.awt.Color(30, 29, 30));
         streamTitleField.setForeground(new java.awt.Color(204, 204, 204));
         streamTitleField.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -265,7 +265,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1.setBackground(java.awt.Color.darkGray);
         jScrollPane1.setForeground(new java.awt.Color(204, 204, 204));
 
-        //streamDescField.setText(new GetFacebookData().getDesc());
+        streamDescField.setText(new GetFacebookData().getDesc());
         streamDescField.setBackground(new java.awt.Color(30, 29, 30));
         streamDescField.setColumns(20);
         streamDescField.setForeground(new java.awt.Color(204, 204, 204));

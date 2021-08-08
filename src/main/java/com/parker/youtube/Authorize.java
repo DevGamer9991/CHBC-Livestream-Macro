@@ -53,19 +53,25 @@ public class Authorize {
 
         File file = new File("Data Files/RefreshToken.json");
         if(!file.exists()) {
-            // Load client secrets.
-            InputStream in = Authorize.class.getResourceAsStream(CLIENT_SECRETS);
-            GoogleClientSecrets clientSecrets =
-                    GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-            // Build flow and trigger user authorization request.
-            GoogleAuthorizationCodeFlow flow =
-                    new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
-                            .build();
+            try {
+                // Load client secrets.
+                InputStream in = Authorize.class.getResourceAsStream(CLIENT_SECRETS);
+                GoogleClientSecrets clientSecrets =
+                        GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+                // Build flow and trigger user authorization request.
+                GoogleAuthorizationCodeFlow flow =
+                        new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
+                                .build();
 
-            Credential credential =
-                    new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+                Credential credential =
+                        new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
 
-            saveRefreshToken(credential.getRefreshToken());
+                saveRefreshToken(credential.getRefreshToken());
+            } catch(Exception e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+
         } else {
             credential = getCredentials(httpTransport);
         }
