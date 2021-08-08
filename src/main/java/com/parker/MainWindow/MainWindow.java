@@ -18,8 +18,23 @@ public class MainWindow extends javax.swing.JFrame {
 
     public static Thread createStreamsThread;
 
+    public static String pageName;
+    public static String channelName;
+
     public MainWindow() {
         initComponents();
+
+        if (pageName == null){
+
+        }else {
+            setFBConnected(pageName);
+        }
+
+        if (channelName == null){
+
+        }else {
+            setYTConnected(channelName);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -35,6 +50,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         errorTextArea = new javax.swing.JTextArea();
         errorOKButton = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
         mainJPanel = new javax.swing.JPanel();
         mainWindowtitle = new javax.swing.JLabel();
         streamTitleLabel = new javax.swing.JLabel();
@@ -61,6 +77,10 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTURLField = new javax.swing.JTextField();
         streamYTURL = new javax.swing.JLabel();
         copyYTIDButton1 = new javax.swing.JButton();
+        FBConnected = new javax.swing.JButton();
+        YTConnected = new javax.swing.JButton();
+        streamFBIDLabel1 = new javax.swing.JLabel();
+        streamFBIDLabel2 = new javax.swing.JLabel();
 
         loadingDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         loadingDialog.setTitle("Creating Livestreams");
@@ -119,7 +139,6 @@ public class MainWindow extends javax.swing.JFrame {
         errorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         errorDialog.setTitle("Error Occurred");
         errorDialog.setName("Error Occurred"); // NOI18N
-        errorDialog.setPreferredSize(new java.awt.Dimension(474, 345));
         errorDialog.setResizable(false);
         errorDialog.setSize(new java.awt.Dimension(474, 345));
         errorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -188,6 +207,8 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jRadioButton1.setText("jRadioButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHBC Livestream Macro");
         setBackground(java.awt.Color.darkGray);
@@ -202,14 +223,14 @@ public class MainWindow extends javax.swing.JFrame {
         mainWindowtitle.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         mainWindowtitle.setForeground(new java.awt.Color(204, 204, 204));
         mainWindowtitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainWindowtitle.setText("CHBC Livestream Creator");
+        mainWindowtitle.setText("CHBC Livestream Macro");
 
         streamTitleLabel.setBackground(java.awt.Color.darkGray);
         streamTitleLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         streamTitleLabel.setForeground(new java.awt.Color(204, 204, 204));
         streamTitleLabel.setText("Title:");
 
-        streamTitleField.setText(new GetFacebookData().getTitle());
+        //streamTitleField.setText(new GetFacebookData().getTitle());
         streamTitleField.setBackground(new java.awt.Color(30, 29, 30));
         streamTitleField.setForeground(new java.awt.Color(204, 204, 204));
         streamTitleField.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -265,7 +286,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1.setBackground(java.awt.Color.darkGray);
         jScrollPane1.setForeground(new java.awt.Color(204, 204, 204));
 
-        streamDescField.setText(new GetFacebookData().getDesc());
+        //streamDescField.setText(new GetFacebookData().getDesc());
         streamDescField.setBackground(new java.awt.Color(30, 29, 30));
         streamDescField.setColumns(20);
         streamDescField.setForeground(new java.awt.Color(204, 204, 204));
@@ -364,6 +385,31 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        FBConnected.setBackground(new java.awt.Color(76, 76, 76));
+        FBConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        FBConnected.setForeground(new java.awt.Color(204, 204, 204));
+        FBConnected.setText("FB Not Connected");
+
+        YTConnected.setBackground(new java.awt.Color(76, 76, 76));
+        YTConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        YTConnected.setForeground(new java.awt.Color(204, 204, 204));
+        YTConnected.setText("YT Not Connected");
+        YTConnected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                YTConnectedActionPerformed(evt);
+            }
+        });
+
+        streamFBIDLabel1.setBackground(java.awt.Color.darkGray);
+        streamFBIDLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        streamFBIDLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        streamFBIDLabel1.setText("FB:");
+
+        streamFBIDLabel2.setBackground(java.awt.Color.darkGray);
+        streamFBIDLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        streamFBIDLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        streamFBIDLabel2.setText("YT:");
+
         javax.swing.GroupLayout mainJPanelLayout = new javax.swing.GroupLayout(mainJPanel);
         mainJPanel.setLayout(mainJPanelLayout);
         mainJPanelLayout.setHorizontalGroup(
@@ -371,7 +417,6 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGroup(mainJPanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(mainWindowtitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(createStreamButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(mainJPanelLayout.createSequentialGroup()
                                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,73 +426,96 @@ public class MainWindow extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(mainJPanelLayout.createSequentialGroup()
-                                                                .addGap(2, 2, 2)
-                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addGroup(mainJPanelLayout.createSequentialGroup()
-                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(streamFBKey)
-                                                                                        .addComponent(streamFBIDLabel))
+                                                                                .addComponent(streamFBKey)
                                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(streamFBIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                                .addGap(4, 4, 4)
-                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(copyFBIDButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(copyFBKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
-                                                                        .addGroup(mainJPanelLayout.createSequentialGroup()
-                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(streamYTURL)
-                                                                                        .addComponent(streamYTID)
-                                                                                        .addComponent(streamYTKey))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                        .addComponent(streamYTIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                                                                                        .addComponent(streamYTURLField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                                        .addComponent(streamYTKeyField, javax.swing.GroupLayout.Alignment.TRAILING))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(copyYTKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(copyYTURLButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(copyYTIDButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                                                                .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(streamFBIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(copyFBKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(copyFBIDButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                                         .addGroup(mainJPanelLayout.createSequentialGroup()
                                                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(streamYTDataLabel)
                                                                         .addComponent(streamFBDataLabel)
-                                                                        .addComponent(streamYTDataLabel))
-                                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                                                .addGap(185, 185, 185)
+                                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(streamFBIDLabel1)
+                                                                                        .addComponent(streamFBIDLabel2)))
+                                                                        .addComponent(streamYTURL))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(FBConnected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(YTConnected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(streamYTKey)
+                                                                        .addComponent(streamYTID))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(streamYTIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(streamYTURLField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(streamYTKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(copyYTKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                                                        .addComponent(copyYTURLButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(copyYTIDButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                                         .addGroup(mainJPanelLayout.createSequentialGroup()
-                                                .addComponent(streamTitleLabel)
-                                                .addGap(12, 12, 12)
-                                                .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                                .addComponent(streamTitleLabel)
+                                                                .addGap(12, 12, 12)
+                                                                .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(streamFBIDLabel))
+                                                        .addComponent(mainWindowtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
         mainJPanelLayout.setVerticalGroup(
                 mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(mainJPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(mainWindowtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(FBConnected)
+                                                        .addComponent(streamFBIDLabel1))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(YTConnected)
+                                                        .addComponent(streamFBIDLabel2)))
+                                        .addComponent(mainWindowtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(mainJPanelLayout.createSequentialGroup()
                                                 .addComponent(livestreamSettingsLabel)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(streamFBIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(streamFBIDLabel)
                                                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                                 .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(streamTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(copyFBIDButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(streamFBIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(streamDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                .addComponent(streamFBKey)
-                                                                .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(copyFBKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addComponent(streamFBDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(copyFBIDButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                .addComponent(streamFBDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(43, 43, 43)))
+                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                                .addComponent(streamDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 4, Short.MAX_VALUE))
+                                        .addGroup(mainJPanelLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(copyFBKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(streamFBKey))))
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(mainJPanelLayout.createSequentialGroup()
                                                 .addComponent(streamYTDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -484,7 +552,7 @@ public class MainWindow extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(mainJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(0, 0, 0))
+                                .addContainerGap())
         );
 
         pack();
@@ -596,6 +664,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     }
 
+    private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
     public void openMainWindow() {
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
@@ -624,6 +696,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
+    public javax.swing.JButton FBConnected;
+    public javax.swing.JButton YTConnected;
     public javax.swing.JButton copyFBIDButton;
     public javax.swing.JButton copyFBKeyButton;
     public javax.swing.JButton copyYTIDButton1;
@@ -636,6 +710,7 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel1;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
+    public javax.swing.JRadioButton jRadioButton1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel livestreamSettingsLabel;
@@ -648,6 +723,8 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JLabel streamFBDataLabel;
     public javax.swing.JTextField streamFBIDField;
     public javax.swing.JLabel streamFBIDLabel;
+    public javax.swing.JLabel streamFBIDLabel1;
+    public javax.swing.JLabel streamFBIDLabel2;
     public javax.swing.JLabel streamFBKey;
     public javax.swing.JTextField streamFBKeyField;
     public javax.swing.JTextField streamTitleField;
@@ -704,5 +781,25 @@ public class MainWindow extends javax.swing.JFrame {
         errorDialog.setVisible(true);
 
         createStreamsThread.stop();
+    }
+
+    public void setFBConnected(String pageName) {
+        FBConnected.setEnabled(false);
+        FBConnected.setText("FB Connected With: " + pageName);
+        pack();
+    }
+
+    public void setYTConnected(String channelName) {
+        YTConnected.setEnabled(false);
+        YTConnected.setText("YT Connected With: " + channelName);
+        pack();
+    }
+
+    public void setYTName(String name) {
+        channelName = name;
+    }
+
+    public void setFBName(String name) {
+        pageName = name;
     }
 }

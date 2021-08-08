@@ -2,6 +2,7 @@ package com.parker;
 
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
+import com.parker.youtube.GetYoutubeName;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -83,6 +84,9 @@ public class HTTPSServerThread extends Thread{
                         new GetFacebookData().setAccessToken(input);
 
                         new CreateYoutubeStream().auth();
+
+                        new MainWindow().setFBName(new GetFacebookData().getName());
+                        new MainWindow().setYTName(new GetYoutubeName().get());
 
                         System.out.println("Connection Process Finished");
 

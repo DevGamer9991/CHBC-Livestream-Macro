@@ -28,37 +28,37 @@ public class GetFacebookData {
     public static String access_token;
     public static String page_id;
 
-//    public String getName() throws Exception{
-//        try {
-//            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=name&access_token=" + getAccessToken());
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setConnectTimeout(5000);
-//            conn.setDoOutput(true);
-//            conn.setDoInput(true);
-//            conn.setRequestMethod("GET");
-//
-//            InputStream in = new BufferedInputStream(conn.getInputStream());
-//
-//            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-//
-//            String token = null;
-//
-//            Gson gson = new Gson();
-//
-//            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-//
-//            String name = jsonObject.get("name").getAsString();
-//
-//            System.out.println(name);
-//
-//            return name;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    public String getName() throws Exception{
+        try {
+            URL url = new URL("https://graph.facebook.com/v11.0/me?fields=name&access_token=" + getAccessToken());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("GET");
 
-    public void setAccessToken(InputStream input) {
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+            String token = null;
+
+            Gson gson = new Gson();
+
+            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+            String name = jsonObject.get("name").getAsString();
+
+            System.out.println(name);
+
+            return name;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setAccessToken(InputStream input) throws Exception {
         String s = null;
         try {
             s = new String(input.readAllBytes(), StandardCharsets.UTF_8);
