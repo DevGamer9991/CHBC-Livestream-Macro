@@ -2,11 +2,17 @@ package com.parker;
 
 public class HTTPSServer {
 
+    HTTPSServerThread thread;
+
     public void startServer() {
         System.out.println("Server starting...");
         System.out.println("Using Port: " + 5000);
 
-        HTTPSServerThread thread = new HTTPSServerThread();
+        thread = new HTTPSServerThread();
         thread.start();
+    }
+
+    public void stopServer() {
+        thread.stop();
     }
 }

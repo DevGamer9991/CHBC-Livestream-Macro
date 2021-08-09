@@ -98,6 +98,9 @@ public class HTTPSServerThread extends Thread{
                             System.out.println("Already Opened");
                         }
 
+                        serverSocket.close();
+                        stop();
+
                     }catch(IOException e){
                         System.out.println("Problem With Communication");
                         e.printStackTrace();

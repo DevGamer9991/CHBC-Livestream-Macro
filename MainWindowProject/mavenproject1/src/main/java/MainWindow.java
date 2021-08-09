@@ -1,8 +1,11 @@
 
 import com.parker.CreateFacebookStream;
 import com.parker.CreateYoutubeStream;
+import com.parker.HTTPSServer;
+import com.parker.HTTPSServerThread;
 import com.parker.facebook.GetFacebookData;
 import com.parker.youtube.ManageYoutubeData;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -21,8 +24,11 @@ public class MainWindow extends javax.swing.JFrame {
     public static String channelName;
 
     public MainWindow() {
-        initComponents(); 
-        
+        initComponents();
+
+//        setStreamTitleField();
+//        setStreamDescField();
+
         if (pageName != null){
             setFBConnected(pageName);
         }
@@ -45,7 +51,6 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         errorTextArea = new javax.swing.JTextArea();
         errorOKButton = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
         mainJPanel = new javax.swing.JPanel();
         mainWindowtitle = new javax.swing.JLabel();
         streamTitleLabel = new javax.swing.JLabel();
@@ -161,6 +166,15 @@ public class MainWindow extends javax.swing.JFrame {
         errorOKButton.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         errorOKButton.setForeground(new java.awt.Color(204, 204, 204));
         errorOKButton.setText("OK");
+        errorOKButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        errorOKButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                errorOKButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                errorOKButtonMouseExited(evt);
+            }
+        });
         errorOKButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 errorOKButtonActionPerformed(evt);
@@ -172,23 +186,23 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(errorOKButton))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(errorOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(205, 205, 205))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errorOKButton)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout errorDialogLayout = new javax.swing.GroupLayout(errorDialog.getContentPane());
@@ -201,8 +215,6 @@ public class MainWindow extends javax.swing.JFrame {
             errorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHBC Livestream Macro");
@@ -225,9 +237,9 @@ public class MainWindow extends javax.swing.JFrame {
         streamTitleLabel.setForeground(new java.awt.Color(204, 204, 204));
         streamTitleLabel.setText("Title:");
 
-        //streamTitleField.setText(new GetFacebookData().getTitle());
         streamTitleField.setBackground(new java.awt.Color(30, 29, 30));
         streamTitleField.setForeground(new java.awt.Color(204, 204, 204));
+        streamTitleField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         streamTitleField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamTitleField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
@@ -240,6 +252,15 @@ public class MainWindow extends javax.swing.JFrame {
         createStreamButton.setFont(createStreamButton.getFont().deriveFont(createStreamButton.getFont().getStyle() & ~java.awt.Font.BOLD, createStreamButton.getFont().getSize()+1));
         createStreamButton.setForeground(new java.awt.Color(204, 204, 204));
         createStreamButton.setText("Create Livestream");
+        createStreamButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        createStreamButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                createStreamButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                createStreamButtonMouseExited(evt);
+            }
+        });
         createStreamButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createStreamButtonActionPerformed(evt);
@@ -254,7 +275,9 @@ public class MainWindow extends javax.swing.JFrame {
         streamFBIDField.setEditable(false);
         streamFBIDField.setBackground(new java.awt.Color(30, 29, 30));
         streamFBIDField.setForeground(new java.awt.Color(204, 204, 204));
+        streamFBIDField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         streamFBIDField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamFBIDField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamFBIDField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
         streamFBIDLabel.setBackground(java.awt.Color.darkGray);
@@ -270,7 +293,9 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTKeyField.setEditable(false);
         streamYTKeyField.setBackground(new java.awt.Color(30, 29, 30));
         streamYTKeyField.setForeground(new java.awt.Color(204, 204, 204));
+        streamYTKeyField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         streamYTKeyField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamYTKeyField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamYTKeyField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
         streamYTDataLabel.setBackground(java.awt.Color.darkGray);
@@ -281,13 +306,14 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1.setBackground(java.awt.Color.darkGray);
         jScrollPane1.setForeground(new java.awt.Color(204, 204, 204));
 
-        //streamDescField.setText(new GetFacebookData().getDesc());
         streamDescField.setBackground(new java.awt.Color(30, 29, 30));
         streamDescField.setColumns(20);
         streamDescField.setForeground(new java.awt.Color(204, 204, 204));
         streamDescField.setLineWrap(true);
         streamDescField.setRows(5);
+        streamDescField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         streamDescField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamDescField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamDescField.setSelectionColor(new java.awt.Color(204, 204, 204));
         jScrollPane1.setViewportView(streamDescField);
 
@@ -295,6 +321,15 @@ public class MainWindow extends javax.swing.JFrame {
         copyFBKeyButton.setFont(copyFBKeyButton.getFont().deriveFont(copyFBKeyButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyFBKeyButton.getFont().getSize()+1));
         copyFBKeyButton.setForeground(new java.awt.Color(204, 204, 204));
         copyFBKeyButton.setText("Copy FB Key");
+        copyFBKeyButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        copyFBKeyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                copyFBKeyButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                copyFBKeyButtonMouseExited(evt);
+            }
+        });
         copyFBKeyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyFBKeyButtonActionPerformed(evt);
@@ -305,6 +340,15 @@ public class MainWindow extends javax.swing.JFrame {
         copyFBIDButton.setFont(copyFBIDButton.getFont().deriveFont(copyFBIDButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyFBIDButton.getFont().getSize()+1));
         copyFBIDButton.setForeground(new java.awt.Color(204, 204, 204));
         copyFBIDButton.setText("Copy FB ID");
+        copyFBIDButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        copyFBIDButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                copyFBIDButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                copyFBIDButtonMouseExited(evt);
+            }
+        });
         copyFBIDButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyFBIDButtonActionPerformed(evt);
@@ -329,20 +373,33 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTIDField.setEditable(false);
         streamYTIDField.setBackground(new java.awt.Color(30, 29, 30));
         streamYTIDField.setForeground(new java.awt.Color(204, 204, 204));
+        streamYTIDField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         streamYTIDField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamYTIDField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamYTIDField.setSelectedTextColor(new java.awt.Color(204, 204, 204));
         streamYTIDField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
         streamFBKeyField.setEditable(false);
         streamFBKeyField.setBackground(new java.awt.Color(30, 29, 30));
         streamFBKeyField.setForeground(new java.awt.Color(204, 204, 204));
+        streamFBKeyField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         streamFBKeyField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamFBKeyField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamFBKeyField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
         copyYTKeyButton.setBackground(new java.awt.Color(76, 76, 76));
         copyYTKeyButton.setFont(copyYTKeyButton.getFont().deriveFont(copyYTKeyButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTKeyButton.getFont().getSize()+1));
         copyYTKeyButton.setForeground(new java.awt.Color(204, 204, 204));
         copyYTKeyButton.setText("Copy YT Key");
+        copyYTKeyButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        copyYTKeyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                copyYTKeyButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                copyYTKeyButtonMouseExited(evt);
+            }
+        });
         copyYTKeyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyYTKeyButtonActionPerformed(evt);
@@ -353,6 +410,15 @@ public class MainWindow extends javax.swing.JFrame {
         copyYTURLButton.setFont(copyYTURLButton.getFont().deriveFont(copyYTURLButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTURLButton.getFont().getSize()+1));
         copyYTURLButton.setForeground(new java.awt.Color(204, 204, 204));
         copyYTURLButton.setText("Copy YT URL");
+        copyYTURLButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        copyYTURLButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                copyYTURLButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                copyYTURLButtonMouseExited(evt);
+            }
+        });
         copyYTURLButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyYTURLButtonActionPerformed(evt);
@@ -362,7 +428,9 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTURLField.setEditable(false);
         streamYTURLField.setBackground(new java.awt.Color(30, 29, 30));
         streamYTURLField.setForeground(new java.awt.Color(204, 204, 204));
+        streamYTURLField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         streamYTURLField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamYTURLField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamYTURLField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
         streamYTURL.setBackground(java.awt.Color.darkGray);
@@ -374,6 +442,15 @@ public class MainWindow extends javax.swing.JFrame {
         copyYTIDButton1.setFont(copyYTIDButton1.getFont().deriveFont(copyYTIDButton1.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTIDButton1.getFont().getSize()+1));
         copyYTIDButton1.setForeground(new java.awt.Color(204, 204, 204));
         copyYTIDButton1.setText("Copy YT ID");
+        copyYTIDButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        copyYTIDButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                copyYTIDButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                copyYTIDButton1MouseExited(evt);
+            }
+        });
         copyYTIDButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyYTIDButton1ActionPerformed(evt);
@@ -384,6 +461,15 @@ public class MainWindow extends javax.swing.JFrame {
         FBConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         FBConnected.setForeground(new java.awt.Color(204, 204, 204));
         FBConnected.setText("FB Not Connected");
+        FBConnected.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        FBConnected.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                FBConnectedMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                FBConnectedMouseExited(evt);
+            }
+        });
         FBConnected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FBConnectedActionPerformed(evt);
@@ -394,6 +480,15 @@ public class MainWindow extends javax.swing.JFrame {
         YTConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         YTConnected.setForeground(new java.awt.Color(204, 204, 204));
         YTConnected.setText("YT Not Connected");
+        YTConnected.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        YTConnected.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                YTConnectedMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                YTConnectedMouseExited(evt);
+            }
+        });
         YTConnected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 YTConnectedActionPerformed(evt);
@@ -444,8 +539,7 @@ public class MainWindow extends javax.swing.JFrame {
                                         .addGap(185, 185, 185)
                                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(streamFBIDLabel1)
-                                            .addComponent(streamFBIDLabel2)))
-                                    .addComponent(streamYTURL))
+                                            .addComponent(streamFBIDLabel2))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(FBConnected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -453,7 +547,8 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(mainJPanelLayout.createSequentialGroup()
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(streamYTKey)
-                                    .addComponent(streamYTID))
+                                    .addComponent(streamYTID)
+                                    .addComponent(streamYTURL))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(streamYTIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,16 +556,16 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(streamYTKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(copyYTKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(copyYTKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                                     .addComponent(copyYTURLButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(copyYTIDButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(mainJPanelLayout.createSequentialGroup()
                                 .addComponent(streamTitleLabel)
-                                .addGap(12, 12, 12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(streamFBIDLabel))
                             .addComponent(mainWindowtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -479,27 +574,27 @@ public class MainWindow extends javax.swing.JFrame {
         mainJPanelLayout.setVerticalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                    .addComponent(mainWindowtitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainJPanelLayout.createSequentialGroup()
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(FBConnected)
+                            .addComponent(FBConnected, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(streamFBIDLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(YTConnected)
-                            .addComponent(streamFBIDLabel2)))
-                    .addComponent(mainWindowtitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                            .addComponent(YTConnected, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(streamFBIDLabel2))))
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addComponent(livestreamSettingsLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(streamFBIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(streamFBIDLabel)
                             .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(streamFBIDLabel)
+                                .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(streamTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(copyFBIDButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(mainJPanelLayout.createSequentialGroup()
@@ -663,13 +758,100 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_errorDialogWindowOpened
 
     private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YTConnectedActionPerformed
-        
+        HTTPSServerThread.loginOpened = false;
+        new HTTPSServer().startServer();
     }//GEN-LAST:event_YTConnectedActionPerformed
 
     private void FBConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FBConnectedActionPerformed
-        
+        HTTPSServerThread.loginOpened = false;
+        new HTTPSServer().startServer();
     }//GEN-LAST:event_FBConnectedActionPerformed
 
+    private void createStreamButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createStreamButtonMouseEntered
+        buttonHover(createStreamButton);
+    }//GEN-LAST:event_createStreamButtonMouseEntered
+
+    private void createStreamButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createStreamButtonMouseExited
+        buttonUnHover(createStreamButton);
+    }//GEN-LAST:event_createStreamButtonMouseExited
+
+    private void copyYTKeyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTKeyButtonMouseEntered
+        buttonHover(copyYTKeyButton);
+    }//GEN-LAST:event_copyYTKeyButtonMouseEntered
+
+    private void copyYTKeyButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTKeyButtonMouseExited
+        buttonUnHover(copyYTKeyButton);
+    }//GEN-LAST:event_copyYTKeyButtonMouseExited
+
+    private void copyYTURLButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTURLButtonMouseEntered
+        buttonHover(copyYTURLButton);
+    }//GEN-LAST:event_copyYTURLButtonMouseEntered
+
+    private void copyYTURLButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTURLButtonMouseExited
+        buttonUnHover(copyYTURLButton);
+    }//GEN-LAST:event_copyYTURLButtonMouseExited
+
+    private void copyYTIDButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTIDButton1MouseEntered
+        buttonHover(copyYTIDButton1);
+    }//GEN-LAST:event_copyYTIDButton1MouseEntered
+
+    private void copyYTIDButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTIDButton1MouseExited
+        buttonUnHover(copyYTIDButton1);
+    }//GEN-LAST:event_copyYTIDButton1MouseExited
+
+    private void copyFBKeyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBKeyButtonMouseEntered
+        buttonHover(copyFBKeyButton);
+    }//GEN-LAST:event_copyFBKeyButtonMouseEntered
+
+    private void copyFBKeyButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBKeyButtonMouseExited
+        buttonUnHover(copyFBKeyButton);
+    }//GEN-LAST:event_copyFBKeyButtonMouseExited
+
+    private void copyFBIDButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBIDButtonMouseEntered
+        buttonHover(copyFBIDButton);
+    }//GEN-LAST:event_copyFBIDButtonMouseEntered
+
+    private void copyFBIDButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBIDButtonMouseExited
+        buttonUnHover(copyFBIDButton);
+    }//GEN-LAST:event_copyFBIDButtonMouseExited
+
+    private void YTConnectedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YTConnectedMouseEntered
+        buttonHover(YTConnected);
+    }//GEN-LAST:event_YTConnectedMouseEntered
+
+    private void YTConnectedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YTConnectedMouseExited
+        buttonUnHover(YTConnected);
+    }//GEN-LAST:event_YTConnectedMouseExited
+
+    private void FBConnectedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FBConnectedMouseEntered
+        buttonHover(FBConnected);
+    }//GEN-LAST:event_FBConnectedMouseEntered
+
+    private void FBConnectedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FBConnectedMouseExited
+        buttonUnHover(FBConnected);
+    }//GEN-LAST:event_FBConnectedMouseExited
+
+    private void errorOKButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorOKButtonMouseEntered
+        buttonHover(errorOKButton);
+    }//GEN-LAST:event_errorOKButtonMouseEntered
+
+    private void errorOKButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorOKButtonMouseExited
+        buttonUnHover(errorOKButton);
+    }//GEN-LAST:event_errorOKButtonMouseExited
+
+    private void buttonHover(javax.swing.JButton button) {
+        if (button.isEnabled()){
+            button.setBackground(new Color(114, 114, 114));
+        }
+    }
+    
+    private void buttonUnHover(javax.swing.JButton button) {
+        if (button.isEnabled()){
+            button.setBackground(new Color(76, 76, 76));
+        }
+    }
+    
+    
     public void openMainWindow() {
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
@@ -712,7 +894,6 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel1;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
-    public javax.swing.JRadioButton jRadioButton1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel livestreamSettingsLabel;
@@ -739,9 +920,17 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JLabel streamYTURL;
     public javax.swing.JTextField streamYTURLField;
     // End of variables declaration//GEN-END:variables
-      
+
     public boolean getOpened() {
         return opened;
+    }
+
+    public void setStreamDescField() {
+        streamDescField.setText(new GetFacebookData().getDesc());
+    }
+
+    public void setStreamTitleField() {
+        streamTitleField.setText(new GetFacebookData().getTitle());
     }
 
     public void setData() {
