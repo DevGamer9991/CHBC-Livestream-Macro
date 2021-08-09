@@ -10,15 +10,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.google.gson.*;
 import com.parker.MainWindow.MainWindow;
-import com.parker.youtube.GetYoutubeName;
-import com.restfb.json.Json;
-import com.sun.tools.javac.Main;
 
 public class GetFacebookData {
 
