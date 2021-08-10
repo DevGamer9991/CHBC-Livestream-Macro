@@ -699,6 +699,8 @@ public class MainWindow extends javax.swing.JFrame {
 
                     setLoadingBar(96);
 
+                    buttonUnHover(createStreamButton);
+
                     createStreamButton.setEnabled(false);
                     streamTitleField.setEnabled(false);
                     streamDescField.setEnabled(false);
@@ -760,11 +762,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {
         HTTPSServerThread.loginOpened = false;
         new HTTPSServer().startServer();
+        setYTConnected();
     }
 
     private void FBConnectedActionPerformed(java.awt.event.ActionEvent evt) {
         HTTPSServerThread.loginOpened = false;
         new HTTPSServer().startServer();
+        setFBConnected();
     }
 
     private void createStreamButtonMouseEntered(java.awt.event.MouseEvent evt) {
@@ -975,12 +979,14 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void setFBConnected(String pageName) {
+        buttonUnHover(FBConnected);
         FBConnected.setEnabled(false);
         FBConnected.setText("FB Connected With: " + pageName);
         pack();
     }
 
     public void setYTConnected(String channelName) {
+        buttonUnHover(YTConnected);
         YTConnected.setEnabled(false);
         YTConnected.setText("YT Connected With: " + channelName);
         pack();
