@@ -28,17 +28,13 @@ public class MainWindow extends javax.swing.JFrame {
     public static String channelName;
 
     public MainWindow() throws Exception {
-        initComponents();
+                initComponents();
 
 //        setStreamTitleField();
 //        setStreamDescField();
 
-        if (pageName != null){
-            setFBConnected(pageName);
-        }
-        if (channelName != null){
-            setYTConnected(channelName);
-        }
+        setFBConnected();
+        setYTConnected();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,9 +50,6 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         errorTextArea = new javax.swing.JTextArea();
         errorOKButton = new javax.swing.JButton();
-        setOBSPathDialog = new javax.swing.JDialog();
-        jPanel3 = new javax.swing.JPanel();
-        jFileChooser1 = new javax.swing.JFileChooser();
         mainJPanel = new javax.swing.JPanel();
         mainWindowtitle = new javax.swing.JLabel();
         streamTitleLabel = new javax.swing.JLabel();
@@ -220,48 +213,6 @@ public class MainWindow extends javax.swing.JFrame {
         errorDialogLayout.setVerticalGroup(
             errorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        setOBSPathDialog.setTitle("Set OBS Install Path");
-        setOBSPathDialog.setPreferredSize(new java.awt.Dimension(506, 326));
-        setOBSPathDialog.setResizable(false);
-        setOBSPathDialog.setSize(new java.awt.Dimension(506, 326));
-        setOBSPathDialog.setType(java.awt.Window.Type.UTILITY);
-
-        jPanel3.setBackground(new java.awt.Color(76, 76, 76));
-        jPanel3.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel3.setPreferredSize(new java.awt.Dimension(506, 326));
-
-        jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-        jFileChooser1.setPreferredSize(new java.awt.Dimension(506, 326));
-        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooser1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFileChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 42, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout setOBSPathDialogLayout = new javax.swing.GroupLayout(setOBSPathDialog.getContentPane());
-        setOBSPathDialog.getContentPane().setLayout(setOBSPathDialogLayout);
-        setOBSPathDialogLayout.setHorizontalGroup(
-            setOBSPathDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        setOBSPathDialogLayout.setVerticalGroup(
-            setOBSPathDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -887,12 +838,6 @@ public class MainWindow extends javax.swing.JFrame {
         buttonUnHover(errorOKButton);
     }//GEN-LAST:event_errorOKButtonMouseExited
 
-    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        setOBSPathDialog.setVisible(false);
-        System.out.println(jFileChooser1.getSelectedFile() + "/");
-        
-    }//GEN-LAST:event_jFileChooser1ActionPerformed
-
     private void buttonHover(javax.swing.JButton button) {
         if (button.isEnabled()){
             button.setBackground(new Color(114, 114, 114));
@@ -931,7 +876,6 @@ public class MainWindow extends javax.swing.JFrame {
     
     public static void main(String args[]) throws Exception {
         new MainWindow().openMainWindow();
-        new MainWindow().setOBSPathDialog.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -946,11 +890,9 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JDialog errorDialog;
     public javax.swing.JButton errorOKButton;
     public javax.swing.JTextArea errorTextArea;
-    public javax.swing.JFileChooser jFileChooser1;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
-    public javax.swing.JPanel jPanel3;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel livestreamSettingsLabel;
@@ -958,7 +900,6 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JDialog loadingDialog;
     public javax.swing.JPanel mainJPanel;
     public javax.swing.JLabel mainWindowtitle;
-    public javax.swing.JDialog setOBSPathDialog;
     public javax.swing.JTextArea streamDescField;
     public javax.swing.JLabel streamDescLabel;
     public javax.swing.JLabel streamFBDataLabel;
@@ -1046,9 +987,23 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void setYTName(String name) {
         channelName = name;
+        setYTConnected();
     }
 
     public void setFBName(String name) {
         pageName = name;
+        setFBConnected();
+    }
+
+    public void setFBConnected() {
+        if (pageName != null){
+            setFBConnected(pageName);
+        }
+    }
+
+    public void setYTConnected() {
+        if (channelName != null){
+            setYTConnected(channelName);
+        }
     }
 }

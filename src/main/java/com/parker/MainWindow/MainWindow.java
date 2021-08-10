@@ -5,12 +5,10 @@ import com.parker.CreateYoutubeStream;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
 import com.parker.facebook.GetFacebookData;
-import com.parker.youtube.Authorize;
 import com.parker.youtube.ManageYoutubeData;
-import org.pushingpixels.substance.api.skin.SubstanceAutumnLookAndFeel;
-import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
-
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -19,6 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -35,12 +34,8 @@ public class MainWindow extends javax.swing.JFrame {
         setStreamTitleField();
         setStreamDescField();
 
-        if (pageName != null){
-            setFBConnected(pageName);
-        }
-        if (channelName != null){
-            setYTConnected(channelName);
-        }
+        setFBConnected();
+        setYTConnected();
     }
 
     @SuppressWarnings("unchecked")
@@ -227,7 +222,7 @@ public class MainWindow extends javax.swing.JFrame {
         setForeground(new java.awt.Color(153, 153, 153));
         setResizable(false);
 
-        mainJPanel.setBackground(new java.awt.Color(58, 57, 58));
+        mainJPanel.setBackground(new java.awt.Color(76, 76, 76));
         mainJPanel.setForeground(new java.awt.Color(153, 153, 153));
         mainJPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -253,7 +248,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamDescLabel.setForeground(new java.awt.Color(204, 204, 204));
         streamDescLabel.setText("Description:");
 
-        createStreamButton.setBackground(new java.awt.Color(76, 76, 76));
+        createStreamButton.setBackground(new java.awt.Color(58, 57, 58));
         createStreamButton.setFont(createStreamButton.getFont().deriveFont(createStreamButton.getFont().getStyle() & ~java.awt.Font.BOLD, createStreamButton.getFont().getSize()+1));
         createStreamButton.setForeground(new java.awt.Color(204, 204, 204));
         createStreamButton.setText("Create Livestream");
@@ -316,13 +311,13 @@ public class MainWindow extends javax.swing.JFrame {
         streamDescField.setForeground(new java.awt.Color(204, 204, 204));
         streamDescField.setLineWrap(true);
         streamDescField.setRows(5);
-        streamDescField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        streamDescField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         streamDescField.setCaretColor(new java.awt.Color(255, 255, 255));
         streamDescField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamDescField.setSelectionColor(new java.awt.Color(204, 204, 204));
         jScrollPane1.setViewportView(streamDescField);
 
-        copyFBKeyButton.setBackground(new java.awt.Color(76, 76, 76));
+        copyFBKeyButton.setBackground(new java.awt.Color(58, 57, 58));
         copyFBKeyButton.setFont(copyFBKeyButton.getFont().deriveFont(copyFBKeyButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyFBKeyButton.getFont().getSize()+1));
         copyFBKeyButton.setForeground(new java.awt.Color(204, 204, 204));
         copyFBKeyButton.setText("Copy FB Key");
@@ -341,7 +336,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        copyFBIDButton.setBackground(new java.awt.Color(76, 76, 76));
+        copyFBIDButton.setBackground(new java.awt.Color(58, 57, 58));
         copyFBIDButton.setFont(copyFBIDButton.getFont().deriveFont(copyFBIDButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyFBIDButton.getFont().getSize()+1));
         copyFBIDButton.setForeground(new java.awt.Color(204, 204, 204));
         copyFBIDButton.setText("Copy FB ID");
@@ -392,7 +387,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamFBKeyField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         streamFBKeyField.setSelectionColor(new java.awt.Color(204, 204, 204));
 
-        copyYTKeyButton.setBackground(new java.awt.Color(76, 76, 76));
+        copyYTKeyButton.setBackground(new java.awt.Color(58, 57, 58));
         copyYTKeyButton.setFont(copyYTKeyButton.getFont().deriveFont(copyYTKeyButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTKeyButton.getFont().getSize()+1));
         copyYTKeyButton.setForeground(new java.awt.Color(204, 204, 204));
         copyYTKeyButton.setText("Copy YT Key");
@@ -411,7 +406,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        copyYTURLButton.setBackground(new java.awt.Color(76, 76, 76));
+        copyYTURLButton.setBackground(new java.awt.Color(58, 57, 58));
         copyYTURLButton.setFont(copyYTURLButton.getFont().deriveFont(copyYTURLButton.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTURLButton.getFont().getSize()+1));
         copyYTURLButton.setForeground(new java.awt.Color(204, 204, 204));
         copyYTURLButton.setText("Copy YT URL");
@@ -443,7 +438,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamYTURL.setForeground(new java.awt.Color(204, 204, 204));
         streamYTURL.setText("YT Stream URL:");
 
-        copyYTIDButton1.setBackground(new java.awt.Color(76, 76, 76));
+        copyYTIDButton1.setBackground(new java.awt.Color(58, 57, 58));
         copyYTIDButton1.setFont(copyYTIDButton1.getFont().deriveFont(copyYTIDButton1.getFont().getStyle() & ~java.awt.Font.BOLD, copyYTIDButton1.getFont().getSize()+1));
         copyYTIDButton1.setForeground(new java.awt.Color(204, 204, 204));
         copyYTIDButton1.setText("Copy YT ID");
@@ -462,7 +457,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        FBConnected.setBackground(new java.awt.Color(76, 76, 76));
+        FBConnected.setBackground(new java.awt.Color(58, 57, 58));
         FBConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         FBConnected.setForeground(new java.awt.Color(204, 204, 204));
         FBConnected.setText("FB Not Connected");
@@ -481,7 +476,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        YTConnected.setBackground(new java.awt.Color(76, 76, 76));
+        YTConnected.setBackground(new java.awt.Color(58, 57, 58));
         YTConnected.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         YTConnected.setForeground(new java.awt.Color(204, 204, 204));
         YTConnected.setText("YT Not Connected");
@@ -579,7 +574,7 @@ public class MainWindow extends javax.swing.JFrame {
         mainJPanelLayout.setVerticalGroup(
                 mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(mainJPanelLayout.createSequentialGroup()
-                                .addContainerGap(17, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(mainWindowtitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainJPanelLayout.createSequentialGroup()
@@ -593,7 +588,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(mainJPanelLayout.createSequentialGroup()
                                                 .addComponent(livestreamSettingsLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(streamFBIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -852,7 +847,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void buttonUnHover(javax.swing.JButton button) {
         if (button.isEnabled()){
-            button.setBackground(new Color(76, 76, 76));
+            button.setBackground(new Color(58, 57, 58));
         }
     }
 
@@ -993,9 +988,23 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void setYTName(String name) {
         channelName = name;
+        setYTConnected();
     }
 
     public void setFBName(String name) {
         pageName = name;
+        setFBConnected();
+    }
+
+    public void setFBConnected() {
+        if (pageName != null){
+            setFBConnected(pageName);
+        }
+    }
+
+    public void setYTConnected() {
+        if (channelName != null){
+            setYTConnected(channelName);
+        }
     }
 }
