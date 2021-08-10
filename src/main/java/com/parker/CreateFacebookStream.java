@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
-import com.parker.facebook.GetManagedPagesJSON;
 import com.parker.facebook.GetPageAccessToken;
 
 public class CreateFacebookStream{

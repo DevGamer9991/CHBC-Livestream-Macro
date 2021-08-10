@@ -1,29 +1,15 @@
-package com.parker.youtube; /**
- * Sample Java code for youtube.liveBroadcasts.insert
- * See instructions for running these code samples locally:
- * https://developers.google.com/explorer-help/guides/code_samples#java
- */
+package com.parker.youtube;
 
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
-
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveBroadcast;
 import com.google.api.services.youtube.model.LiveBroadcastContentDetails;
 import com.google.api.services.youtube.model.LiveBroadcastSnippet;
 import com.google.api.services.youtube.model.LiveBroadcastStatus;
 import com.parker.MainWindow.MainWindow;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.time.Clock;
 import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 
 public class CreateBroadcast {
@@ -31,7 +17,7 @@ public class CreateBroadcast {
     int timeOut;
 
     public void create(String streamName, String streamDesc, String DevKey)
-            throws GeneralSecurityException, IOException, GoogleJsonResponseException, InterruptedException {
+            throws Exception {
 
         try{
             YouTube youtubeService = new Authorize().getService();

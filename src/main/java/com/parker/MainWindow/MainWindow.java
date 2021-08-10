@@ -5,6 +5,7 @@ import com.parker.CreateYoutubeStream;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
 import com.parker.facebook.GetFacebookData;
+import com.parker.youtube.Authorize;
 import com.parker.youtube.ManageYoutubeData;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static String pageName;
     public static String channelName;
 
-    public MainWindow() {
+    public MainWindow() throws Exception {
         initComponents();
 
         setStreamTitleField();
@@ -33,7 +34,6 @@ public class MainWindow extends javax.swing.JFrame {
         if (pageName != null){
             setFBConnected(pageName);
         }
-
         if (channelName != null){
             setYTConnected(channelName);
         }
@@ -876,7 +876,7 @@ public class MainWindow extends javax.swing.JFrame {
         System.out.println("Opened Main Window");
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         new MainWindow().openMainWindow();
     }
 

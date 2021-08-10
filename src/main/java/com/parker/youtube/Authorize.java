@@ -1,8 +1,5 @@
 package com.parker.youtube;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
-import com.fasterxml.jackson.core.util.JacksonFeature;
-import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -12,18 +9,14 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.util.Utils;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.YouTubeScopes;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.App;
 import com.parker.MainWindow.MainWindow;
-import com.sun.tools.javac.Main;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,7 +31,7 @@ public class Authorize {
     private static final Collection<String> SCOPES =
             Arrays.asList("https://www.googleapis.com/auth/youtube");
 
-    private static final String APPLICATION_NAME = "CHBC Livestream Macro - Youtube1";
+    private static final String APPLICATION_NAME = "CHBC Livestream Macro Youtube";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     public String Devkey = App.DevKey;
@@ -49,7 +42,7 @@ public class Authorize {
 
     int timeOut;
 
-    public void authorize() throws IOException, GeneralSecurityException, InterruptedException {
+    public void authorize() throws Exception {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
         File file = new File("Data Files/RefreshToken.json");
@@ -97,7 +90,7 @@ public class Authorize {
         }
     }
 
-    public Credential getCredentials(NetHttpTransport httpTransport) throws GeneralSecurityException, IOException, FileNotFoundException, InterruptedException {
+    public Credential getCredentials(NetHttpTransport httpTransport) throws Exception {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
         InputStream in = Authorize.class.getResourceAsStream(CLIENT_SECRETS);
@@ -153,7 +146,7 @@ public class Authorize {
         return credential;
     }
 
-    public String useRefreshToken(String refreshToken, NetHttpTransport httpTransport) throws InterruptedException {
+    public String useRefreshToken(String refreshToken, NetHttpTransport httpTransport) throws Exception {
         try{
             TokenResponse tokenResponse = new GoogleRefreshTokenRequest(httpTransport, JacksonFactory.getDefaultInstance(), refreshToken, "895756277270-irp13i4jovn0codvnefgisu0k78draho.apps.googleusercontent.com", "flAkUj9xOcQeYItZPvqJpsPG").setGrantType("refresh_token").setScopes(SCOPES).execute();
             System.out.println(tokenResponse + "\n");

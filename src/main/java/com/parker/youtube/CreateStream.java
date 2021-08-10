@@ -1,14 +1,4 @@
-package com.parker.youtube; /**
- * Sample Java code for youtube.liveStreams.insert
- * See instructions for running these code samples locally:
- * https://developers.google.com/explorer-help/guides/code_samples#java
- */
-
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+package com.parker.youtube;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.CdnSettings;
@@ -16,18 +6,14 @@ import com.google.api.services.youtube.model.LiveStream;
 import com.google.api.services.youtube.model.LiveStreamContentDetails;
 import com.google.api.services.youtube.model.LiveStreamSnippet;
 import com.parker.MainWindow.MainWindow;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
-import java.util.Collection;
 
 public class CreateStream {
 
     int timeOut;
 
     public void create(String DevKey)
-            throws GeneralSecurityException, IOException, GoogleJsonResponseException, InterruptedException {
+            throws Exception {
         try {
             YouTube youtubeService = new Authorize().getService();
 

@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.*;
+import com.parker.HTTPSServer;
+import com.parker.HTTPSServerThread;
 import com.parker.MainWindow.MainWindow;
 
 public class GetFacebookData {
@@ -71,6 +73,9 @@ public class GetFacebookData {
             System.out.println(access_token);
 
             new MainWindow().setFBName(new GetFacebookData().getName());
+        } else {
+            HTTPSServerThread.loginOpened = false;
+            new HTTPSServer().startServer();
         }
     }
 

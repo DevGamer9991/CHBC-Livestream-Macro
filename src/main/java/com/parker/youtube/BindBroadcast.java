@@ -1,13 +1,8 @@
 package com.parker.youtube;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveBroadcast;
 import com.parker.MainWindow.MainWindow;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
 
 public class BindBroadcast {
@@ -15,7 +10,7 @@ public class BindBroadcast {
     int timeOut;
 
     public void bind(String broadcastID, String streamID, String DevKey)
-            throws InterruptedException {
+            throws Exception {
         try{
             YouTube youtubeService = new Authorize().getService();
             // Define and execute the API request

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.jar.JarFile;
 
 public class App

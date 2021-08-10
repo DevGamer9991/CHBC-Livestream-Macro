@@ -22,7 +22,6 @@ public class GetManagedPagesJSON {
             String result = new String(in.readAllBytes(), StandardCharsets.UTF_8);
             return result;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }

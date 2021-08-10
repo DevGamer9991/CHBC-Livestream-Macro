@@ -2,7 +2,6 @@ package com.parker;
 
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
-import com.parker.youtube.GetYoutubeName;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -14,13 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.KeyStore;
 
-import static java.lang.String.format;
-
-/**
- * Starts the server.
- * <p>
- * Person of contact: Matthias Braun
- */
 public class HTTPSServerThread extends Thread{
 
     public static boolean loginOpened = false;
