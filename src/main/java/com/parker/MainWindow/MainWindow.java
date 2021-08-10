@@ -7,6 +7,9 @@ import com.parker.HTTPSServerThread;
 import com.parker.facebook.GetFacebookData;
 import com.parker.youtube.Authorize;
 import com.parker.youtube.ManageYoutubeData;
+import org.pushingpixels.substance.api.skin.SubstanceAutumnLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,7 @@ import javax.swing.JDialog;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class MainWindow extends javax.swing.JFrame {
 
