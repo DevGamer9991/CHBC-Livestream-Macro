@@ -134,6 +134,7 @@ public class GetFacebookData {
             Map<String, Object> map = new HashMap<>();
             map.put("title", title);
             map.put("description", desc);
+            map.put("pageName", getPageNameFromFile());
 
             Writer writer = new FileWriter("Data Files/SavedData.json");
 
@@ -146,6 +147,39 @@ public class GetFacebookData {
             e.printStackTrace();
         }
     }
+
+    public String getPageNameFromFile() {
+        try {
+            File file = new File("Data Files/SavedData.json");
+            if (file.exists()) {
+                System.out.println("Found File");
+                // create Gson instance
+                Gson gson = new Gson();
+
+                // create a reader
+                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+                // convert JSON file to map
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+                String pageName = object.get("pageName").getAsString();
+
+                System.out.println(pageName);
+
+                // close reader
+                reader.close();
+
+                return pageName;
+            } else {
+                return null;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
 
     public String getTitle() {
         try {
@@ -239,34 +273,39 @@ public class GetFacebookData {
         }
     }
 
-    public String getManagedPagesID(String pageName) {
+    public String getManagedPagesID(String pageName) throws Exception {
         String managedPagesJson = new GetManagedPagesJSON().get();
 
         System.out.println(managedPagesJson);
 
         if (managedPagesJson != null) {
-            Gson gson = new Gson();
+            if (managedPagesJson.contains(pageName)) {
+                Gson gson = new Gson();
 
-            JsonObject jsonObject = gson.fromJson(managedPagesJson, JsonObject.class);
+                JsonObject jsonObject = gson.fromJson(managedPagesJson, JsonObject.class);
 
-            JsonArray entry = (JsonArray) jsonObject.get("data");
+                JsonArray entry = (JsonArray) jsonObject.get("data");
 
-            System.out.print(entry.toString());
+                System.out.print(entry.toString());
 
-            int num = 0;
+                int num = 0;
 
-            for (int i = 0; i < entry.size(); i++) {
-                String name = ((JsonObject) entry.get(i)).get("name").getAsString();
-                if (name.contains(pageName)) {
-                    num = i;
+                for (int i = 0; i < entry.size(); i++) {
+                    String name = ((JsonObject) entry.get(i)).get("name").getAsString();
+                    if (name.contains(pageName)) {
+                        num = i;
+                    }
                 }
+
+                String id = ((JsonObject) entry.get(num)).get("id").getAsString();
+
+                savePageID(id);
+
+                return id;
+            } else {
+                System.out.println("Account: " + getName() + " Is Not a Admin Of: " + getPageNameFromFile());
+                return null;
             }
-
-            String id = ((JsonObject) entry.get(num)).get("id").getAsString();
-            
-            savePageID(id);
-
-            return id;
         } else {
             return null;
         }
@@ -276,5 +315,27 @@ public class GetFacebookData {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection selection = new StringSelection(text);
         clipboard.setContents(selection, null);
+    }
+
+    public void checkDataFile() {
+        File file = new File("Data Files/SavedData.json");
+        if (!file.exists()) {
+            try {
+                Map<String, Object> map = new HashMap<>();
+                map.put("title", "Stream Title");
+                map.put("description", "Stream Desc");
+                map.put("pageName", "Capitol Hill Baptist");
+
+                Writer writer = new FileWriter("Data Files/SavedData.json");
+
+                Gson gson = new Gson();
+
+                gson.toJson(map, writer);
+
+                writer.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

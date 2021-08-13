@@ -669,7 +669,7 @@ public class MainWindow extends javax.swing.JFrame {
 
                     CreateFacebookStream fbStreamCreator = new CreateFacebookStream();
 
-                    fbStreamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), "Capitol Hill Baptist");
+                    fbStreamCreator.createStream(streamTitleField.getText(), streamDescField.getText(), new GetFacebookData().getPageNameFromFile());
 
                     setLoadingBar(32);
 

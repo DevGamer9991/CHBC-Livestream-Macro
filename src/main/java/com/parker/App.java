@@ -1,6 +1,7 @@
 package com.parker;
 
 import com.parker.MainWindow.MainWindow;
+import com.parker.facebook.GetFacebookData;
 import com.parker.youtube.*;
 import com.sun.tools.javac.Main;
 
@@ -24,6 +25,7 @@ public class App
   public static Integer port = 5000;
 
   public static void main(String[] args) throws Exception{
+    new GetFacebookData().checkDataFile();
     new HTTPSServer().startServer();
   }
 }
