@@ -2,6 +2,7 @@ package com.parker.youtube;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveStreamListResponse;
+import com.parker.App;
 import com.parker.MainWindow.MainWindow;
 import java.util.Arrays;
 
@@ -18,6 +19,14 @@ public class CheckStreamID {
 
             LiveStreamListResponse response = request.setId(id).execute();
             System.out.println(response);
+
+            System.out.println(response.getItems().toString());
+
+            if (response.getItems().toString().equals("[]")) {
+                System.out.println("Stream Not Created");
+                new ManageYoutubeData().deleteFile();
+                return false;
+            }
 
             System.out.println("Stream ID Is Valid");
             timeOut = 0;

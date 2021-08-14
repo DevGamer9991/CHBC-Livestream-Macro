@@ -16,6 +16,7 @@ import com.google.gson.*;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
 import com.parker.MainWindow.MainWindow;
+import com.sun.tools.javac.Main;
 
 public class GetFacebookData {
 
@@ -25,6 +26,9 @@ public class GetFacebookData {
 
     public static String access_token;
     public static String page_id;
+
+    public static boolean streamFBBool;
+    public static boolean streamYTBool;
 
     public String getName() throws Exception{
         try {
@@ -135,6 +139,8 @@ public class GetFacebookData {
             map.put("title", title);
             map.put("description", desc);
             map.put("pageName", getPageNameFromFile());
+            map.put("streamFBBox", streamFBBool);
+            map.put("streamYTBox", streamYTBool);
 
             Writer writer = new FileWriter("Data Files/SavedData.json");
 
@@ -325,6 +331,39 @@ public class GetFacebookData {
                 map.put("title", "Stream Title");
                 map.put("description", "Stream Desc");
                 map.put("pageName", "Capitol Hill Baptist");
+                map.put("streamFBBox", true);
+                map.put("streamYTBox", true);
+
+                Writer writer = new FileWriter("Data Files/SavedData.json");
+
+                Gson gson = new Gson();
+
+                gson.toJson(map, writer);
+
+                writer.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void saveStreamBoxes(boolean fb, boolean yt) {
+        System.out.println("Saving Boxes");
+
+        System.out.println("FB: " + fb);
+        System.out.println("YT: " + yt);
+
+        File file = new File("Data Files/SavedData.json");
+        if (file.exists()) {
+            try {
+                Map<String, Object> map = new HashMap<>();
+                map.put("title", getTitle());
+                map.put("description", getDesc());
+                map.put("pageName", getPageNameFromFile());
+                map.put("streamFBBox", fb);
+                map.put("streamYTBox", yt);
+
+                streamFBBool = fb;
+                streamYTBool = yt;
 
                 Writer writer = new FileWriter("Data Files/SavedData.json");
 

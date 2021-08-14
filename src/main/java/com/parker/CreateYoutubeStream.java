@@ -22,7 +22,9 @@ public class CreateYoutubeStream {
 
             if (new ManageYoutubeData().getStreamIDFromFile() != null) {
                 System.out.println("Ran Check");
-                new CheckStreamID().check(new ManageYoutubeData().getStreamIDFromFile());
+                if (!new CheckStreamID().check(new ManageYoutubeData().getStreamIDFromFile())) {
+                    createYoutubeStream(titleString, descString);
+                }
             } else {
                 System.out.println("Didn't Run Check");
                 new CreateStream().create(DevKey);

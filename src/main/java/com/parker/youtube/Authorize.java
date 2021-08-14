@@ -34,7 +34,7 @@ public class Authorize {
     private static final String APPLICATION_NAME = "CHBC Livestream Macro Youtube";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    public String Devkey = App.DevKey;
+    public static String Devkey = App.DevKey;
 
     public static Credential credential;
 

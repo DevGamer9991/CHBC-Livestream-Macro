@@ -139,4 +139,12 @@ public class ManageYoutubeData {
             return false;
         }
     }
+
+    public void deleteFile() {
+        File file = new File("Data Files/YoutubeData.json");
+
+        if(file.delete()) {
+            System.out.println("File Deleted");
+        }
+    }
 }

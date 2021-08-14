@@ -12,6 +12,8 @@ public class CreateStream {
 
     int timeOut;
 
+    public static String streamID;
+
     public void create(String DevKey)
             throws Exception {
         try {
