@@ -16,7 +16,6 @@ import com.google.gson.*;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
 import com.parker.MainWindow.MainWindow;
-import com.sun.tools.javac.Main;
 
 public class GetFacebookData {
 

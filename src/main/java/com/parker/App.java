@@ -1,18 +1,6 @@
 package com.parker;
 
-import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
-import com.parker.youtube.*;
-import com.sun.tools.javac.Main;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Arrays;
-import java.util.jar.JarFile;
 
 public class App
 {

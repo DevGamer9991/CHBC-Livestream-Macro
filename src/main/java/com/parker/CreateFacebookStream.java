@@ -12,7 +12,7 @@ import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
 import com.parker.facebook.GetPageAccessToken;
 
-public class CreateFacebookStream{
+public class CreateFacebookStream {
 
     public static String streamURL;
     public static String streamID;
@@ -20,7 +20,7 @@ public class CreateFacebookStream{
     int timeOut;
 
     public void createStream(String titleString, String descripString, String pageName) throws Exception{
-        String access_token =new GetPageAccessToken().get(pageName);
+        String access_token = new GetPageAccessToken().get(pageName);
         if (access_token != null) {
             try {
                 titleString = titleString.replaceAll(" ", "+");
