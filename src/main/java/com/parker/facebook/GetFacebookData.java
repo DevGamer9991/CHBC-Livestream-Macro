@@ -28,6 +28,7 @@ public class GetFacebookData {
 
     public static boolean streamFBBool;
     public static boolean streamYTBool;
+    public static String ytprivacy;
 
     public String getName() throws Exception{
         try {
@@ -140,6 +141,7 @@ public class GetFacebookData {
             map.put("pageName", getPageNameFromFile());
             map.put("streamFBBox", streamFBBool);
             map.put("streamYTBox", streamYTBool);
+            map.put("ytprivacy", getYTPrivacyFromFile());
 
             Writer writer = new FileWriter("Data Files/SavedData.json");
 
@@ -183,6 +185,42 @@ public class GetFacebookData {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    public String getYTPrivacyFromFile() {
+        System.out.println("Getting Privacy");
+        try {
+            File file = new File("Data Files/SavedData.json");
+            if (file.exists()) {
+                System.out.println("Found File");
+                // create Gson instance
+                Gson gson = new Gson();
+
+                // create a reader
+                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+                // convert JSON file to map
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+                ytprivacy = object.get("ytprivacy").getAsString();
+
+                System.out.println(ytprivacy);
+
+                // close reader
+                reader.close();
+                return ytprivacy;
+            } else {
+                System.out.println("Privacy not set");
+                return "public";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getYTPrivacy() {
+        return ytprivacy;
     }
 
 
@@ -332,6 +370,7 @@ public class GetFacebookData {
                 map.put("pageName", "Capitol Hill Baptist");
                 map.put("streamFBBox", true);
                 map.put("streamYTBox", true);
+                map.put("ytprivacy", "public");
 
                 Writer writer = new FileWriter("Data Files/SavedData.json");
 
@@ -360,6 +399,7 @@ public class GetFacebookData {
                 map.put("pageName", getPageNameFromFile());
                 map.put("streamFBBox", fb);
                 map.put("streamYTBox", yt);
+                map.put("ytprivacy", getYTPrivacyFromFile());
 
                 streamFBBool = fb;
                 streamYTBool = yt;

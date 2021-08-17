@@ -7,6 +7,8 @@ import com.google.api.services.youtube.model.LiveBroadcastContentDetails;
 import com.google.api.services.youtube.model.LiveBroadcastSnippet;
 import com.google.api.services.youtube.model.LiveBroadcastStatus;
 import com.parker.MainWindow.MainWindow;
+import com.parker.facebook.GetFacebookData;
+
 import java.time.Clock;
 import java.time.ZoneId;
 import java.util.Arrays;
@@ -52,7 +54,7 @@ public class CreateBroadcast {
             // Add the status object property to the LiveBroadcast object.
             LiveBroadcastStatus status = new LiveBroadcastStatus();
             status.setSelfDeclaredMadeForKids(false);
-            status.setPrivacyStatus("public");
+            status.setPrivacyStatus(new GetFacebookData().getYTPrivacyFromFile());
             liveBroadcast.setStatus(status);
 
             // Define and execute the API request
