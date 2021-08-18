@@ -30,15 +30,29 @@ public class GetBroadcastData {
         // Define and execute the API request
         YouTube.LiveBroadcasts.List request = youtubeService.liveBroadcasts()
                 .list("snippet,contentDetails,status");
-        LiveBroadcastListResponse response = request.setId(new ManageYoutubeData().getBroadcastIDFromFile()).execute();
-        System.out.println(response);
 
-        try {
-            String responseTitle = response.getItems().get(0).getSnippet().getTitle();
-            new ManageYoutubeData().setBroadcastID(response.getItems().get(0).getId());
-            return responseTitle;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Broadcast Does Not Exist");
+        String ID = new ManageYoutubeData().getBroadcastIDFromFile();
+
+        if (ID != null) {
+            LiveBroadcastListResponse response = request.setId(new ManageYoutubeData().getBroadcastIDFromFile()).execute();
+            System.out.println(response);
+
+            try {
+
+                String responseStatus = response.getItems().get(0).getStatus().getLifeCycleStatus();
+                System.out.println(responseStatus);
+
+                if (responseStatus != "live" || responseStatus != "complete") {
+                    new ManageYoutubeData().setBroadcastID(response.getItems().get(0).getId());
+                    return responseStatus;
+                } else {
+                    return null;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Broadcast Does Not Exist");
+                return null;
+            }
+        } else {
             return null;
         }
     }

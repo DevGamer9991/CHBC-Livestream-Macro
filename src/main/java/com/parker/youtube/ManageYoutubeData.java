@@ -92,8 +92,12 @@ public class ManageYoutubeData {
     }
 
     public String getBroadcastIDFromFile() throws Exception{
-
-        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+        InputStream in;
+        try {
+            in = new FileInputStream("Data Files/YoutubeData.json");
+        } catch (FileNotFoundException e) {
+            return null;
+        }
 
         String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
