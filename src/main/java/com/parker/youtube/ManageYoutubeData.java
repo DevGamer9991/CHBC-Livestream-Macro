@@ -91,6 +91,27 @@ public class ManageYoutubeData {
         return streamIDFromFile.getAsString();
     }
 
+    public String getBroadcastIDFromFile() throws Exception{
+
+        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+
+        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+        Gson gson = new Gson();
+
+        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+        JsonElement streamIDFromFile = jsonObject.get("broadcastID");
+
+        if (streamIDFromFile == null) {
+            return null;
+        }
+
+        streamID = streamIDFromFile.getAsString();
+
+        return streamIDFromFile.getAsString();
+    }
+
     public String setStreamURLFromFile() throws Exception{
 
         InputStream in = new FileInputStream("Data Files/YoutubeData.json");

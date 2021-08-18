@@ -16,7 +16,12 @@ public class CreateYoutubeStream {
             titleString = "Test Stream";
         }
 
-        new CreateBroadcast().create(titleString, descString, DevKey);
+        if (new GetBroadcastData().get() == null) {
+            new CreateBroadcast().create(titleString, descString, DevKey);
+        } else {
+            new DeleteBroadcast().delete(new ManageYoutubeData().getBroadcastIDFromFile());
+            new CreateBroadcast().create(titleString, descString, DevKey);
+        }
 
         if (new ManageYoutubeData().checkFile("Data Files/YoutubeData.json")) {
 
@@ -57,6 +62,8 @@ public class CreateYoutubeStream {
         new MainWindow().setData();
 
         new MainWindow().setLoadingBar(16);
+
+        new ManageYoutubeData().saveFile();
     }
 
     public void auth() throws Exception {
