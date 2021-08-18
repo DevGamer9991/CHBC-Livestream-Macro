@@ -34,19 +34,24 @@ public class GetBroadcastData {
         String ID = new ManageYoutubeData().getBroadcastIDFromFile();
 
         if (ID != null) {
+            try {
+                LiveBroadcastListResponse response = request.setId(new ManageYoutubeData().getBroadcastIDFromFile()).execute();
+            } catch(GoogleJsonResponseException e) {
+                e.printStackTrace();
+                return get();
+            }
             LiveBroadcastListResponse response = request.setId(new ManageYoutubeData().getBroadcastIDFromFile()).execute();
             System.out.println(response);
 
             try {
-
                 String responseStatus = response.getItems().get(0).getStatus().getLifeCycleStatus();
                 System.out.println(responseStatus);
 
-                if (responseStatus != "live" || responseStatus != "complete") {
+                if (responseStatus == "ready") {
                     new ManageYoutubeData().setBroadcastID(response.getItems().get(0).getId());
                     return responseStatus;
                 } else {
-                    return null;
+                    return "complete";
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Broadcast Does Not Exist");

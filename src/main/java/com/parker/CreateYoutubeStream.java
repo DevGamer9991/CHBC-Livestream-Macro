@@ -16,7 +16,9 @@ public class CreateYoutubeStream {
             titleString = "Test Stream";
         }
 
-        if (new GetBroadcastData().get() == null) {
+        String data = new GetBroadcastData().get();
+
+        if (data == null || data == "complete") {
             new CreateBroadcast().create(titleString, descString, DevKey);
         } else {
             new DeleteBroadcast().delete(new ManageYoutubeData().getBroadcastIDFromFile());

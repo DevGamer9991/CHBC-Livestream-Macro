@@ -720,11 +720,11 @@ public class MainWindow extends javax.swing.JFrame {
                             streamFBIDField.setText(fbStreamCreator.getStreamID());
                             streamFBKeyField.setText(fbStreamCreator.getStreamURL());
                         }
-
-                        GetFacebookData facebookData = new GetFacebookData();
-
-                        facebookData.saveTitleAndDesc(streamTitleField.getText(), streamDescField.getText());
                     }
+
+                    GetFacebookData facebookData = new GetFacebookData();
+
+                    facebookData.saveTitleAndDesc(streamTitleField.getText(), streamDescField.getText());
 
                     setLoadingBar(50);
 
