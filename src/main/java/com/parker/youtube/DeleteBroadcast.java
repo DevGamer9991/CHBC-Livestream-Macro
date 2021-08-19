@@ -13,6 +13,7 @@ public class DeleteBroadcast {
         // Define and execute the API request
         YouTube.LiveBroadcasts.Delete request = youtubeService.liveBroadcasts()
                 .delete(ID);
+        System.out.println("Deleting Existing Broadcast");
         request.setKey(App.DevKey).execute();
     }
 }

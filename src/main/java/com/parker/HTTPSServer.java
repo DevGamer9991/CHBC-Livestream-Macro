@@ -15,4 +15,9 @@ public class HTTPSServer {
     public void stopServer() {
         thread.stop();
     }
+
+    public void restartServer() {
+        stopServer();
+        startServer();
+    }
 }

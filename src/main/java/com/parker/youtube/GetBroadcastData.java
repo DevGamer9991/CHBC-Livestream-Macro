@@ -47,11 +47,11 @@ public class GetBroadcastData {
                 String responseStatus = response.getItems().get(0).getStatus().getLifeCycleStatus();
                 System.out.println(responseStatus);
 
-                if (responseStatus == "ready") {
+                if (responseStatus.equals("ready")) {
                     new ManageYoutubeData().setBroadcastID(response.getItems().get(0).getId());
                     return responseStatus;
                 } else {
-                    return "complete";
+                    return null;
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Broadcast Does Not Exist");
