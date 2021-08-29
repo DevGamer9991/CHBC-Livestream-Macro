@@ -82,36 +82,10 @@ public class GetFacebookData {
         page_id = id;
     }
 
-    public void savePageAccessToken(String token) {
-        try {
-            File file = new File("Data Files/PageToken.txt");
-            file.getParentFile().mkdir();
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-
-            try {
-                FileWriter  fr = new FileWriter(file);
-                fr.write(token);
-                fr.close();
-                System.out.println("Successfully wrote to the file.");
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-            
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
     public void openLoginPage(Integer port) {
         URI url;
         try {
-            url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=https://localhost:" + port + "&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
+            url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=https://localhost:" + port + "/token&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
 
             if(Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(url);
@@ -274,35 +248,6 @@ public class GetFacebookData {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
-        }
-    }
-
-    public String getManagedPagesAccessToken(String pageName) {
-        String managedPagesJson = new GetManagedPagesJSON().get();
-
-        if (managedPagesJson != null) {
-            Gson gson = new Gson();
-
-            JsonObject jsonObject = gson.fromJson(managedPagesJson, JsonObject.class);
-
-            JsonArray entry = (JsonArray) jsonObject.get("data");
-
-            int num = 0;
-
-            for (int i = 0; i < entry.size(); i++) {
-                String name = ((JsonObject) entry.get(i)).get("name").getAsString();
-                if (name.contains(pageName)) {
-                    num = i;
-                }
-            }
-
-            String token = ((JsonObject) entry.get(num)).get("access_token").getAsString();
-
-            savePageAccessToken(token);
-
-            return token;
-        } else {
             return null;
         }
     }
