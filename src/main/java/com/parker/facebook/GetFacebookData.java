@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.gson.*;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
@@ -60,26 +62,15 @@ public class GetFacebookData {
         }
     }
 
-    public void setAccessToken(InputStream input) throws Exception {
-        String s = null;
-        try {
-            s = new String(input.readAllBytes(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setAccessToken(String input) throws Exception {
+        if (input.contains("code")) {
+            String[] s2 = input.split("code=");
 
-        if (s.contains("Access_Token")) {
-            String[] s2 = s.split("Access_Token=");
-            String[] s3 = s2[1].split("\n");
-
-            access_token = s3[0];
+            access_token = s2[1];
 
             System.out.println(access_token);
 
             new MainWindow().setFBName(new GetFacebookData().getName());
-        } else {
-            HTTPSServerThread.loginOpened = false;
-            new HTTPSServer().startServer();
         }
     }
 
@@ -308,7 +299,7 @@ public class GetFacebookData {
 
             String token = ((JsonObject) entry.get(num)).get("access_token").getAsString();
 
-            savePageAccessToken(token);;
+            savePageAccessToken(token);
 
             return token;
         } else {
