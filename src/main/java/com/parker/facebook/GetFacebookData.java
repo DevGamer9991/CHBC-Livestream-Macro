@@ -87,7 +87,9 @@ public class GetFacebookData {
         try {
             url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=https://localhost:" + port + "/token&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
 
+            System.out.println("Open In Web Browser: " + url);
             if(Desktop.isDesktopSupported()) {
+
                 Desktop.getDesktop().browse(url);
             }else {
                 System.out.println("Cant Open Web Browser Here is Link: " + url.toString());
