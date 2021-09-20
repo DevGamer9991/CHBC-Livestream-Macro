@@ -16,6 +16,8 @@ public class App
     • Add Togglable Console Logging
     • Web GUI ( Using Nodejs and/or React )
 
+    DONE THINGS:
+
    */
 
   public static void main(String[] args) throws Exception {
