@@ -152,24 +152,7 @@ public class HTTPSServerThread extends Thread{
             }
             return out.toString();
         }catch (Exception e) {
-            Logger.print("Error reading FIle \n");
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public String getTokenHTML() {
-        try {
-            InputStream in = getClass().getResourceAsStream("/html/token.html");
-            int bufferSize = 1024;
-            char[] buffer = new char[bufferSize];
-            StringBuilder out = new StringBuilder();
-            InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
-            for (int numRead; (numRead = reader.read(buffer, 0, buffer.length)) > 0; ) {
-                out.append(buffer, 0, numRead);
-            }
-            return out.toString();
-        }catch (Exception e) {
-            Logger.print("Error reading FIle \n");
+            Logger.printlnOverride("Error reading FIle");
             e.printStackTrace();
             return null;
         }
