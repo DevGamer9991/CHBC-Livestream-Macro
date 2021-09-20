@@ -24,7 +24,16 @@ public class App
    */
 
   public static void main(String[] args) throws Exception {
-    Logger.consoleEnabled = false;
+    try {
+      for (Object o : args) {
+        if (o.toString().equals("-l")) {
+          Logger.consoleEnabled = true;
+          Logger.println("Debug Logging Enabled");
+        }
+      }
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
 
     new GetFacebookData().checkDataFile();
     new HTTPSServer().startServer();
