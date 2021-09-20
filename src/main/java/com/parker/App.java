@@ -15,11 +15,8 @@ public class App
   /*
     THINGS TO ADD:
 
-    • Livestream Preview
-    • Add Togglable Console Logging
-    • Web GUI ( Using Nodejs and/or React )
-
-    DONE THINGS:
+      • Livestream Preview
+      • Web GUI ( Using Nodejs and/or React )
 
    */
 
