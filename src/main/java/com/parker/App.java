@@ -12,7 +12,7 @@ public class App
   /*
     THINGS TO ADD:
 
-      • Web GUI ( Using Nodejs and/or React )
+      • Web GUI ( Using Nodejs or JS )
         •) Livestream Preview
 
    */
