@@ -16,6 +16,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.App;
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
 import com.sun.tools.javac.Main;
@@ -116,7 +117,7 @@ public class Authorize {
         try {
             File file = new File("Data Files/RefreshToken.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -128,7 +129,7 @@ public class Authorize {
 
                 String token = object.get("refreshToken").getAsString();
 
-                System.out.println(token);
+                Logger.println(token);
 
                 // close reader
                 reader.close();
@@ -154,15 +155,15 @@ public class Authorize {
     public String useRefreshToken(String refreshToken, NetHttpTransport httpTransport) throws Exception {
         try{
             TokenResponse tokenResponse = new GoogleRefreshTokenRequest(httpTransport, JacksonFactory.getDefaultInstance(), refreshToken, "895756277270-irp13i4jovn0codvnefgisu0k78draho.apps.googleusercontent.com", "flAkUj9xOcQeYItZPvqJpsPG").setGrantType("refresh_token").setScopes(SCOPES).execute();
-            System.out.println(tokenResponse + "\n");
+            Logger.println(tokenResponse + "\n");
 
-            System.out.println(tokenResponse.getAccessToken());
+            Logger.println(tokenResponse.getAccessToken());
 
             return tokenResponse.getAccessToken();
         } catch (Exception e){
             if (timeOut == 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
             Thread.sleep(1000);
-            System.out.println("Error When Authorizing Retrying and Ending in " + timeOut + " Out of 20 Retries");
+            Logger.println("Error When Authorizing Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;
             return useRefreshToken(refreshToken, httpTransport);
         }

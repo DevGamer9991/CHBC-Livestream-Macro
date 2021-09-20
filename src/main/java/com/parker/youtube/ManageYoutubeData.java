@@ -3,6 +3,7 @@ package com.parker.youtube;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.parker.Logger.Logger;
 
 import javax.annotation.Nullable;
 import java.io.*;
@@ -169,7 +170,7 @@ public class ManageYoutubeData {
         File file = new File("Data Files/YoutubeData.json");
 
         if(file.delete()) {
-            System.out.println("File Deleted");
+            Logger.println("File Deleted");
         }
     }
 }

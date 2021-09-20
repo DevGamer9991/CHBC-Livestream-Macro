@@ -1,12 +1,14 @@
 package com.parker;
 
+import com.parker.Logger.Logger;
+
 public class HTTPSServer {
 
     HTTPSServerThread thread;
 
     public void startServer() {
-        System.out.println("Server starting...");
-        System.out.println("Using Port: " + 5000);
+        Logger.printlnOverride("Server starting...");
+        Logger.printlnOverride("Using Port: " + 5000);
 
         thread = new HTTPSServerThread();
         thread.start();

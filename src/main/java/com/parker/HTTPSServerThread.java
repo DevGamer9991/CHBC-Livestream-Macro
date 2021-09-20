@@ -1,5 +1,6 @@
 package com.parker;
 
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
 import com.sun.net.httpserver.*;
@@ -64,7 +65,7 @@ public class HTTPSServerThread extends Thread{
                     SSLParameters defaultSSLParameters = c.getDefaultSSLParameters();
                     params.setSSLParameters(defaultSSLParameters);
                 } catch (Exception ex) {
-                    System.out.println("Error");
+                    Logger.println("Error");
                 }
             }
         });
@@ -83,7 +84,7 @@ public class HTTPSServerThread extends Thread{
                 write(exchange, exchange.getResponseHeaders());
 
                 if (!exchange.getRequestURI().getRawQuery().equals("")) {
-                    System.out.println(exchange.getRequestURI().getRawQuery());
+                    Logger.println(exchange.getRequestURI().getRawQuery());
 
                     new GetFacebookData().checkStreamFBBox();
                     new GetFacebookData().checkStreamYTBox();
@@ -98,15 +99,15 @@ public class HTTPSServerThread extends Thread{
                         e.printStackTrace();
                     }
 
-                    System.out.println("Connection Process Finished");
+                    Logger.printlnOverride("Connection Process Finished");
 
-                    System.out.println("Opening Main Window");
+                    Logger.printlnOverride("Opening Main Window");
 
                     try {
                         if (!new MainWindow().getOpened()) {
                             new MainWindow().openMainWindow();
                         } else {
-                            System.out.println("Already Opened");
+                            Logger.println("Already Opened");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -114,7 +115,7 @@ public class HTTPSServerThread extends Thread{
 
                     server.stop(1000);
 
-                    System.out.println("Server Stopped");
+                    Logger.println("Server Stopped");
                 }
             }
         };
@@ -155,7 +156,7 @@ public class HTTPSServerThread extends Thread{
             }
             return out.toString();
         }catch (Exception e) {
-            System.out.print("Error reading FIle \n");
+            Logger.print("Error reading FIle \n");
             e.printStackTrace();
             return null;
         }
@@ -172,7 +173,7 @@ public class HTTPSServerThread extends Thread{
             }
             return out.toString();
         }catch (Exception e) {
-            System.out.print("Error reading FIle \n");
+            Logger.print("Error reading FIle \n");
             e.printStackTrace();
             return null;
         }

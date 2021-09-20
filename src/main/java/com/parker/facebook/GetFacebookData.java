@@ -17,6 +17,7 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.gson.*;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 
 public class GetFacebookData {
@@ -53,7 +54,7 @@ public class GetFacebookData {
 
             String name = jsonObject.get("name").getAsString();
 
-            System.out.println(name);
+            Logger.println(name);
 
             return name;
         } catch (Exception e) {
@@ -68,7 +69,7 @@ public class GetFacebookData {
 
             access_token = s2[1];
 
-            System.out.println(access_token);
+            Logger.println(access_token);
 
             new MainWindow().setFBName(new GetFacebookData().getName());
         }
@@ -87,12 +88,12 @@ public class GetFacebookData {
         try {
             url = new URI("https://graph.facebook.com/v3.3/oauth/authorize?type=user_agent&client_id=" + clientID +"&redirect_uri=https://localhost:" + port + "/token&scope=publish_video,pages_manage_posts,pages_manage_metadata,pages_read_user_content");
 
-            System.out.println("Open In Web Browser: " + url);
+            Logger.printlnOverride("Open In Web Browser: " + url);
             if(Desktop.isDesktopSupported()) {
 
                 Desktop.getDesktop().browse(url);
             }else {
-                System.out.println("Cant Open Web Browser Here is Link: " + url.toString());
+                Logger.printlnOverride("Cant Open Web Browser Here is Link: " + url.toString());
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -126,7 +127,7 @@ public class GetFacebookData {
     public boolean getYTEnabled() throws IOException {
         File file = new File("Data Files/SavedData.json");
         if (file.exists()) {
-            System.out.println("Found File");
+            Logger.println("Found File");
             // create Gson instance
             Gson gson = new Gson();
 
@@ -138,7 +139,7 @@ public class GetFacebookData {
 
             boolean ytEnabled = object.get("ytEnabled").getAsBoolean();
 
-            System.out.println(ytEnabled);
+            Logger.println(ytEnabled);
 
             // close reader
             reader.close();
@@ -153,7 +154,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -165,7 +166,7 @@ public class GetFacebookData {
 
                 String pageName = object.get("pageName").getAsString();
 
-                System.out.println(pageName);
+                Logger.println(pageName);
 
                 // close reader
                 reader.close();
@@ -182,11 +183,11 @@ public class GetFacebookData {
     }
 
     public String getYTPrivacyFromFile() {
-        System.out.println("Getting Privacy");
+        Logger.println("Getting Privacy");
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -198,13 +199,13 @@ public class GetFacebookData {
 
                 ytprivacy = object.get("ytprivacy").getAsString();
 
-                System.out.println(ytprivacy);
+                Logger.println(ytprivacy);
 
                 // close reader
                 reader.close();
                 return ytprivacy;
             } else {
-                System.out.println("Privacy not set");
+                Logger.println("Privacy not set");
                 return "public";
             }
         } catch (Exception ex) {
@@ -222,7 +223,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -234,7 +235,7 @@ public class GetFacebookData {
 
                 String title = object.get("title").getAsString();
 
-                System.out.println(title);
+                Logger.println(title);
 
                 // close reader
                 reader.close();
@@ -254,7 +255,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -266,7 +267,7 @@ public class GetFacebookData {
 
                 String desc = object.get("description").getAsString();
 
-                System.out.println(desc);
+                Logger.println(desc);
                 // close reader
                 reader.close();
 
@@ -284,7 +285,7 @@ public class GetFacebookData {
     public String getManagedPagesID(String pageName) throws Exception {
         String managedPagesJson = new GetManagedPagesJSON().get();
 
-        System.out.println(managedPagesJson);
+        Logger.println(managedPagesJson);
 
         if (managedPagesJson != null) {
             if (managedPagesJson.contains(pageName)) {
@@ -294,7 +295,7 @@ public class GetFacebookData {
 
                 JsonArray entry = (JsonArray) jsonObject.get("data");
 
-                System.out.print(entry.toString());
+                Logger.print(entry.toString());
 
                 int num = 0;
 
@@ -311,7 +312,7 @@ public class GetFacebookData {
 
                 return id;
             } else {
-                System.out.println("Account: " + getName() + " Is Not a Admin Of: " + getPageNameFromFile());
+                Logger.println("Account: " + getName() + " Is Not a Admin Of: " + getPageNameFromFile());
                 return null;
             }
         } else {
@@ -375,10 +376,10 @@ public class GetFacebookData {
     }
 
     public void saveStreamBoxes(boolean fb, boolean yt) {
-        System.out.println("Saving Boxes");
+        Logger.println("Saving Boxes");
 
-        System.out.println("FB: " + fb);
-        System.out.println("YT: " + yt);
+        Logger.println("FB: " + fb);
+        Logger.println("YT: " + yt);
 
         File file = new File("Data Files/SavedData.json");
         if (file.exists()) {
@@ -412,7 +413,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -424,7 +425,7 @@ public class GetFacebookData {
 
                 streamFBBool = object.get("streamFBBox").getAsBoolean();
 
-                System.out.println(streamFBBool);
+                Logger.println(streamFBBool);
                 // close reader
                 reader.close();
 
@@ -442,7 +443,7 @@ public class GetFacebookData {
         try {
             File file = new File("Data Files/SavedData.json");
             if (file.exists()) {
-                System.out.println("Found File");
+                Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -454,7 +455,7 @@ public class GetFacebookData {
 
                 streamYTBool = object.get("streamYTBox").getAsBoolean();
 
-                System.out.println(streamYTBool);
+                Logger.println(streamYTBool);
                 // close reader
                 reader.close();
 

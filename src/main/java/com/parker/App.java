@@ -1,6 +1,9 @@
 package com.parker;
 
+import com.parker.Logger.Logger;
 import com.parker.facebook.GetFacebookData;
+
+import java.util.Arrays;
 
 public class App
 {
@@ -21,6 +24,8 @@ public class App
    */
 
   public static void main(String[] args) throws Exception {
+    Logger.consoleEnabled = false;
+
     new GetFacebookData().checkDataFile();
     new HTTPSServer().startServer();
   }

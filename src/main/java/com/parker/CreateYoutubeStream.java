@@ -1,5 +1,6 @@
 package com.parker;
 
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
 
@@ -18,7 +19,7 @@ public class CreateYoutubeStream {
 
         String data = new GetBroadcastData().get();
 
-        System.out.println("\n " + data + "\n ");
+        Logger.println("\n " + data + "\n ");
 
         if (data == null) {
             new CreateBroadcast().create(titleString, descString, DevKey);
@@ -30,12 +31,12 @@ public class CreateYoutubeStream {
         if (new ManageYoutubeData().checkFile("Data Files/YoutubeData.json")) {
 
             if (new ManageYoutubeData().getStreamIDFromFile() != null) {
-                System.out.println("Ran Check");
+                Logger.println("Ran Check");
                 if (!new CheckStreamID().check(new ManageYoutubeData().getStreamIDFromFile())) {
                     createYoutubeStream(titleString, descString);
                 }
             } else {
-                System.out.println("Didn't Run Check");
+                Logger.println("Didn't Run Check");
                 new CreateStream().create(DevKey);
                 new ManageYoutubeData().saveFile();
             }
@@ -50,7 +51,7 @@ public class CreateYoutubeStream {
         manageYoutubeData.setStreamKeyFromFile();
         manageYoutubeData.setStreamURLFromFile();
 
-        System.out.println("Binding");
+        Logger.println("Binding");
 
         new BindBroadcast().bind(manageYoutubeData.getBroadcastID(), manageYoutubeData.getStreamID(), DevKey);
 
@@ -58,10 +59,10 @@ public class CreateYoutubeStream {
         streamURL = new ManageYoutubeData().getStreamURL();
         streamKey = new ManageYoutubeData().getStreamKey();
 
-        System.out.println(new ManageYoutubeData().getBroadcastID());
-        System.out.println(new ManageYoutubeData().getStreamID());
-        System.out.println(new ManageYoutubeData().getStreamURL());
-        System.out.println(new ManageYoutubeData().getStreamKey());
+        Logger.println(new ManageYoutubeData().getBroadcastID());
+        Logger.println(new ManageYoutubeData().getStreamID());
+        Logger.println(new ManageYoutubeData().getStreamURL());
+        Logger.println(new ManageYoutubeData().getStreamKey());
 
         new MainWindow().setData();
 

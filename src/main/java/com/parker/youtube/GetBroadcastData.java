@@ -13,6 +13,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveBroadcastListResponse;
+import com.parker.Logger.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,11 +42,11 @@ public class GetBroadcastData {
                 return get();
             }
             LiveBroadcastListResponse response = request.setId(new ManageYoutubeData().getBroadcastIDFromFile()).execute();
-            System.out.println(response);
+            Logger.println(response);
 
             try {
                 String responseStatus = response.getItems().get(0).getStatus().getLifeCycleStatus();
-                System.out.println(responseStatus);
+                Logger.println(responseStatus);
 
                 if (responseStatus.equals("ready")) {
                     new ManageYoutubeData().setBroadcastID(response.getItems().get(0).getId());
@@ -54,7 +55,7 @@ public class GetBroadcastData {
                     return null;
                 }
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Broadcast Does Not Exist");
+                Logger.println("Broadcast Does Not Exist");
                 return null;
             }
         } else {

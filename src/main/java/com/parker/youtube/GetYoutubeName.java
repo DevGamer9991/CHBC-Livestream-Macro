@@ -2,6 +2,7 @@ package com.parker.youtube;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.ChannelListResponse;
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import java.util.Arrays;
 
@@ -19,13 +20,13 @@ public class GetYoutubeName {
 
             String channelTitle = response.getItems().get(0).getSnippet().getTitle();
 
-            System.out.println("Channel Title: " + channelTitle);
+            Logger.println("Channel Title: " + channelTitle);
 
             return channelTitle;
         } catch(Exception e) {
             if (timeOut == 20) {new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));}
             Thread.sleep(1000);
-            System.out.println("Error When Getting Name Retrying and Ending in " + timeOut + " Out of 20 Retries");
+            Logger.println("Error When Getting Name Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;
             return get();
         }

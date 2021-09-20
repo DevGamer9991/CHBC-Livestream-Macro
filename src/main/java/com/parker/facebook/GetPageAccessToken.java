@@ -1,6 +1,7 @@
 package com.parker.facebook;
 
 import com.google.gson.Gson;
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.sun.tools.javac.Main;
 
@@ -45,7 +46,7 @@ public class GetPageAccessToken {
             }catch (Exception e) {
                 if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
                 Thread.sleep(1000);
-                System.out.println("Error When Getting FB Page Access Token Retrying and Ending in " + timeOut + " Out of 20 Retries");
+                Logger.println("Error When Getting FB Page Access Token Retrying and Ending in " + timeOut + " Out of 20 Retries");
                 timeOut++;
                 return get(pageName);
             }

@@ -6,6 +6,7 @@ import com.parker.CreateFacebookStream;
 import com.parker.CreateYoutubeStream;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
+import com.parker.Logger.Logger;
 import com.parker.facebook.GetFacebookData;
 import com.parker.youtube.Authorize;
 import com.parker.youtube.ManageYoutubeData;
@@ -17,7 +18,6 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 
 import javax.swing.UIManager;
@@ -709,8 +709,8 @@ public class MainWindow extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                System.out.println("FB: " + streamToFBBox.isSelected());
-                System.out.println("YT: " + streamToYTBox.isSelected());
+                Logger.println("FB: " + streamToFBBox.isSelected());
+                Logger.println("YT: " + streamToYTBox.isSelected());
                 new GetFacebookData().saveStreamBoxes(streamToFBBox.isSelected(), streamToYTBox.isSelected());
                 try {
                     if (streamToYTBox.isSelected()) {
@@ -740,10 +740,10 @@ public class MainWindow extends javax.swing.JFrame {
 
                     setLoadingBar(50);
 
-                    System.out.println(new ManageYoutubeData().getBroadcastID());
-                    System.out.println(new ManageYoutubeData().getStreamID());
-                    System.out.println(new ManageYoutubeData().getStreamURL());
-                    System.out.println(new ManageYoutubeData().getStreamKey());
+                    Logger.println(new ManageYoutubeData().getBroadcastID());
+                    Logger.println(new ManageYoutubeData().getStreamID());
+                    Logger.println(new ManageYoutubeData().getStreamURL());
+                    Logger.println(new ManageYoutubeData().getStreamKey());
 
                     setLoadingBar(75);
 
@@ -907,7 +907,7 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
@@ -923,7 +923,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         opened = true;
 
-        System.out.println("Opened Main Window");
+        Logger.println("Opened Main Window");
     }
 
     public static void main(String args[]) throws Exception {

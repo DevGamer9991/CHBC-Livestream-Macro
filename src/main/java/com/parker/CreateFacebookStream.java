@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
 import com.parker.facebook.GetPageAccessToken;
@@ -37,7 +38,7 @@ public class CreateFacebookStream {
 
                 String response = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
-                System.out.println(response);
+                Logger.println(response);
 
                 Gson gson = new Gson();
 
@@ -48,17 +49,17 @@ public class CreateFacebookStream {
 
                 if (jsonObject.toString().contains("secure_stream_url")) {
                     MainWindow mainWindow = new MainWindow();
-                    System.out.println("\n" + streamID);
-                    System.out.println("\n" + streamURL);
+                    Logger.println("\n" + streamID);
+                    Logger.println("\n" + streamURL);
                 } else {
-                    System.out.println("\n Didnt work \n" + jsonObject.toString());
+                    Logger.println("\n Didnt work \n" + jsonObject.toString());
                 }
 
                 new MainWindow().setLoadingBar(32);
             }catch (Exception e) {
                 if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
                 Thread.sleep(1000);
-                System.out.println("Error When Creating FB Stream Retrying and Ending in " + timeOut + " Out of 20 Retries");
+                Logger.println("Error When Creating FB Stream Retrying and Ending in " + timeOut + " Out of 20 Retries");
                 timeOut++;
                 createStream(titleString, descripString, pageName);
             }
