@@ -12,8 +12,8 @@ public class App
   /*
     THINGS TO ADD:
 
-      • Livestream Preview
       • Web GUI ( Using Nodejs and/or React )
+        •) Livestream Preview
 
    */
 
