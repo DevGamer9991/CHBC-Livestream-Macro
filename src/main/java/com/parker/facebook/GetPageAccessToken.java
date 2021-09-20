@@ -1,9 +1,8 @@
 package com.parker.facebook;
 
 import com.google.gson.Gson;
-import com.parker.Logger.Logger;
+import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
-import com.sun.tools.javac.Main;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;

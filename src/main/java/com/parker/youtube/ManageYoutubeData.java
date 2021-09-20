@@ -3,7 +3,7 @@ package com.parker.youtube;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.parker.Logger.Logger;
+import com.parker.Logger;
 
 import javax.annotation.Nullable;
 import java.io.*;

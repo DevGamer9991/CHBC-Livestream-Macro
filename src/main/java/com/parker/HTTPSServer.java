@@ -1,7 +1,5 @@
 package com.parker;
 
-import com.parker.Logger.Logger;
-
 public class HTTPSServer {
 
     HTTPSServerThread thread;

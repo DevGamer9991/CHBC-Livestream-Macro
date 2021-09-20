@@ -1,30 +1,19 @@
 package com.parker.MainWindow;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.parker.CreateFacebookStream;
 import com.parker.CreateYoutubeStream;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
-import com.parker.Logger.Logger;
+import com.parker.Logger;
 import com.parker.facebook.GetFacebookData;
-import com.parker.youtube.Authorize;
 import com.parker.youtube.ManageYoutubeData;
 import java.awt.Color;
-import java.io.File;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import javax.swing.JDialog;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 
 public class MainWindow extends javax.swing.JFrame {
 

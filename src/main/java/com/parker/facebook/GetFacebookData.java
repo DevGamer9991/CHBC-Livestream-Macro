@@ -13,11 +13,8 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.gson.*;
-import com.parker.HTTPSServer;
-import com.parker.HTTPSServerThread;
-import com.parker.Logger.Logger;
+import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 
 public class GetFacebookData {

@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
 import com.parker.facebook.GetPageAccessToken;

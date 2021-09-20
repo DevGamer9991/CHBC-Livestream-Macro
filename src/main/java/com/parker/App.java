@@ -1,9 +1,6 @@
 package com.parker;
 
-import com.parker.Logger.Logger;
 import com.parker.facebook.GetFacebookData;
-
-import java.util.Arrays;
 
 public class App
 {

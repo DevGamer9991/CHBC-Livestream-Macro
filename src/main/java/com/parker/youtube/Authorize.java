@@ -16,10 +16,9 @@ import com.google.api.services.youtube.YouTube;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.App;
-import com.parker.Logger.Logger;
+import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
-import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.nio.file.Files;

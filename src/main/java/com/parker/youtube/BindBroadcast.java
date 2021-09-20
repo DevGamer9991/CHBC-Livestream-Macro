@@ -2,7 +2,7 @@ package com.parker.youtube;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveBroadcast;
-import com.parker.Logger.Logger;
+import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import java.util.Arrays;
 

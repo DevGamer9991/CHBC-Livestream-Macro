@@ -1,6 +1,5 @@
 package com.parker;
 
-import com.parker.Logger.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
 

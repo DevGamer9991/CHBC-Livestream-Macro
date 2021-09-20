@@ -1,4 +1,4 @@
-package com.parker.Logger;
+package com.parker;
 
 public class Logger {
 
