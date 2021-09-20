@@ -49,8 +49,8 @@ public class MainWindow extends javax.swing.JFrame {
         setStreamTitleField();
         setStreamDescField();
 
-        streamToFBBox.setSelected(checkStreamFBBox());
-        streamToYTBox.setSelected(checkStreamYTBox());
+        streamToFBBox.setSelected(new GetFacebookData().checkStreamFBBox());
+        streamToYTBox.setSelected(new GetFacebookData().checkStreamYTBox());
 
         setFBConnected();
         setYTConnected();
@@ -1058,71 +1058,6 @@ public class MainWindow extends javax.swing.JFrame {
     public void setYTConnected() {
         if (channelName != null){
             setYTConnected(channelName);
-        }
-    }
-
-    public boolean checkStreamFBBox() {
-        try {
-            File file = new File("Data Files/SavedData.json");
-            if (file.exists()) {
-                System.out.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
-
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                boolean streamFBBox = object.get("streamFBBox").getAsBoolean();
-
-                System.out.println(streamFBBox);
-                // close reader
-                reader.close();
-
-                streamFBBoxbool = streamFBBox;
-
-                return streamFBBox;
-            } else {
-                return false;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-    public boolean checkStreamYTBox() {
-        try {
-            File file = new File("Data Files/SavedData.json");
-            if (file.exists()) {
-                System.out.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
-
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                boolean streamYTBox = object.get("streamYTBox").getAsBoolean();
-
-                System.out.println(streamYTBox);
-                // close reader
-                reader.close();
-
-                streamYTBoxbool = streamYTBox;
-
-                return streamYTBox;
-            } else {
-                return false;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
         }
     }
 }

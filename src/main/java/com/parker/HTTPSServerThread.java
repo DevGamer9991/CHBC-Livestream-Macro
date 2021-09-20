@@ -85,6 +85,9 @@ public class HTTPSServerThread extends Thread{
                 if (!exchange.getRequestURI().getRawQuery().equals("")) {
                     System.out.println(exchange.getRequestURI().getRawQuery());
 
+                    new GetFacebookData().checkStreamFBBox();
+                    new GetFacebookData().checkStreamYTBox();
+
                     try {
                         new GetFacebookData().setAccessToken(exchange.getRequestURI().getRawQuery());
 

@@ -390,6 +390,7 @@ public class GetFacebookData {
                 map.put("streamFBBox", fb);
                 map.put("streamYTBox", yt);
                 map.put("ytprivacy", getYTPrivacyFromFile());
+                map.put("ytEnabled", true);
 
                 streamFBBool = fb;
                 streamYTBool = yt;
@@ -404,6 +405,67 @@ public class GetFacebookData {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public boolean checkStreamFBBox() {
+        try {
+            File file = new File("Data Files/SavedData.json");
+            if (file.exists()) {
+                System.out.println("Found File");
+                // create Gson instance
+                Gson gson = new Gson();
+
+                // create a reader
+                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+                // convert JSON file to map
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+                streamFBBool = object.get("streamFBBox").getAsBoolean();
+
+                System.out.println(streamFBBool);
+                // close reader
+                reader.close();
+
+                return streamFBBool;
+            } else {
+                return false;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    public boolean checkStreamYTBox() {
+        try {
+            File file = new File("Data Files/SavedData.json");
+            if (file.exists()) {
+                System.out.println("Found File");
+                // create Gson instance
+                Gson gson = new Gson();
+
+                // create a reader
+                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+
+                // convert JSON file to map
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+
+                streamYTBool = object.get("streamYTBox").getAsBoolean();
+
+                System.out.println(streamYTBool);
+                // close reader
+                reader.close();
+
+                return streamYTBool;
+            } else {
+                return false;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
         }
     }
 }
