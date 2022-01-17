@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.json.Json;
 import com.google.gson.*;
 import com.parker.App;
 import com.parker.Logger;
@@ -49,11 +50,10 @@ public class GetFacebookData {
 
             String token = null;
 
-            JSONParser parser = new JSONParser();
+            Gson gson = new Gson();
+            JsonObject object = gson.fromJson(jsonString, JsonObject.class);
 
-            JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
-
-            String name = jsonObject.get("name").getAsString();
+            String name = object.get("name").getAsString();
 
             Logger.println(name);
 
@@ -115,15 +115,8 @@ public class GetFacebookData {
 
             Writer writer = new FileWriter(App.osDir + "/SavedData.json");
 
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            JSONParser parser = new JSONParser();
-
-            JsonObject jsonObject = (JsonObject) parser.parse(objectMapper.writeValueAsString(map));
-
-            String name = jsonObject.get("title").getAsString();
-
-            Logger.printlnOverride(name);
+            Gson gson = new Gson();
+            gson.toJson(map, writer);
 
             writer.close();
 
@@ -141,11 +134,8 @@ public class GetFacebookData {
             // create a reader
             Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            JSONParser parser = new JSONParser();
-
-            JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
+            Gson gson = new Gson();
+            JsonObject object = gson.fromJson(reader, JsonObject.class);
 
             boolean ytEnabled = object.get("ytEnabled").getAsBoolean();
 
@@ -171,11 +161,8 @@ public class GetFacebookData {
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                ObjectMapper objectMapper = new ObjectMapper();
-
-                JSONParser parser = new JSONParser();
-
-                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
+                Gson gson = new Gson();
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
 
                 String pageName = object.get("pageName").getAsString();
 
@@ -207,11 +194,8 @@ public class GetFacebookData {
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                ObjectMapper objectMapper = new ObjectMapper();
-
-                JSONParser parser = new JSONParser();
-
-                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
+                Gson gson = new Gson();
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
 
                 ytprivacy = object.get("ytprivacy").getAsString();
 
@@ -247,11 +231,8 @@ public class GetFacebookData {
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                ObjectMapper objectMapper = new ObjectMapper();
-
-                JSONParser parser = new JSONParser();
-
-                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
+                Gson gson = new Gson();
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
 
                 String title = object.get("title").getAsString();
 
@@ -282,11 +263,8 @@ public class GetFacebookData {
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                ObjectMapper objectMapper = new ObjectMapper();
-
-                JSONParser parser = new JSONParser();
-
-                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
+                Gson gson = new Gson();
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
 
                 String desc = object.get("description").getAsString();
 
@@ -315,11 +293,9 @@ public class GetFacebookData {
         if (managedPagesJson != null) {
             if (managedPagesJson.contains(pageName)) {
 
-                ObjectMapper objectMapper = new ObjectMapper();
+                Gson gson = new Gson();
 
-                JSONParser parser = new JSONParser();
-
-                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(managedPagesJson));
+                JsonObject object = gson.fromJson(managedPagesJson, JsonObject.class);
 
                 JsonArray entry = (JsonArray) object.get("data");
 
@@ -471,11 +447,9 @@ public class GetFacebookData {
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                ObjectMapper objectMapper = new ObjectMapper();
+                Gson gson = new Gson();
 
-                JSONParser parser = new JSONParser();
-
-                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
 
                 streamFBBool = object.get("streamFBBox").getAsBoolean();
 
