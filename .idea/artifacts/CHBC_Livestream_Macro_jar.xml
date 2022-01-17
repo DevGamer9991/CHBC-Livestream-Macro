@@ -36,9 +36,9 @@
       <element id="library" level="project" name="Maven: org.checkerframework:checker-compat-qual:2.5.5" />
       <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
       <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.29" />
-      <element id="module-output" name="CHBC-Livestream-Macro" />
-      <element id="module-source" name="CHBC-Livestream-Macro" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/keystore.jks" />
+      <element id="module-output" name="chbc-livestream-macro" />
+      <element id="module-source" name="chbc-livestream-macro" />
     </root>
   </artifact>
 </component>

@@ -6,7 +6,7 @@ import java.util.Locale;
 public class ConfigManager {
     public static String windowsDir = System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
 
-    public static String macDir = "~/Library/Preferences/CHBC Livestream Macro/";
+    public static String macDir = System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
 
     public static String linDir = "~/.chbc-livestream-macro/";
 
