@@ -1053,14 +1053,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     public boolean checkStreamFBBox() {
         try {
-            File file = new File("Data Files/SavedData.json");
+            File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
                 System.out.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
                 // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
                 // convert JSON file to map
                 JsonObject object = gson.fromJson(reader, JsonObject.class);
@@ -1085,14 +1085,14 @@ public class MainWindow extends javax.swing.JFrame {
     }
     public boolean checkStreamYTBox() {
         try {
-            File file = new File("Data Files/SavedData.json");
+            File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
                 System.out.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
                 // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get("Data Files/SavedData.json"));
+                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
                 // convert JSON file to map
                 JsonObject object = gson.fromJson(reader, JsonObject.class);

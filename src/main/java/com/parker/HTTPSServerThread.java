@@ -34,7 +34,7 @@ public class HTTPSServerThread extends Thread{
     public void startServer(int port) throws Exception {
         HttpsServer server = HttpsServer.create(new InetSocketAddress(port), 0);
 
-        Path keystorePath = Path.of("Data Files/keystore.jks");
+        Path keystorePath = Path.of(App.osDir + "/keystore.jks");
         char[] keystorePass = "chbcmacro".toCharArray();
 
         KeyStore keyStore = KeyStore.getInstance("JKS");

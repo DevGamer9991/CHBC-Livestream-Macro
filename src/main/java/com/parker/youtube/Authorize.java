@@ -48,7 +48,7 @@ public class Authorize {
     public void authorize() throws Exception {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
-        File file = new File("Data Files/RefreshToken.json");
+        File file = new File(App.osDir + "/RefreshToken.json");
         if(!file.exists()) {
             try {
                 // Load client secrets.
@@ -83,7 +83,7 @@ public class Authorize {
             Map<String, Object> map = new HashMap<>();
             map.put("refreshToken", refreshToken);
 
-            Writer writer = new FileWriter("Data Files/RefreshToken.json");
+            Writer writer = new FileWriter(App.osDir + "/RefreshToken.json");
 
             Gson gson = new Gson();
 
@@ -114,14 +114,14 @@ public class Authorize {
                 .build();
 
         try {
-            File file = new File("Data Files/RefreshToken.json");
+            File file = new File(App.osDir + "/RefreshToken.json");
             if (file.exists()) {
                 Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
                 // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get("Data Files/RefreshToken.json"));
+                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/RefreshToken.json"));
 
                 // convert JSON file to map
                 JsonObject object = gson.fromJson(reader, JsonObject.class);

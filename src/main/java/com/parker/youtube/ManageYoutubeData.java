@@ -3,6 +3,7 @@ package com.parker.youtube;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.parker.App;
 import com.parker.Logger;
 
 import javax.annotation.Nullable;
@@ -26,7 +27,7 @@ public class ManageYoutubeData {
             map.put("streamURL", getStreamURL());
             map.put("streamKey", getStreamKey());
 
-            Writer writer = new FileWriter("Data Files/YoutubeData.json");
+            Writer writer = new FileWriter(App.osDir + "/YoutubeData.json");
 
             Gson gson = new Gson();
 
@@ -73,7 +74,7 @@ public class ManageYoutubeData {
     @Nullable
     public String getStreamIDFromFile() throws Exception{
 
-        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+        InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
 
         String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
@@ -95,7 +96,7 @@ public class ManageYoutubeData {
     public String getBroadcastIDFromFile() throws Exception{
         InputStream in;
         try {
-            in = new FileInputStream("Data Files/YoutubeData.json");
+            in = new FileInputStream(App.osDir + "/YoutubeData.json");
         } catch (FileNotFoundException e) {
             return null;
         }
@@ -119,7 +120,7 @@ public class ManageYoutubeData {
 
     public String setStreamURLFromFile() throws Exception{
 
-        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+        InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
 
         String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
@@ -140,7 +141,7 @@ public class ManageYoutubeData {
 
     public void setStreamKeyFromFile() throws Exception{
 
-        InputStream in = new FileInputStream("Data Files/YoutubeData.json");
+        InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
 
         String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
@@ -167,7 +168,7 @@ public class ManageYoutubeData {
     }
 
     public void deleteFile() {
-        File file = new File("Data Files/YoutubeData.json");
+        File file = new File(App.osDir + "/YoutubeData.json");
 
         if(file.delete()) {
             Logger.println("File Deleted");
