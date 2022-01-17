@@ -4,9 +4,7 @@ import java.io.File;
 import java.util.Locale;
 
 public class ConfigManager {
-    public static String windowsDir = System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
-
-    public static String macDir = System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
+    public static String defaultDir = System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
 
     public static String linDir = "~/.chbc-livestream-macro/";
 
@@ -14,9 +12,9 @@ public class ConfigManager {
         String os = System.getProperty("os.name");
 
         if (os.toLowerCase(Locale.ROOT).contains("win")) {
-            return windowsDir;
+            return defaultDir;
         } else if (os.toLowerCase(Locale.ROOT).contains("mac")){
-            return macDir;
+            return defaultDir;
         } else if (os.toLowerCase(Locale.ROOT).contains("nix") || os.toLowerCase(Locale.ROOT).contains("nux") || os.toLowerCase(Locale.ROOT).contains("aix")) {
             return linDir;
         }
