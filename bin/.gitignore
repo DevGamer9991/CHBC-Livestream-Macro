@@ -1,6 +1,0 @@
-# Project exclude paths
-/target/
-/out/
-/src/main/resources/tls/
-/src/main/resources/client_secret.json
-/Data Files/SavedData.json

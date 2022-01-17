@@ -13,10 +13,13 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.parker.App;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class GetFacebookData {
 
@@ -46,9 +49,9 @@ public class GetFacebookData {
 
             String token = null;
 
-            Gson gson = new Gson();
+            JSONParser parser = new JSONParser();
 
-            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+            JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
 
             String name = jsonObject.get("name").getAsString();
 
@@ -112,28 +115,37 @@ public class GetFacebookData {
 
             Writer writer = new FileWriter(App.osDir + "/SavedData.json");
 
-            Gson gson = new Gson();
+            ObjectMapper objectMapper = new ObjectMapper();
 
-            gson.toJson(map, writer);
+            JSONParser parser = new JSONParser();
+
+            JsonObject jsonObject = (JsonObject) parser.parse(objectMapper.writeValueAsString(map));
+
+            String name = jsonObject.get("title").getAsString();
+
+            Logger.printlnOverride(name);
 
             writer.close();
+
+            Logger.println("Wrote Title and Desc");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean getYTEnabled() throws IOException {
+    public boolean getYTEnabled() throws IOException, ParseException {
         File file = new File(App.osDir + "/SavedData.json");
         if (file.exists()) {
-            Logger.println("Found File");
-            // create Gson instance
-            Gson gson = new Gson();
+            Logger.println("Found YT Enabled");
 
             // create a reader
             Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-            // convert JSON file to map
-            JsonObject object = gson.fromJson(reader, JsonObject.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            JSONParser parser = new JSONParser();
+
+            JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
 
             boolean ytEnabled = object.get("ytEnabled").getAsBoolean();
 
@@ -141,6 +153,8 @@ public class GetFacebookData {
 
             // close reader
             reader.close();
+
+            Logger.println("Got YT Enabled");
 
             return ytEnabled;
         } else {
@@ -152,15 +166,16 @@ public class GetFacebookData {
         try {
             File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
-                Logger.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
+                Logger.println("Found Page Name");
 
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                JSONParser parser = new JSONParser();
+
+                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
 
                 String pageName = object.get("pageName").getAsString();
 
@@ -168,6 +183,8 @@ public class GetFacebookData {
 
                 // close reader
                 reader.close();
+
+                Logger.println("Got Page Name");
 
                 return pageName;
             } else {
@@ -185,15 +202,16 @@ public class GetFacebookData {
         try {
             File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
-                Logger.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
+                Logger.println("Found YT Privacy");
 
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                JSONParser parser = new JSONParser();
+
+                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
 
                 ytprivacy = object.get("ytprivacy").getAsString();
 
@@ -201,6 +219,9 @@ public class GetFacebookData {
 
                 // close reader
                 reader.close();
+
+                Logger.println("Got YT Privacy");
+
                 return ytprivacy;
             } else {
                 Logger.println("Privacy not set");
@@ -221,15 +242,16 @@ public class GetFacebookData {
         try {
             File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
-                Logger.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
+                Logger.println("Found Title");
 
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                JSONParser parser = new JSONParser();
+
+                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
 
                 String title = object.get("title").getAsString();
 
@@ -237,6 +259,8 @@ public class GetFacebookData {
 
                 // close reader
                 reader.close();
+
+                Logger.println("Read Title");
 
                 return title;
             } else {
@@ -253,21 +277,24 @@ public class GetFacebookData {
         try {
             File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
-                Logger.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
+                Logger.println("Found Desc");
 
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                JSONParser parser = new JSONParser();
+
+                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
 
                 String desc = object.get("description").getAsString();
 
                 Logger.println(desc);
                 // close reader
                 reader.close();
+
+                Logger.println("Read Desc");
 
                 return desc;
             } else {
@@ -287,11 +314,14 @@ public class GetFacebookData {
 
         if (managedPagesJson != null) {
             if (managedPagesJson.contains(pageName)) {
-                Gson gson = new Gson();
 
-                JsonObject jsonObject = gson.fromJson(managedPagesJson, JsonObject.class);
+                ObjectMapper objectMapper = new ObjectMapper();
 
-                JsonArray entry = (JsonArray) jsonObject.get("data");
+                JSONParser parser = new JSONParser();
+
+                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(managedPagesJson));
+
+                JsonArray entry = (JsonArray) object.get("data");
 
                 Logger.print(entry.toString());
 
@@ -344,6 +374,8 @@ public class GetFacebookData {
                 gson.toJson(map, writer);
 
                 writer.close();
+
+                Logger.println("Checked Data File");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -385,6 +417,8 @@ public class GetFacebookData {
             gson.toJson(map, writer);
 
             writer.close();
+
+            Logger.println("Wrote YT Enabled");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -418,6 +452,8 @@ public class GetFacebookData {
                 gson.toJson(map, writer);
 
                 writer.close();
+
+                Logger.println("Wrote Stream Boxes");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -428,21 +464,26 @@ public class GetFacebookData {
         try {
             File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
-                Logger.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
+                Logger.println("Found FB Stream Box");
+
+                Logger.println("Initialized Gson");
 
                 // create a reader
                 Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                JSONParser parser = new JSONParser();
+
+                JsonObject object = (JsonObject) parser.parse(objectMapper.writeValueAsString(reader.read()));
 
                 streamFBBool = object.get("streamFBBox").getAsBoolean();
 
                 Logger.println(streamFBBool);
                 // close reader
                 reader.close();
+
+                Logger.println("Read FB Stream Box");
 
                 return streamFBBool;
             } else {
@@ -458,7 +499,7 @@ public class GetFacebookData {
         try {
             File file = new File(App.osDir + "/SavedData.json");
             if (file.exists()) {
-                Logger.println("Found File");
+                Logger.println("Found YT Stream Box");
                 // create Gson instance
                 Gson gson = new Gson();
 
@@ -473,6 +514,8 @@ public class GetFacebookData {
                 Logger.println(streamYTBool);
                 // close reader
                 reader.close();
+
+                Logger.println("Checked YT Stream Box");
 
                 return streamYTBool;
             } else {
