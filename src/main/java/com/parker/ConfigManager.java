@@ -5,6 +5,8 @@ import java.util.Locale;
 
 public class ConfigManager {
     private String defaultDir = System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
+    
+    // Me
 
     public static String chechArch() {
         return System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
