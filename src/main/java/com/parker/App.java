@@ -2,6 +2,9 @@ package com.parker;
 
 import com.parker.facebook.GetFacebookData;
 
+import javax.swing.*;
+import java.io.IOException;
+
 public class App
 {
   public static final String DevKey = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
@@ -12,6 +15,22 @@ public class App
   public static String osDir;
 
   public static void main(String[] args) throws Exception {
+    Run(args);
+
+//    openGUI();
+  }
+
+  public static void openGUI () {
+    JFrame frame = new JFrame("Main GUI Form");
+    frame.setContentPane(new MainGUIWindow().panel);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(420, 420);
+    frame.setResizable(false);
+    frame.pack();
+    frame.setVisible(true);
+  }
+
+  public static void Run(String[] args) throws IOException {
     try {
       for (Object o : args) {
         if (o.toString().equals("-l")) {
