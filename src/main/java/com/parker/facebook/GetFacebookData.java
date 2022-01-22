@@ -13,13 +13,10 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.json.Json;
 import com.google.gson.*;
 import com.parker.App;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class GetFacebookData {
@@ -217,11 +214,6 @@ public class GetFacebookData {
         }
     }
 
-    public String getYTPrivacy() {
-        return ytprivacy;
-    }
-
-
     public String getTitle() {
         try {
             File file = new File(App.osDir + "/SavedData.json");
@@ -286,7 +278,7 @@ public class GetFacebookData {
     }
 
     public String getManagedPagesID(String pageName) throws Exception {
-        String managedPagesJson = new GetManagedPagesJSON().get();
+        String managedPagesJson = new GetManagedPagesData().get();
 
         Logger.println(managedPagesJson);
 

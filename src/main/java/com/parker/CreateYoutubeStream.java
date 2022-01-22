@@ -81,9 +81,6 @@ public class CreateYoutubeStream {
     public String getStreamURL() {
         return streamURL;
     }
-    public String getBroadcastID() {
-        return broadcastID;
-    }
     public String getStreamKey() {
         return streamKey;
     }

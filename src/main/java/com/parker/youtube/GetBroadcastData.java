@@ -46,8 +46,4 @@ public class GetBroadcastData {
             return null;
         }
     }
-
-    public static String getID() {
-        return id;
-    }
 }

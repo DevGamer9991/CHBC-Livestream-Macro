@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class GetManagedPagesJSON {
+public class GetManagedPagesData {
 
     public String get() {
         try {
