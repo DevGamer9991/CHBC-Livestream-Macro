@@ -24,6 +24,22 @@
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
+    <repositories>
+          <repository>
+              <id>gitlab-maven</id>
+                  <url>https://gitlab.example.com/api/v4/projects/PROJECT_ID/packages/maven</url>
+                    </repository>
+                    </repositories>
+                    <distributionManagement>
+                      <repository>
+                          <id>gitlab-maven</id>
+                              <url>https://gitlab.example.com/api/v4/projects/PROJECT_ID/packages/maven</url>
+                                </repository>
+                                  <snapshotRepository>
+                                      <id>gitlab-maven</id>
+                                          <url>https://gitlab.example.com/api/v4/projects/PROJECT_ID/packages/maven</url>
+                                            </snapshotRepository>
+                                            </distributionManagement>cut
 
     <dependencies>
         <dependency>
