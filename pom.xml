@@ -23,23 +23,21 @@
             <id>java-net-repo</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.parkerthornton.net/api/v4/projects/3/packages/maven</url>
+        </repository>
     </repositories>
-    <repositories>
-          <repository>
-              <id>gitlab-maven</id>
-                  <url>https://gitlab.example.com/api/v4/projects/PROJECT_ID/packages/maven</url>
-                    </repository>
-                    </repositories>
-                    <distributionManagement>
-                      <repository>
-                          <id>gitlab-maven</id>
-                              <url>https://gitlab.example.com/api/v4/projects/PROJECT_ID/packages/maven</url>
-                                </repository>
-                                  <snapshotRepository>
-                                      <id>gitlab-maven</id>
-                                          <url>https://gitlab.example.com/api/v4/projects/PROJECT_ID/packages/maven</url>
-                                            </snapshotRepository>
-                                            </distributionManagement>cut
+    <distributionManagement>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.parkerthornton.net/api/v4/projects/3/packages/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.parkerthornton.net/api/v4/projects/3/packages/maven</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
