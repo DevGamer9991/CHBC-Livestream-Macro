@@ -1,14 +1,21 @@
+image: maven:3.8.4-openjdk-17
+
 stages:
+    - install
     - build
     - publish
 
+install:
+    stage: install
+    script:
+        - apt update
+        - apt install zip -y
+
 build:
     stage: build
-    image: maven:3.8.4-openjdk-17
     script: "mvn deploy -s $CI_PROJECT_DIR/settings.xml"
 
 publish:
     stage: publish
-    image: joshkeegan/zip:latest
     script:
         - zip chbc-livestream-macro.zip target/chbc-livestream-macro-2.0.jar
