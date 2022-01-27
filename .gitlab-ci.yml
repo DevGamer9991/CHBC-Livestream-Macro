@@ -19,7 +19,7 @@ package:
     image: joshkeegan/zip:latest
     artifacts:
         paths:
-            - "{$ZIPPEDFILE}"
+            - "$ZIPPEDFILE"
     dependencies:
         - build
     script:
