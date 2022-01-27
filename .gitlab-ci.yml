@@ -9,7 +9,7 @@ build:
     artifacts:
         paths:
             - target/chbc-livestream-macro-2.0.jar
-    script: "mvn deploy -s $CI_PROJECT_DIR/settings.xml"
+    script: "mvn package -s $CI_PROJECT_DIR/settings.xml"
 
 package:
     stage: package
@@ -20,7 +20,7 @@ package:
     dependencies:
         - build
     script:
-        - zip chbc-livestream-macro.zip target/chbc-livestream-macro-2.0.jar
+        - zip -j chbc-livestream-macro.zip target/chbc-livestream-macro-2.0.jar
 
 
 publish:
