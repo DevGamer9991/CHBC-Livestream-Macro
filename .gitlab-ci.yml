@@ -29,4 +29,4 @@ publish:
     dependencies:
         - package
     script:
-        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file chbc-livestream-macro.zip "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/my_package/0.0.1/chbc-livestream-macro.zip?status=default"'
+        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./chbc-livestream-macro.zip "https://gitlab.parkerthornton.net/api/v4/projects/3/packages/generic/chbc-livestream-macro/2.0.0/chbc-livestream-macro.zip?status=default"'
