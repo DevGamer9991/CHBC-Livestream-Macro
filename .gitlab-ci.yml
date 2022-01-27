@@ -1,5 +1,6 @@
 stages:
     - build
+    - package
     - publish
 
 build:
@@ -10,11 +11,22 @@ build:
             - target/chbc-livestream-macro-2.0.jar
     script: "mvn deploy -s $CI_PROJECT_DIR/settings.xml"
 
-publish:
-    stage: publish
+package:
+    stage: package
     image: joshkeegan/zip:latest
+    artifacts:
+        paths:
+            - chbc-livestream-macro.zip
     dependencies:
         - build
     script:
         - zip chbc-livestream-macro.zip target/chbc-livestream-macro-2.0.jar
+
+
+publish:
+    stage: publish
+    image: curlimages/curl:latest
+    dependencies:
+        - package
+    script:
         - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file chbc-livestream-macro.zip "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/my_package/0.0.1/chbc-livestream-macro.zip"'
