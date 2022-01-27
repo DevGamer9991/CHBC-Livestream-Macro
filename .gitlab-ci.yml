@@ -3,24 +3,28 @@ stages:
     - package
     - publish
 
+variables:
+    ZIPPEDFILE: "chbc-livestream-macro-build.zip"
+
 build:
     stage: build
     image: maven:3.8.4-openjdk-17
     artifacts:
         paths:
             - target/chbc-livestream-macro-2.0.jar
-    script: "mvn package -s $CI_PROJECT_DIR/settings.xml"
+    script: "mvn package"
 
 package:
     stage: package
     image: joshkeegan/zip:latest
     artifacts:
         paths:
-            - chbc-livestream-macro.zip
+            - "{$ZIPPEDFILE}"
     dependencies:
         - build
     script:
-        - zip -j chbc-livestream-macro.zip target/chbc-livestream-macro-2.0.jar
+        - mv target/chbc-livestream-macro-2.0.jar "CHBC Livestream Macro.app/Contents/chbc-livestream-macro.jar"
+        - zip -r {$ZIPPEDFILE} "CHBC Livestream Macro.app"
 
 
 publish:
@@ -29,4 +33,4 @@ publish:
     dependencies:
         - package
     script:
-        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./chbc-livestream-macro.zip "https://gitlab.parkerthornton.net/api/v4/projects/3/packages/generic/chbc-livestream-macro/2.0.0/chbc-livestream-macro.zip?status=default"'
+        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./{$ZIPPEDFILE} "https://gitlab.parkerthornton.net/api/v4/projects/3/packages/generic/chbc-livestream-macro/2.0.0/{$ZIPPEDFILE}?status=default"'
