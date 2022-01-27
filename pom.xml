@@ -18,6 +18,12 @@
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
 
+    <configuration>
+        <archive>
+            <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+        </archive>
+    </configuration>
+
     <repositories>
         <repository>
             <id>java-net-repo</id>
