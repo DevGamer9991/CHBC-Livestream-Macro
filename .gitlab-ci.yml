@@ -1,7 +1,13 @@
 stages:
-    - build 
+    - publish
 
 build:
     stage: build
     image: maven:3.8.4-openjdk-17
     script: "mvn deploy -s $CI_PROJECT_DIR/settings.xml"
+
+publish:
+    stage: publish
+    image: joshkeegan/zip:latest
+    script:
+        - cat /$CI_PROJECT_DIR/chbc-livestream-macro*.jar
