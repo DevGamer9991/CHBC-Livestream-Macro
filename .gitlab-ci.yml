@@ -12,7 +12,9 @@ build:
     artifacts:
         paths:
             - target/chbc-livestream-macro-2.0.jar
-    script: "mvn package"
+    script: 
+        - mvn clean
+        - mvn package
 
 package:
     stage: package
