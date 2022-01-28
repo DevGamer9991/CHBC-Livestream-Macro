@@ -43,7 +43,7 @@
                                 <manifest>
                                     <mainClass>com.parker.App</mainClass>
                                 </manifest>
-                            <archive>
+                            </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
