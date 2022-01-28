@@ -4,6 +4,7 @@ stages:
     - publish
 
 variables:
+    JARFILE: chbc-livestream-macro-2.0-jar-with-dependencies.jar
     ZIPPEDFILE: "chbc-livestream-macro-mac.zip"
 
 build:
@@ -25,7 +26,7 @@ package:
     dependencies:
         - build
     script:
-        - mv target/chbc-livestream-macro-2.0.jar "CHBC Livestream Macro.app/Contents/chbc-livestream-macro.jar"
+        - mv target/$JARFILE "CHBC Livestream Macro.app/Contents/chbc-livestream-macro.jar"
         - zip -r $ZIPPEDFILE "CHBC Livestream Macro.app"
 
 
