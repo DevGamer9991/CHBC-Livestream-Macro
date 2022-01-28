@@ -124,157 +124,23 @@ public class GetFacebookData {
     }
 
     public boolean getYTEnabled() throws IOException, ParseException {
-        File file = new File(App.osDir + "/SavedData.json");
-        if (file.exists()) {
-            Logger.println("Found YT Enabled");
-
-            // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-            Gson gson = new Gson();
-            JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-            boolean ytEnabled = object.get("ytEnabled").getAsBoolean();
-
-            Logger.println(ytEnabled);
-
-            // close reader
-            reader.close();
-
-            Logger.println("Got YT Enabled");
-
-            return ytEnabled;
-        } else {
-            return false;
-        }
+        return ConfigManager.config.get("ytEnabled").getAsBoolean();
     }
 
     public String getPageNameFromFile() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                Logger.println("Found Page Name");
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                Gson gson = new Gson();
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                String pageName = object.get("pageName").getAsString();
-
-                Logger.println(pageName);
-
-                // close reader
-                reader.close();
-
-                Logger.println("Got Page Name");
-
-                return pageName;
-            } else {
-                return null;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        return ConfigManager.config.get("pageName").getAsString();
     }
 
     public String getYTPrivacyFromFile() {
-        Logger.println("Getting Privacy");
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                Logger.println("Found YT Privacy");
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                Gson gson = new Gson();
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                ytprivacy = object.get("ytprivacy").getAsString();
-
-                Logger.println(ytprivacy);
-
-                // close reader
-                reader.close();
-
-                Logger.println("Got YT Privacy");
-
-                return ytprivacy;
-            } else {
-                Logger.println("Privacy not set");
-                return "public";
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        return ConfigManager.config.get("ytprivacy").getAsString();
     }
 
     public String getTitle() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                Logger.println("Found Title");
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                Gson gson = new Gson();
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                String title = object.get("title").getAsString();
-
-                Logger.println(title);
-
-                // close reader
-                reader.close();
-
-                Logger.println("Read Title");
-
-                return title;
-            } else {
-                return null;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        return ConfigManager.config.get("title").getAsString();
     }
 
     public String getDesc() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                Logger.println("Found Desc");
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                Gson gson = new Gson();
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                String desc = object.get("description").getAsString();
-
-                Logger.println(desc);
-                // close reader
-                reader.close();
-
-                Logger.println("Read Desc");
-
-                return desc;
-            } else {
-                return null;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        return ConfigManager.config.get("description").getAsString();
     }
 
     public String getManagedPagesID(String pageName) throws Exception {
@@ -368,129 +234,17 @@ public class GetFacebookData {
     }
 
     public void setYTEnabled() {
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("title", getTitle());
-            map.put("description", getDesc());
-            map.put("pageName", getPageNameFromFile());
-            map.put("streamFBBox", streamFBBool);
-            map.put("streamYTBox", streamYTBool);
-            map.put("ytprivacy", getYTPrivacyFromFile());
-            map.put("ytEnabled", true);
-
-            Writer writer = new FileWriter(App.osDir + "/SavedData.json");
-
-            Gson gson = new Gson();
-
-            gson.toJson(map, writer);
-
-            writer.close();
-
-            Logger.println("Wrote YT Enabled");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), streamFBBool, streamYTBool, getYTPrivacyFromFile(), true);
     }
 
     public void saveStreamBoxes(boolean fb, boolean yt) {
-        Logger.println("Saving Boxes");
-
-        Logger.println("FB: " + fb);
-        Logger.println("YT: " + yt);
-
-        File file = new File(App.osDir + "/SavedData.json");
-        if (file.exists()) {
-            try {
-                Map<String, Object> map = new HashMap<>();
-                map.put("title", getTitle());
-                map.put("description", getDesc());
-                map.put("pageName", getPageNameFromFile());
-                map.put("streamFBBox", fb);
-                map.put("streamYTBox", yt);
-                map.put("ytprivacy", getYTPrivacyFromFile());
-                map.put("ytEnabled", true);
-
-                streamFBBool = fb;
-                streamYTBool = yt;
-
-                Writer writer = new FileWriter(App.osDir + "/SavedData.json");
-
-                Gson gson = new Gson();
-
-                gson.toJson(map, writer);
-
-                writer.close();
-
-                Logger.println("Wrote Stream Boxes");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), fb, yt, getYTPrivacyFromFile(), true);
     }
 
     public boolean checkStreamFBBox() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                Logger.println("Found FB Stream Box");
-
-                Logger.println("Initialized Gson");
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                Gson gson = new Gson();
-
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                streamFBBool = object.get("streamFBBox").getAsBoolean();
-
-                Logger.println(streamFBBool);
-                // close reader
-                reader.close();
-
-                Logger.println("Read FB Stream Box");
-
-                return streamFBBool;
-            } else {
-                return false;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        return ConfigManager.config.get("streamFBBox").getAsBoolean();
     }
     public boolean checkStreamYTBox() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                Logger.println("Found YT Stream Box");
-                // create Gson instance
-                Gson gson = new Gson();
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                streamYTBool = object.get("streamYTBox").getAsBoolean();
-
-                Logger.println(streamYTBool);
-                // close reader
-                reader.close();
-
-                Logger.println("Checked YT Stream Box");
-
-                return streamYTBool;
-            } else {
-                return false;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        return ConfigManager.config.get("streamYTBox").getAsBoolean();
     }
 }
