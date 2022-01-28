@@ -4,7 +4,7 @@ stages:
     - publish
 
 variables:
-    ZIPPEDFILE: "chbc-livestream-macro-build.zip"
+    ZIPPEDFILE: "chbc-livestream-macro-mac.zip"
 
 build:
     stage: build
@@ -33,5 +33,4 @@ publish:
     dependencies:
         - package
     script:
-        - 'curl --request DELETE --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.parkerthornton.net/api/v4/projects/3/packages/14"'
         - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./$ZIPPEDFILE "https://gitlab.parkerthornton.net/api/v4/projects/3/packages/generic/chbc-livestream-macro/2.0.0/$ZIPPEDFILE?status=default"'
