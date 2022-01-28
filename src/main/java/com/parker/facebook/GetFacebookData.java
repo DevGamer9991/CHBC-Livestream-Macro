@@ -214,7 +214,7 @@ public class GetFacebookData {
                 e.printStackTrace();
             }
         }
-    }
+    } 
 
     public void checkKeystore(String keystore) throws IOException {
         InputStream is = new App().getClass().getClassLoader().getResourceAsStream(keystore);
