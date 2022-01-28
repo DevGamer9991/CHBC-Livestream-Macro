@@ -11,7 +11,7 @@ build:
     image: maven:3.8.4-openjdk-17
     artifacts:
         paths:
-            - target/chbc-livestream-macro-2.0.jar
+            - target/*
     script: 
         - mvn clean
         - mvn package
