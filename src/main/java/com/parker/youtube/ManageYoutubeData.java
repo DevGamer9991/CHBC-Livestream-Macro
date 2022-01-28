@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 
 import javax.annotation.Nullable;
@@ -20,23 +21,7 @@ public class ManageYoutubeData {
     public static String streamURL;
 
     public void saveFile() {
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("streamID", getStreamID());
-            map.put("broadcastID", getBroadcastID());
-            map.put("streamURL", getStreamURL());
-            map.put("streamKey", getStreamKey());
-
-            Writer writer = new FileWriter(App.osDir + "/YoutubeData.json");
-
-            Gson gson = new Gson();
-
-            gson.toJson(map, writer);
-
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ConfigManager.writeYTConfig(getStreamID(), getBroadcastID(), getStreamURL(), getStreamKey());
     }
 
     public void setBroadcastID(String broadcastID) {
@@ -73,16 +58,7 @@ public class ManageYoutubeData {
 
     @Nullable
     public String getStreamIDFromFile() throws Exception{
-
-        InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
-
-        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-        Gson gson = new Gson();
-
-        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-
-        JsonElement streamIDFromFile = jsonObject.get("streamID");
+        JsonElement streamIDFromFile = ConfigManager.ytConfig.get("streamID");
 
         if (streamIDFromFile == null) {
             return null;
@@ -94,20 +70,7 @@ public class ManageYoutubeData {
     }
 
     public String getBroadcastIDFromFile() throws Exception{
-        InputStream in;
-        try {
-            in = new FileInputStream(App.osDir + "/YoutubeData.json");
-        } catch (FileNotFoundException e) {
-            return null;
-        }
-
-        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-        Gson gson = new Gson();
-
-        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-
-        JsonElement streamIDFromFile = jsonObject.get("broadcastID");
+        JsonElement streamIDFromFile = ConfigManager.ytConfig.get("broadcastID");
 
         if (streamIDFromFile == null) {
             return null;
@@ -119,16 +82,7 @@ public class ManageYoutubeData {
     }
 
     public String setStreamURLFromFile() throws Exception{
-
-        InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
-
-        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-        Gson gson = new Gson();
-
-        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-
-        JsonElement streamURLFromFile = jsonObject.get("streamURL");
+        JsonElement streamURLFromFile = ConfigManager.ytConfig.get("streamURL");
 
         if (streamURLFromFile == null) {
             return null;
@@ -140,16 +94,7 @@ public class ManageYoutubeData {
     }
 
     public void setStreamKeyFromFile() throws Exception{
-
-        InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
-
-        String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-
-        Gson gson = new Gson();
-
-        JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
-
-        JsonElement streamKeyFromFile = jsonObject.get("streamKey");
+        JsonElement streamKeyFromFile = ConfigManager.ytConfig.get("streamKey");
 
         if (streamKeyFromFile == null) {
             return;

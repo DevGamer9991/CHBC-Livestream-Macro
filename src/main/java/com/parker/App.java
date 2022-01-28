@@ -2,9 +2,6 @@ package com.parker;
 
 import com.parker.facebook.GetFacebookData;
 
-import javax.swing.*;
-import java.io.IOException;
-
 public class App
 {
   public static final String DevKey = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
@@ -29,6 +26,9 @@ public class App
 
     osDir = ConfigManager.chechArch();
     Logger.println(osDir);
+
+    ConfigManager.readYTConfig();
+    ConfigManager.readConfig();
 
     ConfigManager.createContainer(osDir);
 

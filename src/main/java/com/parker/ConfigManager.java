@@ -1,11 +1,20 @@
 package com.parker;
 
-import java.io.File;
-import java.util.Locale;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.parker.facebook.GetFacebookData;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigManager {
 
     public static JsonObject config;
+    public static JsonObject ytConfig;
 
     public static String chechArch() {
         return System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
@@ -22,7 +31,7 @@ public class ConfigManager {
         return false;
     }
 
-    public static void openConfig() {
+    public static void readConfig() throws IOException {
         File file = new File(App.osDir + "/SavedData.json");
         if (file.exists()) {
             // create a reader
@@ -33,7 +42,7 @@ public class ConfigManager {
 
             config = object;
         } else {
-            Logger.println("Error Opening Config")
+            Logger.println("Error Opening Config");
         }
     }
 
@@ -65,6 +74,43 @@ public class ConfigManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void readYTConfig(){
+        try {
+            InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
+
+            String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+
+            Gson gson = new Gson();
+
+            JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
+
+            ytConfig = jsonObject;
+        } catch (Exception e) {
+            Logger.printlnOverride("Youtube Config Does Not Exist");
+        }
+
+    }
+
+    public static void writeYTConfig(String streamID, String broadcastID, String streamURl, String streamKey) {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("streamID", streamID);
+            map.put("broadcastID", broadcastID);
+            map.put("streamURL", streamURl);
+            map.put("streamKey", streamKey);
+
+            Writer writer = new FileWriter(App.osDir + "/YoutubeData.json");
+
+            Gson gson = new Gson();
+
+            gson.toJson(map, writer);
+
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

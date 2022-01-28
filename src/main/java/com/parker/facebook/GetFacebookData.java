@@ -15,6 +15,7 @@ import java.util.Map;
 
 import com.google.gson.*;
 import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import org.json.simple.parser.ParseException;
@@ -99,28 +100,8 @@ public class GetFacebookData {
         }
     }
 
-    public void saveTitleAndDesc(String title, String desc) {
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("title", title);
-            map.put("description", desc);
-            map.put("pageName", getPageNameFromFile());
-            map.put("streamFBBox", streamFBBool);
-            map.put("streamYTBox", streamYTBool);
-            map.put("ytprivacy", getYTPrivacyFromFile());
-            map.put("ytEnabled", getYTEnabled());
-
-            Writer writer = new FileWriter(App.osDir + "/SavedData.json");
-
-            Gson gson = new Gson();
-            gson.toJson(map, writer);
-
-            writer.close();
-
-            Logger.println("Wrote Title and Desc");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void saveTitleAndDesc(String title, String desc) throws IOException, ParseException {
+        ConfigManager.writeConfig(title, desc, getPageNameFromFile(), streamFBBool, streamYTBool, getYTPrivacyFromFile(), getYTEnabled());
     }
 
     public boolean getYTEnabled() throws IOException, ParseException {
@@ -189,31 +170,7 @@ public class GetFacebookData {
     }
 
     public void checkDataFile() throws IOException {
-        File file = new File(App.osDir + "/SavedData.json");
-        if (!file.exists()) {
-            try {
-                Map<String, Object> map = new HashMap<>();
-                map.put("title", "Stream Title");
-                map.put("description", "Stream Desc");
-                map.put("pageName", "Capitol Hill Baptist");
-                map.put("streamFBBox", true);
-                map.put("streamYTBox", true);
-                map.put("ytprivacy", "public");
-                map.put("ytEnabled", false);
-
-                Writer writer = new FileWriter(App.osDir + "/SavedData.json");
-
-                Gson gson = new Gson();
-
-                gson.toJson(map, writer);
-
-                writer.close();
-
-                Logger.println("Checked Data File");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        ConfigManager.writeConfig("Stream Title", "Stream Desc", "Capitol Hill Baptist", true, true, "public", false);
     } 
 
     public void checkKeystore(String keystore) throws IOException {
