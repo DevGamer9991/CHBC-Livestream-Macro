@@ -7,7 +7,6 @@ import com.parker.App;
 import com.parker.ConfigManager;
 import com.parker.Logger;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -56,7 +55,6 @@ public class ManageYoutubeData {
         return streamURL;
     }
 
-    @Nullable
     public String getStreamIDFromFile() throws Exception{
         JsonElement streamIDFromFile = ConfigManager.ytConfig.get("streamID");
 
