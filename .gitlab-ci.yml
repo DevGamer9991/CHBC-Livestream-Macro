@@ -26,8 +26,7 @@ package:
     dependencies:
         - build
     script:
-        - mv target/$JARFILE "CHBC Livestream Macro.app/Contents/chbc-livestream-macro.jar"
-        - zip -r $ZIPPEDFILE "CHBC Livestream Macro.app"
+        - ls
 
 
 publish:
