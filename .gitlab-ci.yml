@@ -19,7 +19,7 @@ build:
 
 package:
     stage: package
-    image: opsgang/zip:latest
+    image: richerich/zip:latest
     artifacts:
         paths:
             - "$ZIPPEDFILE"
