@@ -19,7 +19,7 @@ build:
 
 package:
     stage: package
-    image: joshkeegan/zip:latest
+    image: opsgang/zip:latest
     artifacts:
         paths:
             - "$ZIPPEDFILE"
@@ -32,7 +32,7 @@ package:
 
 publish:
     stage: publish
-    image: curlimages/curl:latest
+    image: rancher/curlimages-curl:latest
     dependencies:
         - package
     script:
