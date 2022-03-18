@@ -26,13 +26,14 @@ public class App
     osDir = ConfigManager.chechArch();
     Logger.println(osDir);
 
-    ConfigManager.readYTConfig();
-    ConfigManager.readConfig();
-
     ConfigManager.createContainer(osDir);
 
     new GetFacebookData().checkDataFile();
     new GetFacebookData().checkKeystore("keystore.jks");
+
+    ConfigManager.readYTConfig();
+    ConfigManager.readConfig();
+
     new HTTPSServer().startServer();
   }
 }

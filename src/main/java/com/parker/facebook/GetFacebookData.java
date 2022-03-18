@@ -198,10 +198,6 @@ public class GetFacebookData {
         ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), fb, yt, getYTPrivacyFromFile(), true);
     }
 
-    public boolean checkStreamFBBox() {
-        return ConfigManager.config.get("streamFBBox").getAsBoolean();
-    }
-    public boolean checkStreamYTBox() {
-        return ConfigManager.config.get("streamYTBox").getAsBoolean();
-    }
+    public boolean checkStreamFBBox() { Logger.println("FB Stream Box: " + ConfigManager.config.get("streamFBBox").getAsBoolean()); return ConfigManager.config.get("streamFBBox").getAsBoolean(); }
+    public boolean checkStreamYTBox() { Logger.println("YT Stream Box: " + ConfigManager.config.get("streamYTBox").getAsBoolean()); return ConfigManager.config.get("streamYTBox").getAsBoolean(); }
 }

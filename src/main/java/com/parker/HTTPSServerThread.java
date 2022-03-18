@@ -76,42 +76,49 @@ public class HTTPSServerThread extends Thread{
 
         HttpHandler tokenHandler = new HttpHandler() {
             @Override
-            public void handle(HttpExchange exchange) throws IOException {
-                write(exchange, exchange.getResponseHeaders());
+            public void handle(HttpExchange exchange) {
+                try {
+                    Logger.println("Test");
+                    write(exchange, exchange.getResponseHeaders());
 
-                if (!exchange.getRequestURI().getRawQuery().equals("")) {
-                    Logger.println(exchange.getRequestURI().getRawQuery());
+                    if (!exchange.getRequestURI().getRawQuery().equals("")) {
+                        Logger.println(exchange.getRequestURI().getRawQuery());
 
-                    new GetFacebookData().checkStreamFBBox();
-                    new GetFacebookData().checkStreamYTBox();
+                        new GetFacebookData().checkStreamFBBox();
+                        new GetFacebookData().checkStreamYTBox();
 
-                    try {
-                        new GetFacebookData().setAccessToken(exchange.getRequestURI().getRawQuery());
+                        try {
+                            new GetFacebookData().setAccessToken(exchange.getRequestURI().getRawQuery());
 
-                        if (new GetFacebookData().getYTEnabled()) {
-                            new CreateYoutubeStream().auth();
+                            if (new GetFacebookData().getYTEnabled()) {
+                                new CreateYoutubeStream().auth();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
-                    Logger.printlnOverride("Connection Process Finished");
+                        Logger.printlnOverride("Connection Process Finished");
 
-                    Logger.printlnOverride("Opening Main Window");
+                        Logger.printlnOverride("Opening Main Window");
 
-                    try {
-                        if (!new MainWindow().getOpened()) {
-                            new MainWindow().openMainWindow();
-                        } else {
-                            Logger.println("Already Opened");
+                        try {
+                            if (!new MainWindow().getOpened()) {
+                                new MainWindow().openMainWindow();
+                            } else {
+                                Logger.println("Already Opened");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                        server.stop(1000);
+
+                        Logger.println("Server Stopped");
+                    } else {
+                        Logger.println("Not Found");
                     }
-
-                    server.stop(1000);
-
-                    Logger.println("Server Stopped");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         };
@@ -123,19 +130,12 @@ public class HTTPSServerThread extends Thread{
         try (OutputStream os = exchange.getResponseBody()) {
             exchange.sendResponseHeaders(HTTP_OK, 0);
             headers.add("ContentType", "text/html");
-
             String html = null;
-
             html = getHTML();
-
             final String CRLF = "\n\r";
-
             String response = html;
-
             OutputStreamWriter doc = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-
             doc.write(response);
-
             doc.flush();
         }
     }

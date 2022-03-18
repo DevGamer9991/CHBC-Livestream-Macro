@@ -3,6 +3,7 @@ package com.parker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.facebook.GetFacebookData;
+import org.json.simple.JSONObject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +18,7 @@ public class ConfigManager {
     public static JsonObject ytConfig;
 
     public static String chechArch() {
-        return System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
+        return System.getProperty("user.home") + "\\Documents\\CHBC Livestream Macro\\";
     }
 
     public static boolean createContainer (String path) {
@@ -32,22 +33,57 @@ public class ConfigManager {
     }
 
     public static void readConfig() throws IOException {
-        File file = new File(App.osDir + "/SavedData.json");
+        File file = new File(App.osDir + "\\SavedData.json");
         if (file.exists()) {
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
+            Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "\\SavedData.json"));
 
             Gson gson = new Gson();
             JsonObject object = gson.fromJson(reader, JsonObject.class);
 
             config = object;
         } else {
-            Logger.println("Error Opening Config");
+            Logger.println("Config Doesn't Exist");
+
+            writeDefaultConfig("Test Stream Title", "Test Stream Desc", "Capitol Hill Baptist", true, true, "public", false);
+
+            readConfig();
+        }
+    }
+
+    public static void writeDefaultConfig(String title, String desc, String pageName, boolean streamFBBox, boolean streamYTBox, String ytprivacy, boolean ytEnabled) {
+        File file = new File(App.osDir + "\\SavedData.json");
+        if (!file.exists()) {
+            try {
+                Map<String, Object> map = new HashMap<>();
+                map.put("title", title);
+                map.put("description", desc);
+                map.put("pageName", pageName);
+                map.put("streamFBBox", streamFBBox);
+                map.put("streamYTBox", streamYTBox);
+                map.put("ytprivacy", ytprivacy);
+                map.put("ytEnabled", ytEnabled);
+
+                GetFacebookData.streamFBBool = streamFBBox;
+                GetFacebookData.streamYTBool = streamYTBox;
+
+                Writer writer = new FileWriter(App.osDir + "\\SavedData.json");
+
+                Gson gson = new Gson();
+
+                gson.toJson(map, writer);
+
+                writer.close();
+
+                Logger.println("Wrote Config");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void writeConfig(String title, String desc, String pageName, boolean streamFBBox, boolean streamYTBox, String ytprivacy, boolean ytEnabled) {
-        File file = new File(App.osDir + "/SavedData.json");
+        File file = new File(App.osDir + "\\SavedData.json");
         if (file.exists()) {
             try {
                 Map<String, Object> map = new HashMap<>();
@@ -79,7 +115,7 @@ public class ConfigManager {
 
     public static void readYTConfig(){
         try {
-            InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
+            InputStream in = new FileInputStream(App.osDir + "\\YoutubeData.json");
 
             String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
@@ -102,7 +138,7 @@ public class ConfigManager {
             map.put("streamURL", streamURl);
             map.put("streamKey", streamKey);
 
-            Writer writer = new FileWriter(App.osDir + "/YoutubeData.json");
+            Writer writer = new FileWriter(App.osDir + "\\YoutubeData.json");
 
             Gson gson = new Gson();
 
