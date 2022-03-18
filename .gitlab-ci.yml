@@ -19,14 +19,16 @@ build:
 
 package:
     stage: package
-    image: richerich/zip:latest
+    image: ubuntu:latest
     artifacts:
         paths:
             - "$ZIPPEDFILE"
     dependencies:
         - build
     script:
-        - ls
+        - apt install zip -y
+        - mv target/$JARFILE "CHBC Livestream Macro.app/Contents/chbc-livestream-macro.jar"
+        - zip -r $ZIPPEDFILE "CHBC Livestream Macro.app"
 
 
 publish:
