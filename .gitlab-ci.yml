@@ -26,7 +26,7 @@ package:
     dependencies:
         - build
     script:
-        - apt install zip -y
+        - apt update && apt install zip -y
         - mv target/$JARFILE "CHBC Livestream Macro.app/Contents/chbc-livestream-macro.jar"
         - zip -r $ZIPPEDFILE "CHBC Livestream Macro.app"
 
