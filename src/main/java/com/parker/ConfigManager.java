@@ -18,7 +18,7 @@ public class ConfigManager {
     public static JsonObject ytConfig;
 
     public static String chechArch() {
-        return System.getProperty("user.home") + "\\Documents\\CHBC Livestream Macro\\";
+        return System.getProperty("user.home") + "/Documents/CHBC Livestream Macro/";
     }
 
     public static boolean createContainer (String path) {
@@ -33,10 +33,10 @@ public class ConfigManager {
     }
 
     public static void readConfig() throws IOException {
-        File file = new File(App.osDir + "\\SavedData.json");
+        File file = new File(App.osDir + "/SavedData.json");
         if (file.exists()) {
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "\\SavedData.json"));
+            Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
 
             Gson gson = new Gson();
             JsonObject object = gson.fromJson(reader, JsonObject.class);
@@ -52,7 +52,7 @@ public class ConfigManager {
     }
 
     public static void writeDefaultConfig(String title, String desc, String pageName, boolean streamFBBox, boolean streamYTBox, String ytprivacy, boolean ytEnabled) {
-        File file = new File(App.osDir + "\\SavedData.json");
+        File file = new File(App.osDir + "/SavedData.json");
         if (!file.exists()) {
             try {
                 Map<String, Object> map = new HashMap<>();
@@ -67,7 +67,7 @@ public class ConfigManager {
                 GetFacebookData.streamFBBool = streamFBBox;
                 GetFacebookData.streamYTBool = streamYTBox;
 
-                Writer writer = new FileWriter(App.osDir + "\\SavedData.json");
+                Writer writer = new FileWriter(App.osDir + "/SavedData.json");
 
                 Gson gson = new Gson();
 
@@ -83,7 +83,7 @@ public class ConfigManager {
     }
 
     public static void writeConfig(String title, String desc, String pageName, boolean streamFBBox, boolean streamYTBox, String ytprivacy, boolean ytEnabled) {
-        File file = new File(App.osDir + "\\SavedData.json");
+        File file = new File(App.osDir + "/SavedData.json");
         if (file.exists()) {
             try {
                 Map<String, Object> map = new HashMap<>();
@@ -115,7 +115,7 @@ public class ConfigManager {
 
     public static void readYTConfig(){
         try {
-            InputStream in = new FileInputStream(App.osDir + "\\YoutubeData.json");
+            InputStream in = new FileInputStream(App.osDir + "/YoutubeData.json");
 
             String jsonString = new String(in.readAllBytes(), StandardCharsets.UTF_8);
 
@@ -138,7 +138,7 @@ public class ConfigManager {
             map.put("streamURL", streamURl);
             map.put("streamKey", streamKey);
 
-            Writer writer = new FileWriter(App.osDir + "\\YoutubeData.json");
+            Writer writer = new FileWriter(App.osDir + "/YoutubeData.json");
 
             Gson gson = new Gson();
 
