@@ -16,6 +16,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
@@ -46,7 +47,7 @@ public class Authorize {
     public void authorize() throws Exception {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
-        File file = new File(App.osDir + "/RefreshToken.json");
+        File file = new File(ConfigManager.RefreshToken);
         if(!file.exists()) {
             try {
                 // Load client secrets.
@@ -61,7 +62,7 @@ public class Authorize {
                 Credential credential =
                         new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
 
-                saveRefreshToken(credential.getRefreshToken());
+                ConfigManager.saveRefreshToken(credential.getRefreshToken());
             } catch(Exception e) {
                 e.printStackTrace();
                 System.exit(1);
@@ -74,23 +75,6 @@ public class Authorize {
         MainWindow.INSTANCE.setYTName(new GetYoutubeName().get());
         MainWindow.INSTANCE.setYTConnected();
         new GetFacebookData().setYTEnabled();
-    }
-
-    public void saveRefreshToken(String refreshToken) {
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("refreshToken", refreshToken);
-
-            Writer writer = new FileWriter(App.osDir + "/RefreshToken.json");
-
-            Gson gson = new Gson();
-
-            gson.toJson(map, writer);
-
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Credential getCredentials(NetHttpTransport httpTransport) throws Exception {
@@ -112,14 +96,14 @@ public class Authorize {
                 .build();
 
         try {
-            File file = new File(App.osDir + "/RefreshToken.json");
+            File file = new File(ConfigManager.RefreshToken);
             if (file.exists()) {
                 Logger.println("Found File");
                 // create Gson instance
                 Gson gson = new Gson();
 
                 // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/RefreshToken.json"));
+                Reader reader = Files.newBufferedReader(Paths.get(ConfigManager.RefreshToken));
 
                 // convert JSON file to map
                 JsonObject object = gson.fromJson(reader, JsonObject.class);
