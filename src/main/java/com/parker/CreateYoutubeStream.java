@@ -27,7 +27,7 @@ public class CreateYoutubeStream {
             new CreateBroadcast().create(titleString, descString, DevKey);
         }
 
-        if (new ManageYoutubeData().checkFile(App.osDir + "/YoutubeData.json")) {
+        if (new ManageYoutubeData().checkFile(App.osDir + "\\YoutubeData.json")) {
 
             if (new ManageYoutubeData().getStreamIDFromFile() != null) {
                 Logger.println("Ran Check");

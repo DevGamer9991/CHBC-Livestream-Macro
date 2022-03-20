@@ -111,7 +111,7 @@ public class ManageYoutubeData {
     }
 
     public void deleteFile() {
-        File file = new File(App.osDir + "/YoutubeData.json");
+        File file = new File(App.osDir + "\\YoutubeData.json");
 
         if(file.delete()) {
             Logger.println("File Deleted");
