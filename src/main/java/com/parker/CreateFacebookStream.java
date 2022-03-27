@@ -44,6 +44,8 @@ public class CreateFacebookStream {
                 JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
 
                 streamID = jsonObject.get("id").getAsString();
+//                streamURL = "FB-" + streamID + "-0-" + jsonObject.get("secure_stream_url").getAsString().split("a=")[1] + "-";
+
                 streamURL = jsonObject.get("secure_stream_url").getAsString();
 
                 if (jsonObject.toString().contains("secure_stream_url")) {
