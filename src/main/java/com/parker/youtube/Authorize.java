@@ -47,6 +47,8 @@ public class Authorize {
     public void authorize() throws Exception {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
+        Logger.println("Authorizing");
+
         File file = new File(ConfigManager.RefreshToken);
         if(!file.exists()) {
             try {
@@ -62,7 +64,9 @@ public class Authorize {
                 Credential credential =
                         new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
 
+                ConfigManager.YTAccessToken = credential.getAccessToken();
                 ConfigManager.saveRefreshToken(credential.getRefreshToken());
+                new GetFacebookData().setYTEnabled();
             } catch(Exception e) {
                 e.printStackTrace();
                 System.exit(1);
@@ -98,7 +102,7 @@ public class Authorize {
         try {
             File file = new File(ConfigManager.RefreshToken);
             if (file.exists()) {
-                Logger.println("Found File");
+                Logger.println("Found Refresh File");
                 // create Gson instance
                 Gson gson = new Gson();
 

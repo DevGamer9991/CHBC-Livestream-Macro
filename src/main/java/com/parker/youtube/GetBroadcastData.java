@@ -4,6 +4,8 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveBroadcastListResponse;
+import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 
 public class GetBroadcastData {
@@ -14,7 +16,7 @@ public class GetBroadcastData {
         YouTube youtubeService = new Authorize().getService();
         // Define and execute the API request
         YouTube.LiveBroadcasts.List request = youtubeService.liveBroadcasts()
-                .list("snippet,contentDetails,status");
+                .list("snippet,contentDetails,status").setKey(App.DevKey).setOauthToken(ConfigManager.YTAccessToken);
 
         String ID = new ManageYoutubeData().getBroadcastIDFromFile();
 

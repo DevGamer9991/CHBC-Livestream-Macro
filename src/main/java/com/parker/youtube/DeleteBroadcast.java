@@ -3,6 +3,7 @@ package com.parker.youtube;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.youtube.YouTube;
 import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 
 import java.io.IOException;
@@ -16,6 +17,6 @@ public class DeleteBroadcast {
         YouTube.LiveBroadcasts.Delete request = youtubeService.liveBroadcasts()
                 .delete(ID);
         Logger.println("Deleting Existing Broadcast");
-        request.setKey(App.DevKey).execute();
+        request.setKey(App.DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
     }
 }

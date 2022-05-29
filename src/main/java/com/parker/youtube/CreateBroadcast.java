@@ -6,6 +6,7 @@ import com.google.api.services.youtube.model.LiveBroadcast;
 import com.google.api.services.youtube.model.LiveBroadcastContentDetails;
 import com.google.api.services.youtube.model.LiveBroadcastSnippet;
 import com.google.api.services.youtube.model.LiveBroadcastStatus;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import com.parker.facebook.GetFacebookData;
@@ -37,7 +38,7 @@ public class CreateBroadcast {
             contentDetails.setEnableClosedCaptions(true);
             contentDetails.setEnableContentEncryption(true);
             contentDetails.setEnableDvr(true);
-            contentDetails.setEnableEmbed(true);
+            contentDetails.setEnableEmbed(false);
             contentDetails.setRecordFromStart(true);
             contentDetails.setStartWithSlate(true);
             liveBroadcast.setContentDetails(contentDetails);
@@ -61,15 +62,16 @@ public class CreateBroadcast {
             // Define and execute the API request
             YouTube.LiveBroadcasts.Insert request = youtubeService.liveBroadcasts()
                     .insert("snippet,contentDetails,status", liveBroadcast);
-            LiveBroadcast response = request.setKey(DevKey).execute();
+            LiveBroadcast response = request.setKey(DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
             Logger.println(response);
 
             new ManageYoutubeData().setBroadcastID(response.getId());
         }catch (Exception e) {
-            if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            if (timeOut >= 20) {new MainWindow().errorCalled(Arrays.toString(e.getStackTrace())); e.printStackTrace(); return; }
             Thread.sleep(1000);
             Logger.println("Error When Creating Broadcast Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;
+            e.printStackTrace();
             create(streamName, streamDesc, DevKey);
         }
     }

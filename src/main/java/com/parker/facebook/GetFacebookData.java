@@ -8,10 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gson.*;
 import com.parker.App;
@@ -99,27 +95,28 @@ public class GetFacebookData {
     }
 
     public void saveTitleAndDesc(String title, String desc) throws IOException, ParseException {
-        ConfigManager.writeConfig(title, desc, getPageNameFromFile(), streamFBBool, streamYTBool, getYTPrivacyFromFile(), getYTEnabled());
+        Logger.println("Youtube Checkbox set to " + ConfigManager.checkBoxes.get("yt"));
+        ConfigManager.writeConfig(title, desc, getPageNameFromFile(), ConfigManager.checkBoxes.get("fb"), ConfigManager.checkBoxes.get("yt"), getYTPrivacyFromFile(), getYTEnabled());
     }
 
     public boolean getYTEnabled() throws IOException, ParseException {
-        return ConfigManager.config.get("ytEnabled").getAsBoolean();
+        return ConfigManager.checkBoxes.get("ytEnabled");
     }
 
     public String getPageNameFromFile() {
-        return ConfigManager.config.get("pageName").getAsString();
+        return ConfigManager.config.get("pageName");
     }
 
     public String getYTPrivacyFromFile() {
-        return ConfigManager.config.get("ytprivacy").getAsString();
+        return ConfigManager.config.get("ytprivacy");
     }
 
     public String getTitle() {
-        return ConfigManager.config.get("title").getAsString();
+        return ConfigManager.config.get("title");
     }
 
     public String getDesc() {
-        return ConfigManager.config.get("description").getAsString();
+        return ConfigManager.config.get("description");
     }
 
     public String getManagedPagesID(String pageName) throws Exception {
@@ -167,10 +164,6 @@ public class GetFacebookData {
         clipboard.setContents(selection, null);
     }
 
-    public void checkDataFile() throws IOException {
-        ConfigManager.writeConfig("Stream Title", "Stream Desc", "Capitol Hill Baptist", true, true, "public", false);
-    } 
-
     public void checkKeystore(String keystore) throws IOException {
         InputStream is = new App().getClass().getClassLoader().getResourceAsStream(keystore);
 
@@ -189,13 +182,14 @@ public class GetFacebookData {
     }
 
     public void setYTEnabled() {
-        ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), streamFBBool, streamYTBool, getYTPrivacyFromFile(), true);
+        ConfigManager.checkBoxes.put("ytEnabled", true);
+        ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), ConfigManager.checkBoxes.get("fb"), ConfigManager.checkBoxes.get("yt"), getYTPrivacyFromFile(), ConfigManager.checkBoxes.get("ytEnabled"));
     }
 
     public void saveStreamBoxes(boolean fb, boolean yt) {
-        ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), fb, yt, getYTPrivacyFromFile(), true);
+        ConfigManager.writeConfig(getTitle(), getDesc(), getPageNameFromFile(), ConfigManager.checkBoxes.get("fb"),  ConfigManager.checkBoxes.get("yt"), getYTPrivacyFromFile(), ConfigManager.checkBoxes.get("ytEnabled"));
     }
 
-    public boolean checkStreamFBBox() { Logger.println("FB Stream Box: " + ConfigManager.config.get("streamFBBox").getAsBoolean()); return ConfigManager.config.get("streamFBBox").getAsBoolean(); }
-    public boolean checkStreamYTBox() { Logger.println("YT Stream Box: " + ConfigManager.config.get("streamYTBox").getAsBoolean()); return ConfigManager.config.get("streamYTBox").getAsBoolean(); }
+    public boolean checkStreamFBBox() { Logger.println("FB Stream Box: " + ConfigManager.checkBoxes.get("fb")); return ConfigManager.checkBoxes.get("fb"); }
+    public boolean checkStreamYTBox() { Logger.println("YT Stream Box: " + ConfigManager.checkBoxes.get("yt")); return ConfigManager.checkBoxes.get("yt"); }
 }

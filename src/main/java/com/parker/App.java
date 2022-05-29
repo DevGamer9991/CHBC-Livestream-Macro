@@ -28,7 +28,6 @@ public class App
 
     ConfigManager.createContainer(osDir);
 
-    new GetFacebookData().checkDataFile();
     new GetFacebookData().checkKeystore("keystore.jks");
 
     ConfigManager.readYTConfig();

@@ -5,6 +5,8 @@ import com.google.api.services.youtube.model.CdnSettings;
 import com.google.api.services.youtube.model.LiveStream;
 import com.google.api.services.youtube.model.LiveStreamContentDetails;
 import com.google.api.services.youtube.model.LiveStreamSnippet;
+import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import java.util.Arrays;
@@ -41,7 +43,7 @@ public class CreateStream {
             // Define and execute the API request
             YouTube.LiveStreams.Insert request = youtubeService.liveStreams()
                     .insert("snippet,cdn,contentDetails,status", liveStream);
-            LiveStream response = request.setKey(DevKey).execute();
+            LiveStream response = request.setKey(DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
             Logger.println(response.getId());
             Logger.println(response.getCdn().getIngestionInfo().getStreamName());
             Logger.println(response.getCdn().getIngestionInfo().getIngestionAddress());
@@ -50,7 +52,7 @@ public class CreateStream {
             new ManageYoutubeData().setStreamKey(response.getCdn().getIngestionInfo().getStreamName());
             new ManageYoutubeData().setStreamURL(response.getCdn().getIngestionInfo().getIngestionAddress());
         }catch (Exception e) {
-            if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            if (timeOut >= 20) {new MainWindow().errorCalled(Arrays.toString(e.getStackTrace())); e.printStackTrace(); return; }
             Thread.sleep(1000);
             Logger.println("Error When Creating Stream Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;

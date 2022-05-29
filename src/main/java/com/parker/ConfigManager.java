@@ -3,8 +3,6 @@ package com.parker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.parker.facebook.GetFacebookData;
-import org.apache.commons.logging.Log;
-import org.json.simple.JSONObject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -15,8 +13,8 @@ import java.util.Map;
 
 public class ConfigManager {
 
-    public static JsonObject config;
-    public static JsonObject ytConfig;
+    public static HashMap<String, String> config = new HashMap<>();
+    public static HashMap<String, Boolean> checkBoxes = new HashMap<>();
 
     public static String clientID = "663670141634016";
 //    public static String clientID = "186968813458771";
@@ -24,6 +22,7 @@ public class ConfigManager {
     private static String OS = System.getProperty("os.name").toLowerCase();
 
     public static String SavedData;
+    public static String YTAccessToken;
     public static String RefreshToken;
     public static String YoutubeData;
 
@@ -67,7 +66,23 @@ public class ConfigManager {
             Gson gson = new Gson();
             JsonObject object = gson.fromJson(reader, JsonObject.class);
 
-            config = object;
+            for (String i : object.keySet()) {
+
+                Logger.println("Object: " + i);
+
+            }
+
+            checkBoxes.put("fb", object.get("streamFBBox").getAsBoolean());
+            checkBoxes.put("yt", object.get("streamYTBox").getAsBoolean());
+            checkBoxes.put("ytEnabled", object.get("ytEnabled").getAsBoolean());
+
+            config.put("title", object.get("title").getAsString());
+            config.put("description", object.get("description").getAsString());
+            config.put("description", object.get("description").getAsString());
+
+            config.put("ytprivacy", object.get("ytprivacy").getAsString());
+
+            config.put("pageName", object.get("pageName").getAsString());
         } else {
             Logger.println("Config Doesn't Exist");
 
@@ -101,7 +116,7 @@ public class ConfigManager {
 
                 writer.close();
 
-                Logger.println("Wrote Config");
+                Logger.println("Wrote Default Config");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -132,7 +147,7 @@ public class ConfigManager {
 
                 writer.close();
 
-                Logger.println("Wrote Config");
+                Logger.println("Wrotes Config");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -149,7 +164,9 @@ public class ConfigManager {
 
             JsonObject jsonObject = (JsonObject) gson.fromJson(jsonString, JsonObject.class);
 
-            ytConfig = jsonObject;
+            for (String i : jsonObject.keySet()) {
+                config.put(i, jsonObject.get(i).getAsString());
+            }
         } catch (Exception e) {
             Logger.printlnOverride("Youtube Config Does Not Exist");
         }
@@ -181,7 +198,7 @@ public class ConfigManager {
             Map<String, Object> map = new HashMap<>();
             map.put("refreshToken", refreshToken);
 
-            Writer writer = new FileWriter(YoutubeData);
+            Writer writer = new FileWriter(RefreshToken);
 
             Gson gson = new Gson();
 
@@ -192,23 +209,4 @@ public class ConfigManager {
             e.printStackTrace();
         }
     }
-
-    public static boolean isWindows() {
-        return (OS.indexOf("win") >= 0);
-    }
-
-    public static boolean isMac() {
-        return (OS.indexOf("mac") >= 0);
-    }
-
-    public static boolean isUnix() {
-        return (OS.indexOf("nix") >= 0
-                || OS.indexOf("nux") >= 0
-                || OS.indexOf("aix") > 0);
-    }
-
-    public static boolean isSolaris() {
-        return (OS.indexOf("sunos") >= 0);
-    }
-
 }

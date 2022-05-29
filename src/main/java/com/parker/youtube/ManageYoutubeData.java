@@ -1,16 +1,9 @@
 package com.parker.youtube;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.parker.App;
 import com.parker.ConfigManager;
 import com.parker.Logger;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ManageYoutubeData {
 
@@ -25,6 +18,7 @@ public class ManageYoutubeData {
 
     public void setBroadcastID(String broadcastID) {
         this.broadcastID = broadcastID;
+        ConfigManager.config.put("broadcastID", broadcastID);
     }
 
     public void setStreamID(String streamID) {
@@ -56,49 +50,49 @@ public class ManageYoutubeData {
     }
 
     public String getStreamIDFromFile() throws Exception{
-        JsonElement streamIDFromFile = ConfigManager.ytConfig.get("streamID");
+        String streamIDFromConfig = ConfigManager.config.get("streamID");
 
-        if (streamIDFromFile == null) {
+        if (streamIDFromConfig == null) {
             return null;
         }
 
-        streamID = streamIDFromFile.getAsString();
+        streamID = streamIDFromConfig;
 
-        return streamIDFromFile.getAsString();
+        return streamIDFromConfig;
     }
 
     public String getBroadcastIDFromFile() throws Exception{
-        JsonElement streamIDFromFile = ConfigManager.ytConfig.get("broadcastID");
+        String streamIDFromConfig = ConfigManager.config.get("broadcastID");
 
-        if (streamIDFromFile == null) {
+        if (streamIDFromConfig == null) {
             return null;
         }
 
-        streamID = streamIDFromFile.getAsString();
+        streamID = streamIDFromConfig;
 
-        return streamIDFromFile.getAsString();
+        return streamIDFromConfig;
     }
 
     public String setStreamURLFromFile() throws Exception{
-        JsonElement streamURLFromFile = ConfigManager.ytConfig.get("streamURL");
+        String streamURLFromConfig = ConfigManager.config.get("streamURL");
 
-        if (streamURLFromFile == null) {
+        if (streamURLFromConfig == null) {
             return null;
         }
 
-        streamURL = streamURLFromFile.getAsString();
+        streamURL = streamURLFromConfig;
 
-        return streamURLFromFile.getAsString();
+        return streamURLFromConfig;
     }
 
     public void setStreamKeyFromFile() throws Exception{
-        JsonElement streamKeyFromFile = ConfigManager.ytConfig.get("streamKey");
+        String streamKeyFromConfig = ConfigManager.config.get("streamKey");
 
-        if (streamKeyFromFile == null) {
+        if (streamKeyFromConfig == null) {
             return;
         }
 
-        streamKey = streamKeyFromFile.getAsString();
+        streamKey = streamKeyFromConfig;
     }
 
     public boolean checkFile(String fileName) {

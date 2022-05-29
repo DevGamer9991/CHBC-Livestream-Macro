@@ -1,34 +1,24 @@
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.parker.CreateFacebookStream;
 import com.parker.CreateYoutubeStream;
 import com.parker.HTTPSServer;
 import com.parker.HTTPSServerThread;
+import com.parker.Logger;
 import com.parker.facebook.GetFacebookData;
 import com.parker.youtube.ManageYoutubeData;
 import java.awt.Color;
-import java.io.File;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 
 public class MainWindow extends javax.swing.JFrame {
-    
+
     public static boolean opened = false;
 
-    public static Thread createStreamsThread;
+    public static Thread createStreamsThread = new Thread();
 
     public static String pageName;
     public static String channelName;
@@ -36,14 +26,19 @@ public class MainWindow extends javax.swing.JFrame {
     public static boolean streamFBBoxbool;
     public static boolean streamYTBoxbool;
 
+    public static MainWindow INSTANCE;
+
     public MainWindow() throws Exception {
+
+        INSTANCE = this;
+
         initComponents();
 
-//        setStreamTitleField();
-//        setStreamDescField();
+        setStreamTitleField();
+        setStreamDescField();
 
-        streamToFBBox.setSelected(checkStreamFBBox());
-        streamToYTBox.setSelected(checkStreamYTBox());
+        streamToFBBox.setSelected(new GetFacebookData().checkStreamFBBox());
+        streamToYTBox.setSelected(new GetFacebookData().checkStreamYTBox());
 
         setFBConnected();
         setYTConnected();
@@ -69,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame {
         streamDescLabel = new javax.swing.JLabel();
         createStreamButton = new javax.swing.JButton();
         livestreamSettingsLabel = new javax.swing.JLabel();
-        streamFBIDField = new javax.swing.JTextField();
+        streamFBUrlField = new javax.swing.JTextField();
         streamFBIDLabel = new javax.swing.JLabel();
         streamFBKey = new javax.swing.JLabel();
         streamYTKeyField = new javax.swing.JTextField();
@@ -77,7 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         streamDescField = new javax.swing.JTextArea();
         copyFBKeyButton = new javax.swing.JButton();
-        copyFBIDButton = new javax.swing.JButton();
+        copyFBUrlButton = new javax.swing.JButton();
         streamFBDataLabel = new javax.swing.JLabel();
         streamYTKey = new javax.swing.JLabel();
         streamYTID = new javax.swing.JLabel();
@@ -285,18 +280,23 @@ public class MainWindow extends javax.swing.JFrame {
         livestreamSettingsLabel.setForeground(new java.awt.Color(204, 204, 204));
         livestreamSettingsLabel.setText("Stream Settings:");
 
-        streamFBIDField.setEditable(false);
-        streamFBIDField.setBackground(new java.awt.Color(30, 29, 30));
-        streamFBIDField.setForeground(new java.awt.Color(204, 204, 204));
-        streamFBIDField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        streamFBIDField.setCaretColor(new java.awt.Color(255, 255, 255));
-        streamFBIDField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        streamFBIDField.setSelectionColor(new java.awt.Color(204, 204, 204));
+        streamFBUrlField.setEditable(false);
+        streamFBUrlField.setBackground(new java.awt.Color(30, 29, 30));
+        streamFBUrlField.setForeground(new java.awt.Color(204, 204, 204));
+        streamFBUrlField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        streamFBUrlField.setCaretColor(new java.awt.Color(255, 255, 255));
+        streamFBUrlField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        streamFBUrlField.setSelectionColor(new java.awt.Color(204, 204, 204));
+        streamFBUrlField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                streamFBUrlFieldActionPerformed(evt);
+            }
+        });
 
         streamFBIDLabel.setBackground(java.awt.Color.darkGray);
         streamFBIDLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         streamFBIDLabel.setForeground(new java.awt.Color(204, 204, 204));
-        streamFBIDLabel.setText("FB ID:");
+        streamFBIDLabel.setText("FB Url:");
 
         streamFBKey.setBackground(java.awt.Color.darkGray);
         streamFBKey.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -349,22 +349,22 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        copyFBIDButton.setBackground(new java.awt.Color(58, 57, 58));
-        copyFBIDButton.setFont(copyFBIDButton.getFont().deriveFont(copyFBIDButton.getFont().getStyle() & ~java.awt.Font.BOLD));
-        copyFBIDButton.setForeground(new java.awt.Color(204, 204, 204));
-        copyFBIDButton.setText("Copy FB ID");
-        copyFBIDButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        copyFBIDButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        copyFBUrlButton.setBackground(new java.awt.Color(58, 57, 58));
+        copyFBUrlButton.setFont(copyFBUrlButton.getFont().deriveFont(copyFBUrlButton.getFont().getStyle() & ~java.awt.Font.BOLD));
+        copyFBUrlButton.setForeground(new java.awt.Color(204, 204, 204));
+        copyFBUrlButton.setText("Copy FB Url");
+        copyFBUrlButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        copyFBUrlButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                copyFBIDButtonMouseEntered(evt);
+                copyFBUrlButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                copyFBIDButtonMouseExited(evt);
+                copyFBUrlButtonMouseExited(evt);
             }
         });
-        copyFBIDButton.addActionListener(new java.awt.event.ActionListener() {
+        copyFBUrlButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                copyFBIDButtonActionPerformed(evt);
+                copyFBUrlButtonActionPerformed(evt);
             }
         });
 
@@ -566,37 +566,36 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(mainJPanelLayout.createSequentialGroup()
                                 .addComponent(streamYTDataLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainJPanelLayout.createSequentialGroup()
-                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mainJPanelLayout.createSequentialGroup()
-                                .addComponent(streamTitleLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(streamDescLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(streamFBIDLabel)
-                            .addComponent(streamFBKey))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mainJPanelLayout.createSequentialGroup()
-                                .addComponent(streamFBIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(copyFBIDButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(mainJPanelLayout.createSequentialGroup()
-                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(streamYTIDField, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                                    .addComponent(streamYTURLField, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                                    .addComponent(streamYTKeyField))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(copyYTIDButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(mainJPanelLayout.createSequentialGroup()
-                                .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(copyFBKeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mainJPanelLayout.createSequentialGroup()
+                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                                        .addComponent(streamTitleLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(streamDescLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(streamFBIDLabel)
+                                    .addComponent(streamFBKey))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainJPanelLayout.createSequentialGroup()
+                                        .addComponent(streamFBUrlField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(copyFBUrlButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(streamYTIDField, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                            .addComponent(streamYTURLField, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                            .addComponent(streamYTKeyField))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(copyYTIDButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                                        .addComponent(streamFBKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(copyFBKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(mainJPanelLayout.createSequentialGroup()
                                 .addComponent(livestreamSettingsLabel)
                                 .addGap(86, 86, 86)
@@ -635,8 +634,8 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(streamTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(streamTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(streamFBIDLabel)
-                    .addComponent(copyFBIDButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(streamFBIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(copyFBUrlButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(streamFBUrlField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
@@ -689,6 +688,131 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void errorOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorOKButtonActionPerformed
+        errorDialog.setVisible(false);
+    }//GEN-LAST:event_errorOKButtonActionPerformed
+
+    private void loadingDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadingDialogWindowClosed
+        createStreamsThread.stop();
+
+        set(true);
+    }//GEN-LAST:event_loadingDialogWindowClosed
+
+    private void errorDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowClosed
+        set(true);
+        loadingDialog.dispose();
+    }//GEN-LAST:event_errorDialogWindowClosed
+
+    private void errorDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowOpened
+
+    }//GEN-LAST:event_errorDialogWindowOpened
+
+    private void errorOKButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorOKButtonMouseEntered
+        buttonHover(errorOKButton);
+    }//GEN-LAST:event_errorOKButtonMouseEntered
+
+    private void errorOKButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorOKButtonMouseExited
+        buttonUnHover(errorOKButton);
+    }//GEN-LAST:event_errorOKButtonMouseExited
+
+    private void copyFBUrlButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBUrlButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_copyFBUrlButtonActionPerformed
+
+    private void copyFBUrlButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBUrlButtonMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_copyFBUrlButtonMouseExited
+
+    private void copyFBUrlButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBUrlButtonMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_copyFBUrlButtonMouseEntered
+
+    private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YTConnectedActionPerformed
+        HTTPSServerThread.loginOpened = false;
+        new HTTPSServer().startServer();
+    }//GEN-LAST:event_YTConnectedActionPerformed
+
+    private void YTConnectedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YTConnectedMouseExited
+        buttonUnHover(YTConnected);
+    }//GEN-LAST:event_YTConnectedMouseExited
+
+    private void YTConnectedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YTConnectedMouseEntered
+        buttonHover(YTConnected);
+    }//GEN-LAST:event_YTConnectedMouseEntered
+
+    private void FBConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FBConnectedActionPerformed
+        HTTPSServerThread.loginOpened = false;
+        new HTTPSServer().startServer();
+    }//GEN-LAST:event_FBConnectedActionPerformed
+
+    private void FBConnectedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FBConnectedMouseExited
+        buttonUnHover(FBConnected);
+    }//GEN-LAST:event_FBConnectedMouseExited
+
+    private void FBConnectedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FBConnectedMouseEntered
+        buttonHover(FBConnected);
+    }//GEN-LAST:event_FBConnectedMouseEntered
+
+    private void copyYTIDButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTIDButton1ActionPerformed
+        new GetFacebookData().copy(streamYTIDField.getText());
+    }//GEN-LAST:event_copyYTIDButton1ActionPerformed
+
+    private void copyYTIDButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTIDButton1MouseExited
+        buttonUnHover(copyYTIDButton1);
+    }//GEN-LAST:event_copyYTIDButton1MouseExited
+
+    private void copyYTIDButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTIDButton1MouseEntered
+        buttonHover(copyYTIDButton1);
+    }//GEN-LAST:event_copyYTIDButton1MouseEntered
+
+    private void copyYTURLButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTURLButtonActionPerformed
+        new GetFacebookData().copy(streamYTURLField.getText());
+    }//GEN-LAST:event_copyYTURLButtonActionPerformed
+
+    private void copyYTURLButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTURLButtonMouseExited
+        buttonUnHover(copyYTURLButton);
+    }//GEN-LAST:event_copyYTURLButtonMouseExited
+
+    private void copyYTURLButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTURLButtonMouseEntered
+        buttonHover(copyYTURLButton);
+    }//GEN-LAST:event_copyYTURLButtonMouseEntered
+
+    private void copyYTKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTKeyButtonActionPerformed
+        new GetFacebookData().copy(streamYTKeyField.getText());
+    }//GEN-LAST:event_copyYTKeyButtonActionPerformed
+
+    private void copyYTKeyButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTKeyButtonMouseExited
+        buttonUnHover(copyYTKeyButton);
+    }//GEN-LAST:event_copyYTKeyButtonMouseExited
+
+    private void copyYTKeyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTKeyButtonMouseEntered
+        buttonHover(copyYTKeyButton);
+    }//GEN-LAST:event_copyYTKeyButtonMouseEntered
+
+    private void copyFBUrlButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBIDButtonActionPerformed
+        new GetFacebookData().copy(streamFBIDField.getText());
+    }//GEN-LAST:event_copyFBIDButtonActionPerformed
+
+    private void copyFBUrlButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBIDButtonMouseExited
+        buttonUnHover(copyFBUrlButton);
+    }//GEN-LAST:event_copyFBIDButtonMouseExited
+
+    private void copyFBUrlButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBIDButtonMouseEntered
+        buttonHover(copyFBUrlButton);
+    }//GEN-LAST:event_copyFBIDButtonMouseEntered
+
+    private void copyFBKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBKeyButtonActionPerformed
+        new GetFacebookData().copy(streamFBKeyField.getText());
+    }//GEN-LAST:event_copyFBKeyButtonActionPerformed
+
+    private void copyFBKeyButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBKeyButtonMouseExited
+        buttonUnHover(copyFBKeyButton);
+    }//GEN-LAST:event_copyFBKeyButtonMouseExited
+
+    private void copyFBKeyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBKeyButtonMouseEntered
+        buttonHover(copyFBKeyButton);
+    }//GEN-LAST:event_copyFBKeyButtonMouseEntered
+
     private void createStreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStreamButtonActionPerformed
         loadingBar.setValue(0);
         pack();
@@ -702,8 +826,8 @@ public class MainWindow extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                System.out.println("FB: " + streamToFBBox.isSelected());
-                System.out.println("YT: " + streamToYTBox.isSelected());
+                Logger.println("FB: " + streamToFBBox.isSelected());
+                Logger.println("YT: " + streamToYTBox.isSelected());
                 new GetFacebookData().saveStreamBoxes(streamToFBBox.isSelected(), streamToYTBox.isSelected());
                 try {
                     if (streamToYTBox.isSelected()) {
@@ -733,10 +857,10 @@ public class MainWindow extends javax.swing.JFrame {
 
                     setLoadingBar(50);
 
-                    System.out.println(new ManageYoutubeData().getBroadcastID());
-                    System.out.println(new ManageYoutubeData().getStreamID());
-                    System.out.println(new ManageYoutubeData().getStreamURL());
-                    System.out.println(new ManageYoutubeData().getStreamKey());
+                    Logger.println(new ManageYoutubeData().getBroadcastID());
+                    Logger.println(new ManageYoutubeData().getStreamID());
+                    Logger.println(new ManageYoutubeData().getStreamURL());
+                    Logger.println(new ManageYoutubeData().getStreamKey());
 
                     setLoadingBar(75);
 
@@ -759,126 +883,21 @@ public class MainWindow extends javax.swing.JFrame {
         createStreamsThread.start();
     }//GEN-LAST:event_createStreamButtonActionPerformed
 
-    private void copyFBKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBKeyButtonActionPerformed
-        new GetFacebookData().copy(streamFBKeyField.getText());
-    }//GEN-LAST:event_copyFBKeyButtonActionPerformed
-
-    private void copyFBIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyFBIDButtonActionPerformed
-        new GetFacebookData().copy(streamFBIDField.getText());
-    }//GEN-LAST:event_copyFBIDButtonActionPerformed
-
-    private void copyYTKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTKeyButtonActionPerformed
-        new GetFacebookData().copy(streamYTKeyField.getText());
-    }//GEN-LAST:event_copyYTKeyButtonActionPerformed
-
-    private void copyYTURLButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTURLButtonActionPerformed
-        new GetFacebookData().copy(streamYTURLField.getText());
-    }//GEN-LAST:event_copyYTURLButtonActionPerformed
-
-    private void copyYTIDButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyYTIDButton1ActionPerformed
-        new GetFacebookData().copy(streamYTIDField.getText());
-    }//GEN-LAST:event_copyYTIDButton1ActionPerformed
-
-    private void errorOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorOKButtonActionPerformed
-        errorDialog.setVisible(false);
-    }//GEN-LAST:event_errorOKButtonActionPerformed
-
-    private void loadingDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadingDialogWindowClosed
-        createStreamsThread.stop();
-
-        set(true);
-    }//GEN-LAST:event_loadingDialogWindowClosed
-
-    private void errorDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowClosed
-        set(true);
-        loadingDialog.dispose();
-    }//GEN-LAST:event_errorDialogWindowClosed
-
-    private void errorDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_errorDialogWindowOpened
-
-    }//GEN-LAST:event_errorDialogWindowOpened
-
-    private void YTConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YTConnectedActionPerformed
-        HTTPSServerThread.loginOpened = false;
-        new HTTPSServer().startServer();
-    }//GEN-LAST:event_YTConnectedActionPerformed
-
-    private void FBConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FBConnectedActionPerformed
-        HTTPSServerThread.loginOpened = false;
-        new HTTPSServer().startServer();
-    }//GEN-LAST:event_FBConnectedActionPerformed
+    private void createStreamButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createStreamButtonMouseExited
+        buttonUnHover(createStreamButton);
+    }//GEN-LAST:event_createStreamButtonMouseExited
 
     private void createStreamButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createStreamButtonMouseEntered
         buttonHover(createStreamButton);
     }//GEN-LAST:event_createStreamButtonMouseEntered
 
-    private void createStreamButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createStreamButtonMouseExited
-        buttonUnHover(createStreamButton);
-    }//GEN-LAST:event_createStreamButtonMouseExited
+    private void streamFBUrlFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamFBUrlFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_streamFBUrlFieldActionPerformed
 
-    private void copyYTKeyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTKeyButtonMouseEntered
-        buttonHover(copyYTKeyButton);
-    }//GEN-LAST:event_copyYTKeyButtonMouseEntered
-
-    private void copyYTKeyButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTKeyButtonMouseExited
-        buttonUnHover(copyYTKeyButton);
-    }//GEN-LAST:event_copyYTKeyButtonMouseExited
-
-    private void copyYTURLButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTURLButtonMouseEntered
-        buttonHover(copyYTURLButton);
-    }//GEN-LAST:event_copyYTURLButtonMouseEntered
-
-    private void copyYTURLButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTURLButtonMouseExited
-        buttonUnHover(copyYTURLButton);
-    }//GEN-LAST:event_copyYTURLButtonMouseExited
-
-    private void copyYTIDButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTIDButton1MouseEntered
-        buttonHover(copyYTIDButton1);
-    }//GEN-LAST:event_copyYTIDButton1MouseEntered
-
-    private void copyYTIDButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyYTIDButton1MouseExited
-        buttonUnHover(copyYTIDButton1);
-    }//GEN-LAST:event_copyYTIDButton1MouseExited
-
-    private void copyFBKeyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBKeyButtonMouseEntered
-        buttonHover(copyFBKeyButton);
-    }//GEN-LAST:event_copyFBKeyButtonMouseEntered
-
-    private void copyFBKeyButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBKeyButtonMouseExited
-        buttonUnHover(copyFBKeyButton);
-    }//GEN-LAST:event_copyFBKeyButtonMouseExited
-
-    private void copyFBIDButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBIDButtonMouseEntered
-        buttonHover(copyFBIDButton);
-    }//GEN-LAST:event_copyFBIDButtonMouseEntered
-
-    private void copyFBIDButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyFBIDButtonMouseExited
-        buttonUnHover(copyFBIDButton);
-    }//GEN-LAST:event_copyFBIDButtonMouseExited
-
-    private void YTConnectedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YTConnectedMouseEntered
-        buttonHover(YTConnected);
-    }//GEN-LAST:event_YTConnectedMouseEntered
-
-    private void YTConnectedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YTConnectedMouseExited
-        buttonUnHover(YTConnected);
-    }//GEN-LAST:event_YTConnectedMouseExited
-
-    private void FBConnectedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FBConnectedMouseEntered
-        buttonHover(FBConnected);
-    }//GEN-LAST:event_FBConnectedMouseEntered
-
-    private void FBConnectedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FBConnectedMouseExited
-        buttonUnHover(FBConnected);
-    }//GEN-LAST:event_FBConnectedMouseExited
-
-    private void errorOKButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorOKButtonMouseEntered
-        buttonHover(errorOKButton);
-    }//GEN-LAST:event_errorOKButtonMouseEntered
-
-    private void errorOKButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorOKButtonMouseExited
-        buttonUnHover(errorOKButton);
-    }//GEN-LAST:event_errorOKButtonMouseExited
+    private void streamFBUrlFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streamFBIDFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_streamFBIDFieldActionPerformed
 
     private void buttonHover(javax.swing.JButton button) {
         if (button.isEnabled()){
@@ -893,11 +912,11 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
 
-    public void openMainWindow() {
+public void openMainWindow() {
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
@@ -913,7 +932,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         opened = true;
 
-        System.out.println("Opened Main Window");
+        Logger.println("Opened Main Window");
     }
 
     public static void main(String args[]) throws Exception {
@@ -924,8 +943,8 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JButton FBConnected;
     public javax.swing.JButton YTConnected;
     public javax.swing.JLabel YTConnectedLabel;
-    public javax.swing.JButton copyFBIDButton;
     public javax.swing.JButton copyFBKeyButton;
+    public javax.swing.JButton copyFBUrlButton;
     public javax.swing.JButton copyYTIDButton1;
     public javax.swing.JButton copyYTKeyButton;
     public javax.swing.JButton copyYTURLButton;
@@ -946,11 +965,11 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JTextArea streamDescField;
     public javax.swing.JLabel streamDescLabel;
     public javax.swing.JLabel streamFBDataLabel;
-    public javax.swing.JTextField streamFBIDField;
     public javax.swing.JLabel streamFBIDLabel;
     public javax.swing.JLabel streamFBIDLabel1;
     public javax.swing.JLabel streamFBKey;
     public javax.swing.JTextField streamFBKeyField;
+    public javax.swing.JTextField streamFBUrlField;
     public javax.swing.JTextField streamTitleField;
     public javax.swing.JLabel streamTitleLabel;
     public javax.swing.JCheckBox streamToFBBox;
@@ -1048,71 +1067,6 @@ public class MainWindow extends javax.swing.JFrame {
     public void setYTConnected() {
         if (channelName != null){
             setYTConnected(channelName);
-        }
-    }
-
-    public boolean checkStreamFBBox() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                System.out.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                boolean streamFBBox = object.get("streamFBBox").getAsBoolean();
-
-                System.out.println(streamFBBox);
-                // close reader
-                reader.close();
-
-                streamFBBoxbool = streamFBBox;
-
-                return streamFBBox;
-            } else {
-                return false;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-    public boolean checkStreamYTBox() {
-        try {
-            File file = new File(App.osDir + "/SavedData.json");
-            if (file.exists()) {
-                System.out.println("Found File");
-                // create Gson instance
-                Gson gson = new Gson();
-
-                // create a reader
-                Reader reader = Files.newBufferedReader(Paths.get(App.osDir + "/SavedData.json"));
-
-                // convert JSON file to map
-                JsonObject object = gson.fromJson(reader, JsonObject.class);
-
-                boolean streamYTBox = object.get("streamYTBox").getAsBoolean();
-
-                System.out.println(streamYTBox);
-                // close reader
-                reader.close();
-
-                streamYTBoxbool = streamYTBox;
-
-                return streamYTBox;
-            } else {
-                return false;
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
         }
     }
 }

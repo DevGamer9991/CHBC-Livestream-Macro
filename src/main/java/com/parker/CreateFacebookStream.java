@@ -14,8 +14,9 @@ import com.parker.facebook.GetPageAccessToken;
 
 public class CreateFacebookStream {
 
-    public static String streamURL;
-    public static String streamID;
+    public static String streamKey;
+    public static String streamKEY;
+    public static String streamUrl;
 
     int timeOut;
 
@@ -43,15 +44,13 @@ public class CreateFacebookStream {
 
                 JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
 
-                streamID = jsonObject.get("id").getAsString();
-//                streamURL = "FB-" + streamID + "-0-" + jsonObject.get("secure_stream_url").getAsString().split("a=")[1] + "-";
-
-                streamURL = jsonObject.get("secure_stream_url").getAsString();
+                streamUrl = jsonObject.get("secure_stream_url").getAsString().split("/rtmp/")[0] + "/rtmp/";
+                streamKey = jsonObject.get("secure_stream_url").getAsString().split("/rtmp/")[1];
 
                 if (jsonObject.toString().contains("secure_stream_url")) {
                     MainWindow mainWindow = new MainWindow();
-                    Logger.println("\n" + streamID);
-                    Logger.println("\n" + streamURL);
+                    Logger.println("\n" + streamUrl);
+                    Logger.println("\n" + streamKEY);
                 } else {
                     Logger.println("\n Didnt work \n" + jsonObject.toString());
                 }
@@ -65,15 +64,15 @@ public class CreateFacebookStream {
                 createStream(titleString, descripString, pageName);
             }
         } else {
-            streamID = "";
-            streamURL = "";
+            streamUrl = "";
+            streamKey = "";
         }
     }
 
-    public String getStreamID() {
-        return streamID;
+    public String getStreamUrl() {
+        return streamUrl;
     }
-    public String getStreamURL() {
-        return streamURL;
+    public String getStreamKey() {
+        return streamKey;
     }
 }

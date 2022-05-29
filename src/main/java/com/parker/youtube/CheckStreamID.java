@@ -2,6 +2,8 @@ package com.parker.youtube;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.LiveStreamListResponse;
+import com.parker.App;
+import com.parker.ConfigManager;
 import com.parker.Logger;
 import com.parker.MainWindow.MainWindow;
 import java.util.Arrays;
@@ -15,7 +17,7 @@ public class CheckStreamID {
             YouTube youtubeService = new Authorize().getService();
             // Define and execute the API request
             YouTube.LiveStreams.List request = youtubeService.liveStreams()
-                    .list("snippet,cdn,contentDetails,status");
+                    .list("snippet,cdn,contentDetails,status").setOauthToken(ConfigManager.YTAccessToken).setKey(App.DevKey);
 
             LiveStreamListResponse response = request.setId(id).execute();
             Logger.println(response);
@@ -32,7 +34,7 @@ public class CheckStreamID {
             timeOut = 0;
             return true;
         } catch (Exception e) {
-            if (timeOut > 20) new MainWindow().errorCalled(Arrays.toString(e.getStackTrace()));
+            if (timeOut >= 20) {new MainWindow().errorCalled(Arrays.toString(e.getStackTrace())); e.printStackTrace(); return false; }
             Thread.sleep(1000);
             Logger.println("Stream ID Is Not Valid Retrying and Ending in " + timeOut + " Out of 20 Retries");
             timeOut++;
