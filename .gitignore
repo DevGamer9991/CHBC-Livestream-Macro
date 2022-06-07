@@ -1,8 +1,6 @@
 # Project exclude paths
 /target/
 /out/
-/Data Files/SavedData.json
-/Data Files/YoutubeData.json
-/Data Files/client_secret.json.old
-/Data Files/client_secret.json
 /src/main/java/com/parker/FaceBookSDKTest.java
+/Data Files/
+/src/main/resources/client_secret.json
