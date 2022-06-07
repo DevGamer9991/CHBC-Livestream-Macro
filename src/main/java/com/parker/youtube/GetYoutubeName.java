@@ -18,7 +18,7 @@ public class GetYoutubeName {
             // Define and execute the API request
             YouTube.Channels.List request = youtubeService.channels()
                     .list("snippet,contentDetails,statistics");
-            ChannelListResponse response = request.setMine(true).setKey(App.DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
+            ChannelListResponse response = request.setMine(true).setKey(ConfigManager.DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
 
             String channelTitle = response.getItems().get(0).getSnippet().getTitle();
 

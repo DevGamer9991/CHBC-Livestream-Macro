@@ -16,6 +16,8 @@ public class ConfigManager {
     public static HashMap<String, String> config = new HashMap<>();
     public static HashMap<String, Boolean> checkBoxes = new HashMap<>();
 
+    public static String DevKey;
+
     public static String clientID = "663670141634016";
 //    public static String clientID = "186968813458771";
 
@@ -208,5 +210,36 @@ public class ConfigManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void readEnvFile() {
+        InputStream is = ConfigManager.class.getClassLoader().getResourceAsStream("settings.txt.old");
+        HashMap<String, String> pairs = printInputStream(is);
+        if (pairs == null || pairs.get("API_KEY") == null ) { Logger.printlnOverride("Error with env file"); return; }
+        DevKey = pairs.get("API_KEY");
+    }
+
+    // print input stream
+    private static HashMap<String, String> printInputStream(InputStream is) {
+
+        try (InputStreamReader streamReader =
+                     new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(streamReader)) {
+
+            String line;
+            HashMap<String, String> map = new HashMap<>();
+            while ((line = reader.readLine()) != null) {
+                String key = line.split("=")[0];
+                String value = line.split("=")[1];
+                Logger.println(line);
+                map.put(key, value);
+            }
+            return map;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

@@ -17,7 +17,7 @@ public class CheckStreamID {
             YouTube youtubeService = new Authorize().getService();
             // Define and execute the API request
             YouTube.LiveStreams.List request = youtubeService.liveStreams()
-                    .list("snippet,cdn,contentDetails,status").setOauthToken(ConfigManager.YTAccessToken).setKey(App.DevKey);
+                    .list("snippet,cdn,contentDetails,status").setOauthToken(ConfigManager.YTAccessToken).setKey(ConfigManager.DevKey);
 
             LiveStreamListResponse response = request.setId(id).execute();
             Logger.println(response);

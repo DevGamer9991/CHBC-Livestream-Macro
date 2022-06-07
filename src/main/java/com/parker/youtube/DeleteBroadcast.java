@@ -17,6 +17,6 @@ public class DeleteBroadcast {
         YouTube.LiveBroadcasts.Delete request = youtubeService.liveBroadcasts()
                 .delete(ID);
         Logger.println("Deleting Existing Broadcast");
-        request.setKey(App.DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
+        request.setKey(ConfigManager.DevKey).setOauthToken(ConfigManager.YTAccessToken).execute();
     }
 }

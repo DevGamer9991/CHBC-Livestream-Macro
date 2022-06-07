@@ -16,7 +16,7 @@ public class GetBroadcastData {
         YouTube youtubeService = new Authorize().getService();
         // Define and execute the API request
         YouTube.LiveBroadcasts.List request = youtubeService.liveBroadcasts()
-                .list("snippet,contentDetails,status").setKey(App.DevKey).setOauthToken(ConfigManager.YTAccessToken);
+                .list("snippet,contentDetails,status").setKey(ConfigManager.DevKey).setOauthToken(ConfigManager.YTAccessToken);
 
         String ID = new ManageYoutubeData().getBroadcastIDFromFile();
 
