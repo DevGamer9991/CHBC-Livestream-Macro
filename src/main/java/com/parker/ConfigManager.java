@@ -18,8 +18,7 @@ public class ConfigManager {
 
     public static String DevKey;
 
-    public static String clientID = "663670141634016";
-//    public static String clientID = "186968813458771";
+    public static String clientID = "CLIENT-ID";
 
     private static String OS = System.getProperty("os.name").toLowerCase();
 
