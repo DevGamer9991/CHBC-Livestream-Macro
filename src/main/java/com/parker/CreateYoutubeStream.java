@@ -4,7 +4,7 @@ import com.parker.MainWindow.MainWindow;
 import com.parker.youtube.*;
 
 public class CreateYoutubeStream {
-    public static final String DevKey = "AIzaSyCuumDlKGiJJdHa5IIkp5FxydAjn7zUAhY";
+    public static final String DevKey = "Dev-key";
 
     public static String broadcastID;
     public static String streamID;
