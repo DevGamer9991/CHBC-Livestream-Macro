@@ -1,6 +1,8 @@
-# CHBC-Livestream-Macro
+# CHBC-Livestream-Macro Mac OS
 
 A Simple Facebook Livestream Macro For Capital Hill Baptist Church - Okahoma City, OK.
+
+## ONLY RUNS ON MAC OS!!!!!
 
 ---------------------
 
