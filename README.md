@@ -2,7 +2,7 @@
 
 A Simple Facebook Livestream Macro For Capital Hill Baptist Church - Okahoma City, OK.
 
-## ONLY RUNS ON MAC OS!!!!!
+### <span style="color: red">ONLY RUNS ON MAC OS!!!!!</span>
 
 ---------------------
 
