@@ -1,9 +1,9 @@
-# CHBC-Livestream-Macro Mac OS
+# CHBC Livestream Macro Mac OS
 
-A Simple Facebook and Youtube Livestream Macro For Capital Hill Baptist Church - Okahoma City, OK.
+(This project is archived as it is no longer in use)
 
-### <span style="color: red">ONLY RUNS ON MAC OS!!!!!</span>
+A Facebook and Youtube livestream macro for use by the AVL team at Capital Hill Baptist Church - Oklahoma City, OK.
 
----------------------
+### ONLY RUNS ON MAC OS!!!!!
 
-It integrates with Facebook Live Api, and the Youtube Live Api To Create Livestreams with a Title and a Description, It then prints out The RTMP Protocol Url and The Stream ID That Facebook and Youtube Supplies.
+It integrates with the Facebook Live Api, and the Youtube Live Api to create livestreams with a title and a description, It then prints out The RTMP protocol url and the Stream ID that Facebook and Youtube returns.
